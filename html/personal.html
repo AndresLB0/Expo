@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../css/style.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <div class="contenedor row">
+        <div class="col s11">
+            <h4>crear usuario</h4>
+        </div>
+        <div class="col s1">
+             <a href="#"><span class="material-icons">cancel</span></a>
+        </div>
+
+        <div class="col s6">
+            <input placeholder="nombre" id="nombre" type="text" class="validate text">
+            <input placeholder="usuario" id="usuario" type="text" class="validate text">
+            <input placeholder="clave" id="psw" type="password" class="validate text">
+            <div class="col s6 offset s6">
+                <div class="program">
+                    <select>
+                        <option value="" disabled selected>cargo</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col s3">
+            <input placeholder="DUI" id="dui" type="text" class="validate text">
+        </div>
+        <div class="col s3">
+            <input placeholder="telefono" id="telefono" type="tel" class="validate text">
+        </div>
+        <div class="col s6">
+            <textarea placeholder="direccion" id="direccion" class="materialize-textarea"></textarea>
+            <input id="crear_usuario" type="submit" class="validate" value="crear usuario">
+        </div>
+    </div>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="../js/personal.js"></script>
+</body>
+
+</html>

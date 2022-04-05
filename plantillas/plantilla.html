@@ -13,20 +13,48 @@
 
   <body>
     <div class="contenedor row">
-      <div class="col s6 m8">
-        <div class="input-field col s6">
-            <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <!-- plantilla para input -->
+            <input placeholder="Placeholder" id="first_name" type="text" class="validate text">
+            <!-- fin de plantilla -->
           </div>
-
-          </button>
-                
+          <div class="input-field col s6">
+            <!-- plantilla de boton de envio -->
+            <input id="last_name" type="submit" class="validate">
+             <!-- fin de plantilla -->
           </div>
-      </div>
-      <div class="col s6 m4">6-columns (one-half)</div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <!-- plantilla de combobox -->
+            <div class="program">
+            <select>
+              <option value="" disabled selected>escoje tu opcion</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+           <!-- fin de plantilla -->
+          </div>
+        </div>
+        <!-- plantilla para fechas -->
+        <input type="date" class="datepicker">
+         <!-- fin de plantilla -->
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input id="search" type="search" class="validate">
+          </div>
+        </div>
+      </form>
   </div>
 
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="plantilla.js"></script>
   </body>
 </html>
       
