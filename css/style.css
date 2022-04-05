@@ -1,0 +1,82 @@
+body{
+    background-color: #5787ff !important;
+  }
+
+  input{
+      background-color:gray;
+      color: black;
+      border-radius:5px;
+  }
+  /*adaptable para pantallas medianas*/
+  @media only screen and (min-width: 1000px) {
+
+ .contenedor{
+     border-radius:32px;
+     margin-top:5%;
+     margin-left:10%;
+     margin-right:10%;
+     height:30%;
+     min-height:600px;
+     width:80%;
+     min-width:601px;
+    background-color:white;
+}
+}
+@media only screen and (min-width: 1368px) {
+
+}
+/*adaptable para pantallas pequeñas*/
+@media only screen and (max-width: 600px) {
+    .contenedor{
+        border-radius:32px;
+        margin-top:20%;
+        margin-left:4%;
+        margin-right:3%;
+       max-width:600px;
+       width:75%;
+       height:auto;
+       min-height:600px;
+       background-color:white;
+   }
+  }
+input[type=text]:not(.browser-default),
+input[type=password]:not(.browser-default),
+input[type=email]:not(.browser-default),
+input[type=url]:not(.browser-default),
+input[type=time]:not(.browser-default),
+input[type=date]:not(.browser-default),
+input[type=datetime]:not(.browser-default),
+input[type=datetime-local]:not(.browser-default),
+input[type=tel]:not(.browser-default),
+input[type=number]:not(.browser-default),
+input[type=search]:not(.browser-default),
+textarea.materialize-textarea {
+  background-color:#d5d4d2;
+  border:none;
+  border-bottom: 1px solid #9e9e9e;
+  border-radius: 32px;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  padding: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-transition: border .3s, -webkit-box-shadow .3s;
+  transition: border .3s, -webkit-box-shadow .3s;
+  transition: box-shadow .3s, border .3s;
+  transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
+}
+
+.waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
+  border: 0;
+  font-style: normal;
+  font-size: inherit;
+  text-transform: inherit;
+  background-color: rgba(0, 150, 136, 0.7);
+}
+::placeholder {
+  color: #000;;
+}
