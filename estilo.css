@@ -1,0 +1,42 @@
+body{
+    background-color: #5787FF;
+    margin-top: 200px;
+}
+
+
+input{
+    width: 60%;
+    margin-bottom: 20px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 17px;
+    border: none;
+    text-align: center;
+}
+
+#nuevaEspecialidad{
+    background-color: #D6D3D3;
+    width: 400px;
+    height: 100%;
+    margin: auto;
+    padding-bottom: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#agregarEspecialidad{
+    display: block;
+    background-color: #64E5FF;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.especialidad{
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: none;
+    text-align: center;
+}
