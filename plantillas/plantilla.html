@@ -1,60 +1,111 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="../css/style.css"  media="screen,projection"/>
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </head>
+<head>
+  <!--Import Google Icon Font-->
+  <link href="../fonts/icons.woff2" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="../css/style.css" media="screen,projection" />
 
-  <body>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="azul" onload="reloj()">
+  <main>
     <div class="contenedor row">
       <form class="col s12">
         <div class="row">
           <div class="input-field col s6">
             <!-- plantilla para input -->
-            <input placeholder="Placeholder" id="first_name" type="text" class="validate text">
+            <input placeholder="Placeholder" id="" type="text" class="validate text">
             <!-- fin de plantilla -->
           </div>
           <div class="input-field col s6">
-            <!-- plantilla de boton de envio -->
-            <input id="last_name" type="submit" class="validate">
-             <!-- fin de plantilla -->
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
             <!-- plantilla de combobox -->
             <div class="program">
-            <select>
-              <option value="" disabled selected>escoje tu opcion</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-          </div>
-           <!-- fin de plantilla -->
+              <select>
+                <option value="" disabled selected>escoje tu opcion</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+            <!-- fin de plantilla -->
           </div>
         </div>
-        <!-- plantilla para fechas -->
-        <input type="date" class="datepicker">
-         <!-- fin de plantilla -->
         <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">search</i>
-            <input id="search" type="search" class="validate">
+
+          <div class="col s6">
+            <!-- plantilla para fechas -->
+            <input type="text" class="datepicker text">
+            <!-- fin de plantilla -->
+
+          </div>
+          <div class="input-field col s6">
+            <!-- plantilla barra de busqueda -->
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+            <!-- fin de plantilla -->
+          </div>
+          <!-- pestañas -->
+          <ul id="tabs-swipe-demo" class="tabs">
+            <li class="tab col s3"><a href="#pestania1">logo</a></li>
+            <li class="tab col s3"><a class="active" href="#pestania2">botones</a></li>
+            <li class="tab col s3"><a href="#pestania3">fecha y hora</a></li>
+            <!-- fin pestañas -->
+        </div>
+        <div class="row">
+          <div class=" col s6">
+
+            <!-- contenido de pestañas -->
+            </ul>
+            <!-- contenido de pestaña 1 -->
+            <div id="pestania1" class="col s12 transparent">
+              <!-- logo -->
+              <img src="../imagenes/fatyssa 2.jpg" alt="" height="" width="">
+              <!-- fin de logo -->
+            </div>
+            <!-- fin contenido pestaña 1 -->
+            <!-- contenido pestaña 2 -->
+            <div id="pestania2" class="col s12 transparent">
+              <!-- plantilla de boton normal -->
+              <a class="boton waves-effect">boton normal</a>
+              <!-- fin de plantilla -->
+              <!-- plantilla de boton de envio -->
+              <input id="enviar" type="submit" class="validate">
+              <!-- fin de plantilla -->
+            </div>
+            <!-- fin contenido pestaña 2 -->
+            <!-- contenido pestaña 3 -->
+            <div id="pestania3" class="col s12 transparent">
+              <!-- fecha y hora -->
+              <!-- plantilla fecha formato dd/mm/yyyy se ve siempre que tenga el id="hoy" -->
+              <h5 id="hoy"></h5>
+              <!-- fin de plantilla -->
+              <!-- hora tiene que tener el id="hora" -->
+              <h5 id="hora"></h5>
+              <!-- fin de plantilla -->
+            </div>
+            <!-- fin contenido pestaña 3 -->
+          </div>
+          <div class="input-field col s6">
+          </div>
+          <div class="col s3">
+            <a href="#" class="cerrar"><span class="material-icons md-38">cancel</span></a>
           </div>
         </div>
       </form>
-  </div>
+    </div>
+  </main>
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="../js/materialize.min.js"></script>
-    <script type="text/javascript" src="plantilla.js"></script>
-  </body>
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="../js/materialize.min.js"></script>
+  <script type="text/javascript" src="plantilla.js"></script>
+</body>
+
 </html>
-      
