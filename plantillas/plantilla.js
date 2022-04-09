@@ -32,10 +32,8 @@
 hora = tiempo.getHours();
 if(hora<10)hora="0"+hora
  min = tiempo.getMinutes();
- if(min<10)min="0"+min
- seg=tiempo.getSeconds();
- if(seg<10)seg="0"+seg
-horacompleta=hora+":"+min+":"+seg;
+if(min<10)min="0"+min;
+horacompleta=hora+":"+min;
   document.getElementById('hora').innerHTML=horacompleta ;
   setTimeout('reloj()',1000)
   }

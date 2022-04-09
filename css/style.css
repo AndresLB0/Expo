@@ -460,7 +460,7 @@ textarea.materialize-textarea {
 
 /* plantilla de combobox */
 .program .select-wrapper input.select-dropdown,
-input[type=date]:not(.browser-default) {
+input.fecha[type=text]:not(.browser-default) {
   position: relative;
   cursor: pointer;
   background-color: #d5d4d2;
@@ -609,7 +609,7 @@ a:active.cerrar {
   background-color:#5787ff;
   height:75px;
 }
-
+/* color de las pestanias sin seleccionar */
 .tabs .tab a {
   color:gray;
   display: block;
@@ -622,6 +622,7 @@ a:active.cerrar {
   -webkit-transition: color .28s ease, background-color .28s ease;
   transition: color .28s ease, background-color .28s ease;
 }
+/* linea indicadora de pestania en uso */
 .tabs .indicator {
   position: absolute;
   bottom: 0;
@@ -629,8 +630,20 @@ a:active.cerrar {
   background-color:black;
   will-change: left, right;
 }
-
+/* pestania en uso */
 .tabs .tab a:hover, .tabs .tab a.active {
   background-color: transparent;
   color: #080808;
+}
+/* color de pestania cuando se preciona */
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color:rgba(0, 0, 0, 0.295);
+  outline: none;
+}
+/* contenedor gris para proveedores y especialidad */
+.contenedor.gris{
+  border-radius:32px;
+  width: 75%;
+  height:50%;
+  background-color: rgb(151, 151, 151);
 }
