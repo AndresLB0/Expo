@@ -15,10 +15,12 @@
       monthsShort: ['ene', 'Feb', 'Mar', 'Abr', 'Mayo', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     }
   });
+  // script para pestañas
   var instances = M.Tabs.init(document.querySelector('.tabs',{
     swipeable:true,
   }));
   });
+  
   //feacha y hora
   function reloj(){
   fecha = new Date();

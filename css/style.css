@@ -1,16 +1,19 @@
 /* mantiene la poscicion de la linea azul de abajo de la pagina principal */
-body{
-  display:flex;
-  min-height:100vh;
+body {
+  display: flex;
+  min-height: 100vh;
   flex-direction: column;
 }
-main{
-  flex:1 0 auto;
+
+main {
+  flex: 1 0 auto;
 }
+
 /* para que el fondo de las demas paginas sea azul */
 body.azul {
   background-color: #5787ff !important;
 }
+
 /* disenio de los botones normales */
 .boton {
   background-color: #63e4fe;
@@ -23,9 +26,10 @@ body.azul {
   font-size: 15px;
   margin: 10px 2px;
   cursor: pointer;
-  height:35px;
+  height: 35px;
   width: 100%;
 }
+
 /* variacion de los votones normales son los botones de la pagina principal */
 .boton.principal {
   background-color: #63e4fe;
@@ -37,29 +41,41 @@ body.azul {
   font-size: 15px;
   margin: 23px 3px;
   cursor: pointer;
-  height:40px;
+  height: 40px;
   width: 90%;
 }
+
 /* haciendo que los botones cambien de color al poscicionarse sobre ellos */
-.boton:hover,input[type="button"]:hover,
+.boton:hover,
+input[type="button"]:hover,
 input[type="reset"]:hover,
-input[type="submit"]:hover{
+input[type="submit"]:hover {
   text-decoration: none;
   background-color: #3ecce9;
 }
+
 /*adaptable para pantallas medianas osea laptops y pcs normales*/
 @media only screen and (min-width: 1000px) and (max-width:1366px) {
- /* cuadro blanco de la mayoria de las paginas(c 1/4) */
+
+  /* cuadro blanco de la mayoria de las paginas(c 1/4) */
   .contenedor {
-   border-radius: 32px; 
-   height:400px; 
+    border-radius: 32px;
+    max-height: 550px;
   }
-  .contenedor.blanco{
+
+  .contenedor.blanco {
     background-color: white;
-        width: 50%;
-     margin-top: 10%;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  #personal {
+    height: 400px;
+    width: 50%;
+    margin-top: 10%;
     margin-left: 25%;
-    margin-right: 10%;    
+    margin-right: 10%;
   }
 
   /* disenio de los botones de button,reset y submit (brs 1/4) */
@@ -69,11 +85,12 @@ input[type="submit"]:hover{
     background-color: #63e4fe;
     border-radius: 32px;
     height: 40px;
-    width:80%;
+    width: 80%;
   }
-/* cuadro azul solo para pagina principal (ca 1/2) */
+
+  /* cuadro azul solo para pagina principal (ca 1/2) */
   .contenedor.azul {
-   margin:0;
+    margin: 0;
     width: 80%;
     background-color: #5787ff;
   }
@@ -81,7 +98,8 @@ input[type="submit"]:hover{
 
 /* adaptable para compus grandes no testiado */
 @media only screen and (min-width: 1367px) {
- /* (c 2/4) */
+
+  /* (c 2/4) */
   .contenedor {
     border-radius: 32px;
     margin-top: 20%;
@@ -97,7 +115,8 @@ input[type="submit"]:hover{
 
 /* adaptandolo a pantallas medianamente pequenias osea tablets */
 @media only screen and (min-width: 601px) and (max-width: 999px) {
- /* (c 3/4) */
+
+  /* (c 3/4) */
   .contenedor {
     border-radius: 32px;
     margin-top: 12%;
@@ -107,10 +126,11 @@ input[type="submit"]:hover{
     width: 50%;
     height: 50%;
     min-height: 1024px;
-   
+
   }
-  .contenedor.blanco{
-     background-color: white;
+
+  .contenedor.blanco {
+    background-color: white;
   }
 
   /* plantilla de los botones (brs 3/4) */
@@ -122,10 +142,12 @@ input[type="submit"]:hover{
     height: 50px;
     width: 50%;
   }
-/* (ca 3/4) */
-  .contenedor.azul{
-    background-color:#5787ff;
+
+  /* (ca 3/4) */
+  .contenedor.azul {
+    background-color: #5787ff;
   }
+
   /* haciendo que las tablets tengan el mism disenio de los telefonos */
   .row .col.s1 {
     width: 8.3333333333%;
@@ -133,224 +155,224 @@ input[type="submit"]:hover{
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s2 {
     width: 16.6666666667%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s3 {
     width: 25%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s4 {
     width: 33.3333333333%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s5 {
     width: 41.6666666667%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s6 {
     width: 50%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s7 {
     width: 58.3333333333%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s8 {
     width: 66.6666666667%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s9 {
     width: 75%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s10 {
     width: 83.3333333333%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s11 {
     width: 91.6666666667%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.s12 {
     width: 100%;
     margin-left: auto;
     left: auto;
     right: auto;
   }
-  
+
   .row .col.offset-s1 {
     margin-left: 8.3333333333%;
   }
-  
+
   .row .col.pull-s1 {
     right: 8.3333333333%;
   }
-  
+
   .row .col.push-s1 {
     left: 8.3333333333%;
   }
-  
+
   .row .col.offset-s2 {
     margin-left: 16.6666666667%;
   }
-  
+
   .row .col.pull-s2 {
     right: 16.6666666667%;
   }
-  
+
   .row .col.push-s2 {
     left: 16.6666666667%;
   }
-  
+
   .row .col.offset-s3 {
     margin-left: 25%;
   }
-  
+
   .row .col.pull-s3 {
     right: 25%;
   }
-  
+
   .row .col.push-s3 {
     left: 25%;
   }
-  
+
   .row .col.offset-s4 {
     margin-left: 33.3333333333%;
   }
-  
+
   .row .col.pull-s4 {
     right: 33.3333333333%;
   }
-  
+
   .row .col.push-s4 {
     left: 33.3333333333%;
   }
-  
+
   .row .col.offset-s5 {
     margin-left: 41.6666666667%;
   }
-  
+
   .row .col.pull-s5 {
     right: 41.6666666667%;
   }
-  
+
   .row .col.push-s5 {
     left: 41.6666666667%;
   }
-  
+
   .row .col.offset-s6 {
     margin-left: 50%;
   }
-  
+
   .row .col.pull-s6 {
     right: 50%;
   }
-  
+
   .row .col.push-s6 {
     left: 50%;
   }
-  
+
   .row .col.offset-s7 {
     margin-left: 58.3333333333%;
   }
-  
+
   .row .col.pull-s7 {
     right: 58.3333333333%;
   }
-  
+
   .row .col.push-s7 {
     left: 58.3333333333%;
   }
-  
+
   .row .col.offset-s8 {
     margin-left: 66.6666666667%;
   }
-  
+
   .row .col.pull-s8 {
     right: 66.6666666667%;
   }
-  
+
   .row .col.push-s8 {
     left: 66.6666666667%;
   }
-  
+
   .row .col.offset-s9 {
     margin-left: 75%;
   }
-  
+
   .row .col.pull-s9 {
     right: 75%;
   }
-  
+
   .row .col.push-s9 {
     left: 75%;
   }
-  
+
   .row .col.offset-s10 {
     margin-left: 83.3333333333%;
   }
-  
+
   .row .col.pull-s10 {
     right: 83.3333333333%;
   }
-  
+
   .row .col.push-s10 {
     left: 83.3333333333%;
   }
-  
+
   .row .col.offset-s11 {
     margin-left: 91.6666666667%;
   }
-  
+
   .row .col.pull-s11 {
     right: 91.6666666667%;
   }
-  
+
   .row .col.push-s11 {
     left: 91.6666666667%;
   }
-  
+
   .row .col.offset-s12 {
     margin-left: 100%;
   }
-  
+
   .row .col.pull-s12 {
     right: 100%;
   }
-  
+
   .row .col.push-s12 {
     left: 100%;
   }
@@ -358,6 +380,7 @@ input[type="submit"]:hover{
 
 /*adaptable para pantallas pequeñas celulares*/
 @media only screen and (max-width: 600px) {
+
   /* (c 4/4) */
   .contenedor {
     border-radius: 32px;
@@ -368,9 +391,10 @@ input[type="submit"]:hover{
     width: 75%;
     height: 50%;
     min-height: 600px;
-    
+
   }
-  .contenedor.blanco{
+
+  .contenedor.blanco {
     background-color: white;
   }
 
@@ -383,9 +407,10 @@ input[type="submit"]:hover{
     height: 50px;
     width: 75%;
   }
+
   /* (ca 4/4) */
   .contenedor.azul {
-    background-color:#5787ff;
+    background-color: #5787ff;
   }
 }
 
@@ -418,6 +443,7 @@ input[type=number]:not(.browser-default) {
   transition: box-shadow .3s, border .3s;
   transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
 }
+
 input[type=search]:not(.browser-default) {
   background-color: #a5acbf;
   border: none;
@@ -436,6 +462,7 @@ input[type=search]:not(.browser-default) {
   transition: box-shadow .3s, border .3s;
   transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
 }
+
 /* disenio del textarea */
 textarea.materialize-textarea {
   background-color: #d5d4d2;
@@ -557,8 +584,9 @@ input.fecha[type=text]:not(.browser-default) {
 
 /* para el tamanio de los iconos */
 .material-icons.md-38 {
-  font-size:38px;
+  font-size: 38px;
 }
+
 /*poner iconos oscuros*/
 .material-icons.md-dark {
   color: rgba(0, 0, 0, 0.54);
@@ -566,46 +594,53 @@ input.fecha[type=text]:not(.browser-default) {
 
 /* color del cuadro del datepicker */
 .datepicker-date-display {
-  background-color:#5787ff;
+  background-color: #5787ff;
 }
+
 /* color del seleccionador cuando se esta seleccinando */
 .datepicker-day-button:focus {
-  color:black !important;
-  background-color:#3ecce9;
+  color: black !important;
+  background-color: #3ecce9;
 }
+
 /* color del combobox de meses, y de los enlaces anios,ok y cancel */
 .datepicker-done,
 .datepicker-cancel,
 .is-today {
-  color:black !important;
+  color: black !important;
 }
+
 /* color del seleccionador cuando se ha seleccinado un dia y de las flechas de siguente y anterior cuando son apretadas */
 td.is-selected,
 .month-prev:active,
 .month-prev:focus,
 .month-next:active,
 .month-next:focus {
-  background-color:#5787ff !important;
+  background-color: #5787ff !important;
 }
+
 /* color del texto del dia seleccionado */
 td.is-selected.is-today {
-  color:white !important;
+  color: white !important;
 }
 
 /* disenio del enlace cerrar */
-a.cerrar {
+a.cerrar,
+a.boticono {
   color: rgb(0, 0, 0);
   background-color: transparent;
   text-decoration: none;
 }
 
-a:visited.cerrar {
+a:visited.cerrar,
+a:visited.boticono {
   color: rgb(0, 0, 0);
   background-color: transparent;
   text-decoration: none;
 }
 
-a:hover.cerrar {
+a:hover.cerrar,
+a:hover.boticono {
   color: rgb(80, 76, 76);
   background-color: transparent;
   text-decoration: underline;
@@ -616,15 +651,23 @@ a:active.cerrar {
   background-color: transparent;
   text-decoration: underline;
 }
+
+a:active.boticono {
+  color: blue;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
 /* la linea azul de abajo de la pagina principal  */
 .pie {
   padding-top: 20px;
-  background-color:#5787ff;
-  height:75px;
+  background-color: #5787ff;
+  height: 75px;
 }
+
 /* color de las pestanias sin seleccionar */
 .tabs .tab a {
-  color:gray;
+  color: black;
   display: block;
   width: 100%;
   height: 100%;
@@ -635,35 +678,59 @@ a:active.cerrar {
   -webkit-transition: color .28s ease, background-color .28s ease;
   transition: color .28s ease, background-color .28s ease;
 }
+
 /* linea indicadora de pestania en uso */
 .tabs .indicator {
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color:black;
+  background-color: black;
   will-change: left, right;
 }
+
 /* pestania en uso */
-.tabs .tab a:hover, .tabs .tab a.active {
+.tabs .tab a:hover,
+.tabs .tab a.active {
   background-color: transparent;
   color: #080808;
 }
+.tabs {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 48px;
+  width: 100%;
+  background-color:#3a72ff00;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
 /* color de pestania cuando se preciona */
-.tabs .tab a:focus, .tabs .tab a:focus.active {
-  background-color:rgba(0, 0, 0, 0.295);
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+  background-color: rgba(0, 0, 0, 0.295);
   outline: none;
 }
+
 /* contenedor gris para proveedores y especialidad */
-.contenedor.gris{
-  border-radius:12px;
+.contenedor.gris {
+  border-radius: 12px;
   width: 75%;
-  height:200px;
+  height: 200px;
   background-color: rgb(151, 151, 151);
 }
-.lista{
-  width: 75%; 
+
+.lista {
+  width: 75%;
   overflow: auto;
-  height:300px;
+  height: 300px;
 }
+
+.detalle {
+  height: 450px;
+  overflow: auto;
+}
+
 .input-field>label {
-  color: #000;}
+  color: #000;
+}
