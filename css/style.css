@@ -8,7 +8,13 @@ body {
 main {
   flex: 1 0 auto;
 }
-
+nav {
+  color: #fff;
+  background-color:#2858cf;
+  width: 100%;
+  height: 56px;
+  line-height:28px;
+}
 /* para que el fondo de las demas paginas sea azul */
 body.azul {
   background-color: #5787ff !important;
@@ -32,16 +38,8 @@ body.azul {
 
 /* variacion de los votones normales son los botones de la pagina principal */
 .boton.principal {
-  background-color: #63e4fe;
-  border-radius: 32px;
-  border: 2px solid black;
-  color: black;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  margin: 23px 3px;
-  cursor: pointer;
-  height: 40px;
+  font-size: 13px;
+  margin: 2px 3px;
   width: 90%;
 }
 
@@ -76,6 +74,12 @@ input[type="submit"]:hover {
     margin-top: 10%;
     margin-left: 25%;
     margin-right: 10%;
+  }
+  .jonh{
+    margin-left:552px;
+  }
+  .container.cristopher{
+    margin-left:332px;
   }
 
   /* disenio de los botones de button,reset y submit (brs 1/4) */
@@ -711,6 +715,9 @@ a:active.boticono {
   background-color: rgba(0, 0, 0, 0.295);
   outline: none;
 }
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  color: #000;
+}
 
 /* contenedor gris para proveedores y especialidad */
 .contenedor.gris {
@@ -721,7 +728,6 @@ a:active.boticono {
 }
 
 .lista {
-  width: 75%;
   overflow: auto;
   height: 300px;
 }
@@ -733,4 +739,7 @@ a:active.boticono {
 
 .input-field>label {
   color: #000;
+}
+.sidenav{
+  background-color:#2858cf;
 }
