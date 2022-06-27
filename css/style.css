@@ -75,11 +75,9 @@ input[type="submit"]:hover {
     margin-left: 25%;
     margin-right: 10%;
   }
+  /* centrar manualmente algo */
   .jonh{
     margin-left:552px;
-  }
-  .container.cristopher{
-    margin-left:332px;
   }
 
   /* disenio de los botones de button,reset y submit (brs 1/4) */
@@ -104,17 +102,29 @@ input[type="submit"]:hover {
 @media only screen and (min-width: 1367px) {
 
   /* (c 2/4) */
-  .contenedor {
+  .contenedor{
     border-radius: 32px;
-    margin-top: 20%;
-    margin-left: 4%;
-    margin-right: 3%;
-    min-height: 1357px;
-    width: 75%;
     height: auto;
-    min-height: 600px;
-    background-color: white;
   }
+  .contenedor.blanco {
+    background-color: white;
+    margin-top: 5%;
+    margin-left: 4%;
+    margin-right: 10%;
+  }
+  .jonh{
+    margin-left:552px;
+  }
+  /* disenio de los botones de button,reset y submit (brs 2/4) */
+  input[type="button"],
+  input[type="reset"],
+  input[type="submit"] {
+    background-color: #63e4fe;
+    border-radius: 32px;
+    height: 40px;
+    width: 80%;
+  }
+
 }
 
 /* adaptandolo a pantallas medianamente pequenias osea tablets */
