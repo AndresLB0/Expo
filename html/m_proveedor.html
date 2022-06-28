@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!--Import Google Icon Font-->
+  <link href="../fonts/icons.woff2" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css"  media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
+  <link rel="icon" href="../imagenes/icono/fatyssa.png" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="azul" onload="reloj()">
+  <header>
+    <div class="navbar-fixed">
+      <nav id="menu"></nav>
+    </div>
+    <ul class="sidenav" id="mobile-demo"></ul>
+  </header>
+  <main>
+    <div class="contenedor gris">
+      <h4>nuevo proveedor</h4>
+      <div class="row">
+        <div class="col s4">
+          <input placeholder="nombre" id="nombre" type="text" class="validate text">
+        </div>
+        <div class="col s4">
+          <input placeholder="nombre del contacto" id="contacto" type="text" class="validate text">
+        </div>
+        <div class="col s4">
+          <input placeholder="telefono" id="tel" type="tel" class="validate text">
+        </div>
+      </div>
+      <div class="container center">
+        <input id="enviar" type="submit" class="validate">
+      </div>
+    </div>
+    <div class="container">
+    <div class="input-field">
+      <input id="search" type="search" required>
+      <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+      <i class="material-icons">close</i>
+    </div>
+    <div id="provee"></div>
+  </div>
+
+  </main>
+
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="../js/materialize.min.js"></script>
+  <script type="text/javascript" src="../js/proveedores.js"></script>
+</body>
+
+</html>

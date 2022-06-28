@@ -577,7 +577,7 @@ input.fecha[type=text]:not(.browser-default) {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/icons.woff2) format('woff2');
+  src: url(../../fonts/icons.woff2) format('woff2');
 }
 
 .material-icons {
@@ -734,6 +734,9 @@ a:active.boticono {
   border-radius: 12px;
   width: 75%;
   height: 200px;
+  margin-top: 5%;
+  margin-left: 4%;
+  margin-left: 10%;
   background-color: rgb(151, 151, 151);
 }
 
