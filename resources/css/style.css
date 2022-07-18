@@ -463,7 +463,7 @@ input[type=search]:not(.browser-default) {
 }
 
 /* disenio del textarea */
-textarea.materialize-textarea {
+textarea {
   background-color: #d5d4d2;
   border: none;
   border-bottom: 1px solid #9e9e9e;
