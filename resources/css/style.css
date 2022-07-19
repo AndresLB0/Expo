@@ -55,7 +55,6 @@ input[type="submit"]:hover {
 /*adaptable para pantallas medianas osea laptops y pcs normales*/
 @media only screen and (min-width: 1000px) and (max-width:1366px) {
 
-  /* cuadro blanco de la mayoria de las paginas(c 1/4) */
   .contenedor {
     border-radius: 32px;
     max-height: 550px;
@@ -88,13 +87,6 @@ input[type="submit"]:hover {
     border-radius: 32px;
     height: 40px;
     width: 80%;
-  }
-
-  /* cuadro azul solo para pagina principal (ca 1/2) */
-  .contenedor.azul {
-    margin: 0;
-    width: 80%;
-    background-color: #5787ff;
   }
 }
 
@@ -157,10 +149,6 @@ input[type="submit"]:hover {
     width: 50%;
   }
 
-  /* (ca 3/4) */
-  .contenedor.azul {
-    background-color: #5787ff;
-  }
 
   /* haciendo que las tablets tengan el mism disenio de los telefonos */
   .row .col.s1 {
@@ -422,10 +410,7 @@ input[type="submit"]:hover {
     width: 75%;
   }
 
-  /* (ca 4/4) */
-  .contenedor.azul {
-    background-color: #5787ff;
-  }
+
 }
 
 /*plantilla de 11 tipos de input */
@@ -478,7 +463,7 @@ input[type=search]:not(.browser-default) {
 }
 
 /* disenio del textarea */
-textarea.materialize-textarea {
+textarea {
   background-color: #d5d4d2;
   border: none;
   border-bottom: 1px solid #9e9e9e;
@@ -738,6 +723,7 @@ a:active.boticono {
   margin-left: 4%;
   margin-left: 10%;
   background-color: rgb(151, 151, 151);
+  min-height:0px;
 }
 
 .lista {
