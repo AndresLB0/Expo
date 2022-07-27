@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  
+
   <!--Import Google Icon Font-->
-  <link href="../resources/fonts/icons.woff2" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
@@ -37,82 +37,95 @@
             </ul>
           </div>
         </div>
-          <!-- contenido de pestaña medicos -->
-          <div id="medicos" class="col s12 transparent">
-            <div class="input-field container">
-              <input id="search" type="search" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
+        <!-- contenido de pestaña medicos -->
+        <div id="medicos" class="col s12">
+          <div class="input-field container">
+            <input id="search" type="search" required>
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+          <div class="row">
+            <div class="col m10 s8">
+              <a class="tab no swipe col s8 waves-effect waves-light boton hide-on-large-only"
+                href="a_cliente.html">Agregar medico</a>
+              <a class="col m12 l2 waves-effect  waves-light boton hide-on-med-and-down" href="a_pedido.html">Agregar
+                medico</a>
             </div>
-            <a class="tab no swipe col s12 l2 waves-effect waves-light boton hide-on-large-only"
-              href="a_cliente.html">Agregar medico</a>
-              <a class="col m4 l2 waves-effect  waves-light boton hide-on-med-and-down" href="a_pedido.html">Agregar medico</a>
-              <!-- agregar el contenido abajo del comentario -->
-              <div class="container">
-                <div class="card white">
-                  <div class="row">
-                    <div class="col m2">
-                     <p> Nombre:Federico Campos</p>
-                      Nombre de contacto: <br> Roberto Muñoz <br> <br>
-                      Horarios de atencion: <br> 9:00 AM - 4:00 PM <br>
-                    </div>
-                    <div class="col m2">
-                      Monto maximo: <br> 50 <br> <br>
-                      Descuento autorizado: <br> 8% <br> <br>
-                      DNM: <br> 50676867564 <br>
-                    </div>
-                    <div class="col m2">
-                      NRC: <br> 50232242 <br> <br>
-                      Especialidad: <br> Medicina general <br> <br>
-                      no de junta <br> 23232312 <br>
-                    </div>
-                    <div class="col m2">
-                      Dui o Nit <br> 5022323213<br> <br>
-                      Fecha: <br> 04-07-1450 <br>
-                    </div>
-                    <div class="col m2">
-                      <textarea disabled name="" id="" cols="30" rows="10"></textarea>
-                    </div>
+
+            <!-- agregar el contenido abajo del comentario -->
+            <div class="container">
+              <div class="card white">
+                <div class="row">
+                  <div class="col m2">
+                    <p> Nombre:Federico Campos</p>
+                    Nombre de contacto: <br> Roberto Muñoz <br> <br>
+                    Horarios de atencion: <br> 9:00 AM - 4:00 PM <br>
+                  </div>
+                  <div class="col m2">
+                    Monto maximo: <br> 50 <br> <br>
+                    Descuento autorizado: <br> 8% <br> <br>
+                    DNM: <br> 50676867564 <br>
+                  </div>
+                  <div class="col m2">
+                    NRC: <br> 50232242 <br> <br>
+                    Especialidad: <br> Medicina general <br> <br>
+                    no de junta <br> 23232312 <br>
+                  </div>
+                  <div class="col m2">
+                    Dui o Nit <br> 5022323213<br> <br>
+                    Fecha: <br> 04-07-1450 <br>
+                  </div>
+                  <div class="col m2">
+                    <textarea disabled name="" id="" cols="30" rows="10"></textarea>
                   </div>
                 </div>
               </div>
-          </div>
-           <!-- contenido de pestaña instituciones -->
-           <div id="instituciones" class="col s12 transparent">
-            <div class="input-field container">
-              <input id="search" type="search" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
             </div>
-            <a class="tab no swipe col s12 l2 waves-effect waves-light boton hide-on-large-only"
-              href="a_cliente.html">Agregar institucion</a>
-              <a class="col m4 l2 waves-effect  waves-light boton hide-on-med-and-down" href="a_pedido.html">Agregar institucion</a>
-                <!-- ejemplo de registro -->
-              <div class="container">
-                <div class="card white">
-                  <div class="row">
-                    <div class="col m3">
-                      <p>Nombre:</p> <br> Federico Campos <br> <br>
-                      Nombre de contacto: <br> Roberto Muñoz <br> <br>
-                      Horarios de atencion: <br> 9:00 AM - 4:00 PM <br>
-                    </div>
-                    <div class="col m3">
-                      Monto maximo: <br> 50 <br> <br>
-                      Descuento autorizado: <br> 8% <br> <br>
-                      DNM: <br> 50 <br>
-                    </div>
-                    <div class="col m3">
-                      NRC: <br> 50 <br> <br>
-                      Especialidad: <br> Medicina general <br> <br>
-                      Fecha: <br> 04-07-1450 <br>
-                    </div>
-                    <div class="col m2">
-                      <textarea disabled name="" id="" cols="30" rows="10"></textarea>
-                    </div>
-                  </div>
+          </div>
+        </div>
+        <!-- contenido de pestaña instituciones -->
+        <div id="instituciones" class="col s12">
+          <div class="input-field container">
+            <input id="search" type="search" required>
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+          <div class="row">
+            <div class="col m10 s8">
+              <a class="tab no swipe col s12 l2 waves-effect waves-light boton hide-on-large-only"
+                href="a_cliente.html">Agregar institucion</a>
+              <a class="col m4 l2 waves-effect  waves-light boton hide-on-med-and-down" href="a_pedido.html">Agregar
+                institucion</a>
+            </div>
+          
+
+          <!-- ejemplo de registro -->
+          <div class="container">
+            <div class="card white">
+              <div class="row">
+                <div class="col m3">
+                  <p>Nombre:</p> <br> Federico Campos <br> <br>
+                  Nombre de contacto: <br> Roberto Muñoz <br> <br>
+                  Horarios de atencion: <br> 9:00 AM - 4:00 PM <br>
+                </div>
+                <div class="col m3">
+                  Monto maximo: <br> 50 <br> <br>
+                  Descuento autorizado: <br> 8% <br> <br>
+                  DNM: <br> 50 <br>
+                </div>
+                <div class="col m3">
+                  NRC: <br> 50 <br> <br>
+                  Especialidad: <br> Medicina general <br> <br>
+                  Fecha: <br> 04-07-1450 <br>
+                </div>
+                <div class="col m2">
+                  <textarea disabled name="" id="" cols="30" rows="10"></textarea>
                 </div>
               </div>
+            </div>
           </div>
+        </div>
+      </div>
     </div>
   </main>
 
