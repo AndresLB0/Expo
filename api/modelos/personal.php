@@ -104,6 +104,7 @@ public function setDireccion($value)
     {
         return $this->nombre;
     }
+    
     public function getDUI()
     {
         return $this->contacto;
@@ -222,5 +223,17 @@ public function setDireccion($value)
                 WHERE id_personal = ?';
         $params = array($this->nombre, $this->dui, $this->telefono, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
+    }
+
+    //metodo para generar graficas
+
+    //Grafica para mostrar la cantidad de pedidos de cada zona
+    public function CantidadPedidosZona()
+    {
+        $sql = 'SELECT COUNT(*) AS "NPedidos", nombre_zona 
+                FROM pedidos INNER JOIN zona USING(id_zona) 
+                GROUP BY nombre_zona';
+        $params = null;
+        return Database::getRows($sql, $params);
     }
 }
