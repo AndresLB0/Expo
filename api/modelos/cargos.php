@@ -1,5 +1,5 @@
 <?php
-class cargos extends validator
+class cargo extends validator
 {
     private $id=null;
     private $nombre=null;
