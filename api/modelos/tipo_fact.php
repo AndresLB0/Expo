@@ -1,5 +1,5 @@
 <?php
-class linea extends validator
+class tipo_fact extends validator
 {
     private $id=null;
     private $nombre=null;
@@ -17,7 +17,7 @@ class linea extends validator
 
     public function setNombre($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
+        if ($this->validateAlphanumeric($value, 1, 30)) {
             $this->nombre = $value;
             return true;
         } else {
@@ -37,17 +37,17 @@ class linea extends validator
 
     public function searchRows($value)
     {
-        $sql = 'SELECT id_linea,nombre_linea
-                FROM linea
-                WHERE nombre_linea ILIKE ?
-                ORDER BY nombre_linea';
+        $sql = 'SELECT id_tipofact,nombre
+                FROM tipo_fact
+                WHERE nombre ILIKE ?
+                ORDER BY nombre';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO linea(nombre_linea)
+        $sql = 'INSERT INTO tipo_fact(nombre)
                 VALUES(?)';
         $params = array($this->nombre);
         return Database::executeRow($sql, $params);
@@ -55,35 +55,35 @@ class linea extends validator
 
     public function readAll()
     {
-        $sql = 'SELECT id_linea, nombre_linea
-                FROM linea
-                ORDER BY nombre_linea';
+        $sql = 'SELECT id_tipofact, nombre
+                FROM tipo_fact
+                ORDER BY nombre';
         $params = null;
         return Database::getRows($sql, $params);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_linea, nombre_linea
-                FROM linea
-                WHERE id_linea = ?';
+        $sql = 'SELECT id_tipofact, nombre
+                FROM tipo_fact
+                WHERE id_tipofact = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
     public function updateRow($current_image)
     {
-        $sql = 'UPDATE linea
-                SET nombre_linea = ?
-                WHERE id_linea = ?';
+        $sql = 'UPDATE tipo_fact
+                SET nombre = ?
+                WHERE id_tipofact = ?';
         $params = array($this->nombre, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM linea
-                WHERE id_linea = ?';
+        $sql = 'DELETE FROM tipo_fact
+                WHERE id_tipofact = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }

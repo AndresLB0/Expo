@@ -1,8 +1,9 @@
 <?php
-class linea extends validator
+class envio extends validator
+
 {
     private $id=null;
-    private $nombre=null;
+    private $tipo=null;
 
     public function setID($value)
     {
@@ -13,12 +14,12 @@ class linea extends validator
             return false;
         }
 
-    }  
+    } 
 
-    public function setNombre($value)
+    public function setTipo($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
-            $this->nombre = $value;
+        if ($this->validateAlphanumeric($value, 1, 30)) {
+            $this->tipo = $value;
             return true;
         } else {
             return false;
@@ -30,62 +31,62 @@ class linea extends validator
         return $this->id;
     }
 
-    public function getNombre()
+    public function getTipo()
     {
-        return $this->nombre;
+        return $this->tipo;
     }
 
     public function searchRows($value)
     {
-        $sql = 'SELECT id_linea,nombre_linea
-                FROM linea
-                WHERE nombre_linea ILIKE ?
-                ORDER BY nombre_linea';
+        $sql = 'SELECT id_envio, tipo
+                FROM envio
+                WHERE tipo ILIKE ?
+                ORDER BY tipo';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO linea(nombre_linea)
+        $sql = 'INSERT INTO envio(tipo)
                 VALUES(?)';
-        $params = array($this->nombre);
+        $params = array($this->tipo);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT id_linea, nombre_linea
-                FROM linea
-                ORDER BY nombre_linea';
+        $sql = 'SELECT id_envio, tipo
+                FROM envio
+                ORDER BY tipo';
         $params = null;
         return Database::getRows($sql, $params);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_linea, nombre_linea
-                FROM linea
-                WHERE id_linea = ?';
+        $sql = 'SELECT id_envio, tipo
+                FROM envio
+                WHERE id_envio = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
     public function updateRow($current_image)
     {
-        $sql = 'UPDATE linea
-                SET nombre_linea = ?
-                WHERE id_linea = ?';
-        $params = array($this->nombre, $this->id);
+        $sql = 'UPDATE envio
+                SET tipo = ?
+                WHERE id_envio = ?';
+        $params = array($this->tipo, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM linea
-                WHERE id_linea = ?';
+        $sql = 'DELETE FROM envio
+                WHERE id_envio = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
-    }
-
+    } 
+    
 }

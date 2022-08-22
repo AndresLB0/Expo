@@ -1,8 +1,9 @@
 <?php
-class linea extends validator
+class institucion extends validator
+
 {
     private $id=null;
-    private $nombre=null;
+    private $tipo=null;
 
     public function setID($value)
     {
@@ -13,12 +14,12 @@ class linea extends validator
             return false;
         }
 
-    }  
+    } 
 
-    public function setNombre($value)
+    public function setTipo($value)
     {
         if ($this->validateAlphanumeric($value, 1, 50)) {
-            $this->nombre = $value;
+            $this->tipo_insti = $value;
             return true;
         } else {
             return false;
@@ -30,62 +31,62 @@ class linea extends validator
         return $this->id;
     }
 
-    public function getNombre()
+    public function getTipo()
     {
-        return $this->nombre;
+        return $this->tipo;
     }
 
     public function searchRows($value)
     {
-        $sql = 'SELECT id_linea,nombre_linea
-                FROM linea
-                WHERE nombre_linea ILIKE ?
-                ORDER BY nombre_linea';
+        $sql = 'SELECT id_insti, tipo_insti
+                FROM institucion
+                WHERE tipo_insti ILIKE ?
+                ORDER BY tipo_insti';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO linea(nombre_linea)
+        $sql = 'INSERT INTO institucion(tipo_insti)
                 VALUES(?)';
-        $params = array($this->nombre);
+        $params = array($this->tipo_insti);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT id_linea, nombre_linea
-                FROM linea
-                ORDER BY nombre_linea';
+        $sql = 'SELECT id_insti, tipo_insti
+                FROM institucion
+                ORDER BY tipo_insti';
         $params = null;
         return Database::getRows($sql, $params);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_linea, nombre_linea
-                FROM linea
-                WHERE id_linea = ?';
+        $sql = 'SELECT id_insti, tipo_insti
+                FROM institucion
+                WHERE id_insti = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
     public function updateRow($current_image)
     {
-        $sql = 'UPDATE linea
-                SET nombre_linea = ?
-                WHERE id_linea = ?';
-        $params = array($this->nombre, $this->id);
+        $sql = 'UPDATE institucion
+                SET tipo_insti = ?
+                WHERE id_insti = ?';
+        $params = array($this->tipo_insti, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM linea
-                WHERE id_linea = ?';
+        $sql = 'DELETE FROM institucion
+                WHERE id_isti = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
-    }
-
+    } 
+    
 }
