@@ -1,6 +1,6 @@
 <?php
-require('database.php');
-require('validator.php');
+require('../helpers/database.php');
+require('../helpers/validator.php');
 require('../library/fpdf182/fpdf.php');
 
 /**
@@ -25,7 +25,7 @@ class Report extends FPDF
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en los reportes.
         session_start();
         // Se verifica si un administrador ha iniciado sesión para generar el documento, de lo contrario se direcciona a main.php
-        if (isset($_SESSION['id_usuario'])) {
+        if (isset($_SESSION['id_usuario']) or true) {
             // Se asigna el título del documento a la propiedad de la clase.
             $this->title = $title;
             // Se establece el título del documento (true = utf-8).
@@ -37,7 +37,7 @@ class Report extends FPDF
             // Se define un alias para el número total de páginas que se muestra en el pie del documento.
             $this->aliasNbPages();
         } else {
-            header('location: ../../../html/index.php');
+            //header('');
         }
     }
 

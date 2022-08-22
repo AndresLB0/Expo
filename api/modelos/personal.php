@@ -121,7 +121,7 @@ public function setDireccion($value)
 
     public function getUsuario()
     {
-        return $this->nombre;
+        return $this->usuario;
     }
     public function getClave()
     {
