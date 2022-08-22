@@ -362,4 +362,14 @@ class Validator
             return false;
         }
     }
+    public function validateDesc($value)
+    {
+        // Se verifica que el valor sea un número entero menor o igual a diez.
+        if (filter_var($value, FILTER_VALIDATE_INT, array('max_range' <= 10))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
