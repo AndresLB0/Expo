@@ -223,4 +223,13 @@ public function setDireccion($value)
         $params = array($this->nombre, $this->dui, $this->telefono, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
     }
+    public function personalcargo()
+    {
+    $sql = 'SELECT c.id_cargo,p.nombre,p.telefono,p.usuario,c.nombre_cargo
+    FROM personal p INNER JOIN cargo c USING (id_cargo)
+    WHERE id_cargo = ?
+    order by c.id_cargo';
+      $params = array($this->cargo);
+      return Database::getRows($sql, $params);
+}
 }
