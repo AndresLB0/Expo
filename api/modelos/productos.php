@@ -313,10 +313,10 @@ class Productos extends Validator
     /*
     *   Métodos para generar reportes.
     */
-    public function personalcargo()
+    public function productosproveedor()
     {
-    $sql = 'SELECT nombre_producto,precio_fact,nombre_linea,nombre,existencias
-    FROM producto INNER JOIN proveedor USING (id_provee) Inner join linea using(id_linea)
+    $sql = 'SELECT nombre_producto,precio_fact,nombre_linea,nombre,existencias,lote
+    FROM producto INNER JOIN proveedor USING (id_provee) Inner join linea using(id_linea) inner join lote using(id_lote)
     WHERE id_provee = ?
     order by id_provee';
       $params = array($this->proveedor);
