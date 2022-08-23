@@ -211,7 +211,7 @@ class Productos extends Validator
     }
     public function getRegsan()
     {
-        return $this->Reg_sanitario;
+        return $this->reg_sanitario;
     }
     public function getTamanio()
     {
@@ -317,7 +317,7 @@ class Productos extends Validator
     {
     $sql = 'SELECT nombre_producto,precio_fact,nombre_linea,nombre,existencias,lote
     FROM lote inner join producto inner join proveedor using(id_provee) inner join linea using(id_linea) using(id_producto)
-    WHERE id_provee =1
+    WHERE id_provee =?
     order by id_provee';
       $params = array($this->proveedor);
       return Database::getRows($sql, $params);
