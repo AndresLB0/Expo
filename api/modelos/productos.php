@@ -322,4 +322,13 @@ class Productos extends Validator
       $params = array($this->proveedor);
       return Database::getRows($sql, $params);
 }
+public function productopresentacion()
+{
+$sql = 'SELECT nombre_producto,precio_fact,presentacio,existencias,vence
+FROM lote inner join producto inner join presentacion using(id_presentacion) using(id_producto)
+WHERE id_presentacion =?
+order by id_presentacion';
+  $params = array($this->presentacion);
+  return Database::getRows($sql, $params);
+}
 }

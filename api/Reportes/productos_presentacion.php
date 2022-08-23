@@ -19,7 +19,7 @@ if ($datacargos = $cargos->readAll()) {
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(126, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
     $pdf->cell(30, 10, utf8_decode('Usuario'), 1, 0, 'C', 1);
-    $pdf->cell(30, 10, utf8_decode('Teléfono'), 1, 1, 'C', 1);
+    $pdf->cell(30, 10, utf8_decode('telefono'), 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
     $pdf->setFillColor(100, 149, 237);
@@ -29,18 +29,18 @@ if ($datacargos = $cargos->readAll()) {
     // Se recorren los registros ($datatipoproductos) fila por fila ($rowtipoproducto).
     foreach ($datacargos as $rowcargos) {
         // Se imprime una celda con el nombre de la categoría.
-        $pdf->cell(0, 10, utf8_decode('Cargo: '.$rowcargos['nombre_cargo']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, utf8_decode('tipo de producto: '.$rowcargos['presentacio']), 1, 1, 'C', 1);
         // Se instancia el módelo Productos para procesar los datos.
         $personal = new personal;
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
-        if ($personal->setCargo($rowcargos['id_cargo'])) {
+        if ($personal->setCargo($rowcargos['id_presentacion'])) {
             // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
             if ($datapersonal = $personal->personalcargo()) {
                 // Se recorren los registros ($dataProductos) fila por fila ($rowProducto).
                 foreach ($datapersonal as $rowpersonal) {
                     // Se imprimen las celdas con los datos de los productos.
-                    $pdf->cell(126, 10, utf8_decode($rowpersonal['nombre']), 1, 0);
-                    $pdf->cell(30, 10, $rowpersonal['usuario'], 1, 0);
+                    $pdf->cell(126, 10, utf8_decode($rowpersonal['nombre_producto']), 1, 0);
+                    $pdf->cell(30, 10, $rowpersonal['precio_fact'], 1, 0);
                     $pdf->cell(30, 10,$rowpersonal['telefono'], 1, 1);
                 }
             } else {
