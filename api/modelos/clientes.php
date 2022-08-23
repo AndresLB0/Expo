@@ -291,7 +291,8 @@ class clientes extends validator
         $sql = 'INSERT INTO cliente (id_cliente, nombre , autoridnm , nacimiento , horario , direccion , dui, nit , nrc,
 		mont_maxvent,desc_auto , nojunta,id_especi,id_insti)
 	values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-        $params = array($this->nombre);
+        $params = array($this->idcliente,$this->nombre,$this->autoridnm,$this->nacimiento,$this->horario,$this->direccion,$this->dui,
+        $this->nit,$this->nrc,$this->montmaxvent,$this->nojunta,$this->idespeci,$this->idinsti);
         return Database::executeRow($sql, $params);
     }
 
