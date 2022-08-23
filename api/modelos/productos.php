@@ -224,18 +224,19 @@ class Productos extends Validator
     public function searchRows($value)
     {
         $sql = 'SELECT id_producto, nombre_producto, descripcion, precio_fact,precio_iva,presentacio,nombre,nombre_linea,existencias, estado_producto
-                FROM producto INNER JOIN proveedor USING(id_provee) INNER join presentacion using(id_presentacion)
-                WHERE nombre_producto ILIKE ? OR descripcion_producto ILIKE ?
-                ORDER BY nombre_producto';
+        FROM producto INNER JOIN proveedor USING(id_provee) INNER join presentacion using(id_presentacion) inner join linea using(id_linea)
+        WHERE nombre_producto ILIKE ? OR descripcion ILIKE ?
+        ORDER BY nombre_producto
+';
         $params = array("%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO producto(nombre_producto, descripcion_producto, precio_producto, imagen_producto, estado_producto, id_provee, id_usuario)
+        $sql = 'INSERT INTO producto(nombre_producto, descripcion, precio_fact,precio_iva, estado_producto, id_provee, id_usuario)
                 VALUES(?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->descripcion, $this->precio, $this->imagen, $this->estado, $this->proveedor, $_SESSION['id_usuario']);
+        $params = array($this->nombre, $this->descripcion, $this->precio_fact, $this->precio_iva, $this->estado, $this->proveedor, $_SESSION['id_usuario']);
         return Database::executeRow($sql, $params);
     }
 
@@ -312,5 +313,13 @@ class Productos extends Validator
     /*
     *   Métodos para generar reportes.
     */
-    
+    public function personalcargo()
+    {
+    $sql = 'SELECT nombre_producto,precio_fact,nombre_linea,nombre,existencias
+    FROM producto INNER JOIN proveedor USING (id_provee) Inner join linea using(id_linea)
+    WHERE id_provee = ?
+    order by id_provee';
+      $params = array($this->proveedor);
+      return Database::getRows($sql, $params);
+}
 }
