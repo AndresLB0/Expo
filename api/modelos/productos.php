@@ -316,8 +316,8 @@ class Productos extends Validator
     public function productosproveedor()
     {
     $sql = 'SELECT nombre_producto,precio_fact,nombre_linea,nombre,existencias,lote
-    FROM producto INNER JOIN proveedor USING (id_provee) Inner join linea using(id_linea) inner join lote using(id_lote)
-    WHERE id_provee = ?
+    FROM lote inner join producto inner join proveedor using(id_provee) inner join linea using(id_linea) using(id_producto)
+    WHERE id_provee =1
     order by id_provee';
       $params = array($this->proveedor);
       return Database::getRows($sql, $params);
