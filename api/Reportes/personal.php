@@ -18,8 +18,8 @@ if ($datacargos = $cargos->readAll()) {
     $pdf->setFont('Times', 'B', 11);
     // Se imprimen las celdas con los encabezados.
     $pdf->cell(126, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-    $pdf->cell(30, 10, utf8_decode('Precio (US$)'), 1, 0, 'C', 1);
-    $pdf->cell(30, 10, utf8_decode('marca'), 1, 1, 'C', 1);
+    $pdf->cell(30, 10, utf8_decode('Usuario'), 1, 0, 'C', 1);
+    $pdf->cell(30, 10, utf8_decode('telefono'), 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
     $pdf->setFillColor(100, 149, 237);
@@ -44,14 +44,14 @@ if ($datacargos = $cargos->readAll()) {
                     $pdf->cell(30, 10,$rowpersonal['telefono'], 1, 1);
                 }
             } else {
-                $pdf->cell(0, 10, utf8_decode('No hay personal para esta categoría'), 1, 1);
+                $pdf->cell(0, 10, utf8_decode('No hay personal para este cargo'), 1, 1);
             }
         } else {
-            $pdf->cell(0, 10, utf8_decode('Categoría incorrecta o inexistente'), 1, 1);
+            $pdf->cell(0, 10, utf8_decode('personal incorrecto o inexistente'), 1, 1);
         }
     }
 } else {
-    $pdf->cell(0, 10, utf8_decode('No hay categorías para mostrar'), 1, 1);
+    $pdf->cell(0, 10, utf8_decode('No hay personal para mostrar'), 1, 1);
 }
 
 // Se envía el documento al navegador y se llama al método footer()

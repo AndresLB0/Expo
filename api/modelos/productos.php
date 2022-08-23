@@ -144,6 +144,15 @@ class Productos extends Validator
             return false;
         }
     }
+    public function setRegistro($value)
+    {
+        if ($this->validateAlphanumeric($value, 1, 50)) {
+            $this->registro = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
     
 
     /*
@@ -172,12 +181,18 @@ class Productos extends Validator
     {
         return $this->precio_fact;
     }
-
+    public function getPrecio_IVA()
+    {
+        return $this->precio_IVA;
+    }
     public function getProvee()
     {
         return $this->proveedor;
     }
-
+    public function getLinea()
+    {
+        return $this->linea;
+    }
     public function getEstado()
     {
         return $this->estado;
@@ -190,13 +205,25 @@ class Productos extends Validator
     {
         return $this->presentacion;
     }
+    public function getDescuento()
+    {
+        return $this->descuento;
+    }
+    public function getRegsan()
+    {
+        return $this->Reg_sanitario;
+    }
+    public function getTamanio()
+    {
+        return $this->tamanio;
+    }
 
     /*
     *   Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
     */
     public function searchRows($value)
     {
-        $sql = 'SELECT id_producto, nombre_producto, descripcion_producto, precio_producto,presentacion,nombre,existencias, estado_producto
+        $sql = 'SELECT id_producto, nombre_producto, descripcion, precio_fact,precio_iva,presentacio,nombre,nombre_linea,existencias, estado_producto
                 FROM producto INNER JOIN proveedor USING(id_provee) INNER join presentacion using(id_presentacion)
                 WHERE nombre_producto ILIKE ? OR descripcion_producto ILIKE ?
                 ORDER BY nombre_producto';
@@ -272,19 +299,12 @@ class Productos extends Validator
     /*
     *   Métodos para generar gráficas.
     */
-    public function cantidadProductosCategoria()
+    public function productosmasvendidos()
     {
-        $sql = 'SELECT nombres_usuario,count(id_usuario)veces_atendido from usuarios inner join producto using (id_usuario)
-        group by id_usuario order by id_usuario desc';
-        $params = null;
-        return Database::getRows($sql, $params);
-    }
-
-    public function porcentajeProductosCategoria()
-    {
-        $sql = 'SELECT nombre_categoria, ROUND((COUNT(id_producto) * 100.0 / (SELECT COUNT(id_producto) FROM producto)), 2) porcentaje
-                FROM producto INNER JOIN categorias USING(id_categoria)
-                GROUP BY nombre ORDER BY porcentaje DESC';
+        $sql = 'SELECT sum(cantidad) as cantidad, nombre_producto
+        from detalle_pedido inner join producto using (id_producto)
+        group by nombre_producto order by cantidad desc
+        limit 5';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -292,31 +312,5 @@ class Productos extends Validator
     /*
     *   Métodos para generar reportes.
     */
-    public function productoCategoria()
-    {
-        $sql = 'SELECT nombre_producto, precio_producto, estado_producto
-                FROM producto INNER JOIN proveedor USING(id_provee)
-                WHERE id_provee = ?
-                ORDER BY nombre_producto';
-        $params = array($this->provee);
-        return Database::getRows($sql, $params);
-    }
-    public function ProductosTipo()
-    {
-        $sql = 'SELECT nombre_producto, precio_producto,nombre
-                FROM producto INNER JOIN proveedor using(id_provee)INNER JOIN presentacion USING(id_presentacion)
-                WHERE id_presentacion = ?
-                ORDER BY nombre_producto';
-        $params = array($this->presentacion);
-        return Database::getRows($sql, $params);
-    }   
-     public function Productosproveedor()
-    {
-        $sql = 'SELECT nombre_producto, precio_producto,existencias
-                FROM producto INNER JOIN proveedor USING(id_provee)
-                WHERE id_provee = ?
-                ORDER BY nombre_producto';
-        $params = array($this->proveedor);
-        return Database::getRows($sql, $params);
-    }
+    
 }
