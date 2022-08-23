@@ -310,7 +310,7 @@ class clientes extends validator
         $sql = 'SELECT id_cliente , nombre , dui 
                 FROM cliente
                 WHERE id_cliente = ?';
-        $params = array($this->id);
+        $params = array($this->idcliente);
         return Database::getRow($sql, $params);
     }
 
@@ -319,7 +319,7 @@ class clientes extends validator
         $sql = 'UPDATE cliente
                 SET nombre = ?
                 WHERE id_cliente = ?';
-        $params = array($this->nombre, $this->id);
+        $params = array($this->nombre, $this->idcliente);
         return Database::executeRow($sql, $params);
     }
 
@@ -327,7 +327,7 @@ class clientes extends validator
     {
         $sql = 'DELETE FROM cliente
                 WHERE id_cliente = ?';
-        $params = array($this->id);
+        $params = array($this->idcliente);
         return Database::executeRow($sql, $params);
     }
 
