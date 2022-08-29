@@ -5,6 +5,7 @@ class proveedor extends validator
     private $nombre=null;
     private $contacto=null;
     private $telefono=null;
+    private $linea = null;
 
     public function setID($value)
     {
@@ -44,6 +45,15 @@ class proveedor extends validator
             return false;
         }
     }
+    public function setLinea($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->linea = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function getId()
     {
         return $this->id;
@@ -61,6 +71,10 @@ class proveedor extends validator
     public function getTelefono()
     {
         return $this->telefono;
+    }
+    public function getLinea()
+    {
+        return $this->linea;
     }
     public function searchRows($value)
     {

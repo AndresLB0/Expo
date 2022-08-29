@@ -65,7 +65,7 @@ public function setDireccion($value)
 
     public function setUsuario($value)
     {
-        if ($this->validateAlphanumeric($value)) {
+        if ($this->validateAlphanumeric($value,1,50)) {
             $this->usuario = $value;
             return true;
         } else {
@@ -232,4 +232,22 @@ public function setDireccion($value)
       $params = array($this->cargo);
       return Database::getRows($sql, $params);
 }
+//graficos
+public function cantidadPedidosZona()
+{
+    $sql = 'SELECT COUNT(*) AS pedidos, nombre_zona
+    FROM pedidos INNER JOIN zona USING(id_zona) 
+    GROUP BY nombre_zona';
+    $params = null;
+    return Database::getRows($sql, $params);
+}
+ //Grafica para mostrar la cantidad de pedidos de cada zona
+ public function cantidadPersonalCargo()
+ {
+     $sql = 'SELECT count(*) as personal, nombre_cargo
+     from personal inner join cargo using (id_cargo)
+     group by nombre_cargo order by personal ';
+     $params = null;
+     return Database::getRows($sql, $params);
+ }
 }

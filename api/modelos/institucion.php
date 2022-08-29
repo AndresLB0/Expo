@@ -3,7 +3,7 @@ class institucion extends validator
 
 {
     private $id=null;
-    private $tipo=null;
+    private $nombre=null;
 
     public function setID($value)
     {
@@ -19,7 +19,7 @@ class institucion extends validator
     public function setTipo($value)
     {
         if ($this->validateAlphanumeric($value, 1, 50)) {
-            $this->tipo_insti = $value;
+            $this->nombre = $value;
             return true;
         } else {
             return false;
@@ -31,11 +31,11 @@ class institucion extends validator
         return $this->id;
     }
 
-    public function getTipo()
+    public function getNombre()
     {
-        return $this->tipo;
+        return $this->nombre;
     }
-
+    
     public function searchRows($value)
     {
         $sql = 'SELECT id_insti, tipo_insti
@@ -50,7 +50,7 @@ class institucion extends validator
     {
         $sql = 'INSERT INTO institucion(tipo_insti)
                 VALUES(?)';
-        $params = array($this->tipo_insti);
+        $params = array($this->tipo);
         return Database::executeRow($sql, $params);
     }
 
@@ -72,12 +72,12 @@ class institucion extends validator
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         $sql = 'UPDATE institucion
                 SET tipo_insti = ?
                 WHERE id_insti = ?';
-        $params = array($this->tipo_insti, $this->id);
+        $params = array($this->tipo, $this->id);
         return Database::executeRow($sql, $params);
     }
 

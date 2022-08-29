@@ -2,25 +2,25 @@
 // Se verifica si existe el parámetro id en la url, de lo contrario se direcciona a la página web de origen.
 if (isset($_GET['id'])) {
     require('../helpers/dashboard_report.php');
-    require('../modelos/Proveedores.php');
+    require('../modelos/presentacion.php');
     require('../modelos/productos.php');
 
     // Se instancia el módelo marca para procesar los datos.
-    $proveedor = new proveedor;
+    $presentacion = new presentacion;
 
     // Se verifica si el parámetro es un valor correcto, de lo contrario se direcciona a la página web de origen.
-    if ($proveedor->setId($_GET['id'])) {
+    if ($presentacion->setId($_GET['id'])) {
         // Se verifica si la categoría del parametro existe, de lo contrario se direcciona a la página web de origen.
-        if ($rowproveedor = $proveedor->readOne()) {
+        if ($rowpresentacion = $presentacion->readOne()) {
             // Se instancia la clase para crear el reporte.
             $pdf = new Report;
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Productos de la categoría '.$rowproveedor['nombre']);
+            $pdf->startReport('Productos tipo '.$rowpresentacion['presentacio']);
             // Se instancia el módelo Productos para procesar los datos.
             $producto = new Productos;
-            if ($producto->setProvee($rowproveedor['id_provee'])) {
+            if ($producto->setPresentacion($rowpresentacion['id_presentacion'])) {
                 // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
-                if ($dataProductos = $producto->productosproveedor()) {
+                if ($dataProductos = $producto->productopresentacion()) {
                     // Se establece un color de relleno para los encabezados.
                     $pdf->setFillColor(80, 80, 200);
                     // Se establece la fuente para los encabezados.

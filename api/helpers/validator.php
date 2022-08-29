@@ -242,6 +242,15 @@ class Validator
     */
     public function validateDUI($value)
     {
+        // Se verifica que el número tenga el formato 0000-000000-000-0.
+        if (preg_match('/^[0-9]{4}[-][0-9]{6}[-][0-9]{3}[-][0-9]{1}$/', $value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function validateNIT($value)
+    {
         // Se verifica que el número tenga el formato 00000000-0.
         if (preg_match('/^[0-9]{8}[-][0-9]{1}$/', $value)) {
             return true;
@@ -284,6 +293,14 @@ class Validator
             return false;
         }
     }
+
+    public function validateTime($value)
+{
+    $pattern="/^([0-1][0-9]|[2][0-3])[\:]([0-5][0-9])[\:]([0-5][0-9])$/";
+    if(preg_match($pattern,$value))
+        return true;
+    return false;
+}
 
     /*
     *   Método para validar la ubicación de un archivo antes de subirlo al servidor.

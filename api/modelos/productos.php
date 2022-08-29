@@ -14,8 +14,8 @@ class Productos extends Validator
     private $precio_iva = null;
     private $proveedor = null;
     private $presentacion = null;
-    private $linea = null;
     private $descuento = null;
+    private $linea = null;
     private $reg_sanitario = null;
     private $tamanio = null;
     private $estado = null;
@@ -99,15 +99,6 @@ class Productos extends Validator
             return false;
         }
     }
-    public function setLinea($value)
-    {
-        if ($this->validateNaturalNumber($value)) {
-            $this->linea = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
     public function setEstado($value)
     {
         if ($this->validateBoolean($value)) {
@@ -153,7 +144,15 @@ class Productos extends Validator
             return false;
         }
     }
-    
+    public function setLinea($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->linea = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /*
     *   Métodos para obtener valores de los atributos.
@@ -189,10 +188,6 @@ class Productos extends Validator
     {
         return $this->proveedor;
     }
-    public function getLinea()
-    {
-        return $this->linea;
-    }
     public function getEstado()
     {
         return $this->estado;
@@ -216,6 +211,10 @@ class Productos extends Validator
     public function getTamanio()
     {
         return $this->tamanio;
+    }
+    public function getLinea()
+    {
+        return $this->linea;
     }
 
     /*
@@ -261,7 +260,6 @@ class Productos extends Validator
     public function updateRow($current_image)
     {
         // Se verifica si existe una nueva imagen para borrar la actual, de lo contrario se mantiene la actual.
-        ($this->imagen) ? $this->deleteFile($this->getRuta(), $current_image) : $this->imagen = $current_image;
 
         $sql = 'UPDATE producto
                 SET imagen_producto = ?, nombre_producto = ?, descripcion_producto = ?, precio_producto = ?, estado_producto = ?, id_provee = ?,id_presentacion=?,existencias=?
@@ -297,28 +295,15 @@ class Productos extends Validator
         return Database::getRows($sql, $params);
     }
 
-    /*
-    *   Métodos para generar gráficas.
-    */
-    public function productosmasvendidos()
-    {
-        $sql = 'SELECT sum(cantidad) as cantidad, nombre_producto
-        from detalle_pedido inner join producto using (id_producto)
-        group by nombre_producto order by cantidad desc
-        limit 5';
-        $params = null;
-        return Database::getRows($sql, $params);
-    }
 
     /*
     *   Métodos para generar reportes.
     */
     public function productosproveedor()
     {
-    $sql = 'SELECT nombre_producto,precio_fact,nombre_linea,nombre,existencias,lote
-    FROM lote inner join producto inner join proveedor using(id_provee) inner join linea using(id_linea) using(id_producto)
-    WHERE id_provee =?
-    order by id_provee';
+    $sql = 'SELECT distinct nombre_producto,precio_fact,nombre,existencias,presentacio,nombre_linea
+    FROM producto inner join proveedor using(id_provee) inner join presentacion using(id_presentacion) inner join linea using(id_linea)
+    WHERE id_provee =?';
       $params = array($this->proveedor);
       return Database::getRows($sql, $params);
 }
@@ -330,5 +315,40 @@ WHERE id_presentacion =?
 order by id_presentacion';
   $params = array($this->presentacion);
   return Database::getRows($sql, $params);
+}
+public function productolinea()
+{
+$sql = 'SELECT nombre_producto,precio_fact,nombre_linea,existencias
+FROM producto inner join proveedor using (id_provee) inner join linea using (id_linea) 
+WHERE id_linea=?
+order by id_linea';
+  $params = array($this->linea);
+  return Database::getRows($sql, $params);
+}
+public function proveelinea()
+{
+$sql = 'SELECT distinct nombre_linea from producto inner join linea using(id_linea) where id_provee=?';
+  $params = array($this->proveedor);
+  return Database::getRows($sql, $params);
+}
+//graficas
+public function productosMasVendidos()
+{
+    $sql = 'SELECT sum(cantidad) as cantidad, nombre_producto
+            from detalle_pedido inner join producto using (id_producto)
+            group by nombre_producto order by cantidad desc
+            limit 5';
+    $params = null;
+    return Database::getRows($sql, $params);
+}
+
+public function cantidadProductoPresentacion()
+{
+    $sql = 'SELECT count(*) as producto, presentacio
+            from producto inner join presentacion using(id_presentacion)
+            group by presentacio order by producto desc
+            limit 5';
+    $params = null;
+    return Database::getRows($sql, $params);
 }
 }

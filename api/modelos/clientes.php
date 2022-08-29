@@ -14,8 +14,8 @@ class clientes extends validator
     private $montmaxvent = null;
     private $descauto = null;
     private $nojunta = null;
-    private $idespeci = null;
-    private $idinsti = null;
+    private $especialidad = null;
+    private $institucion = null;
 
 
 
@@ -65,7 +65,7 @@ class clientes extends validator
 
     public function setICont($value)
     {
-        if ($this->validateAlphabetic($value)) {
+        if ($this->validateAlphabetic($value,1,50)) {
             $this->nombrecont= $value;
             return true;
         } else {
@@ -75,7 +75,7 @@ class clientes extends validator
 
     public function setIHorario($value)
     {
-        if ($this->validateString($value)) {
+        if ($this->validateString($value,1,50)) {
             $this->horario = $value;
             return true;
         } else {
@@ -86,7 +86,7 @@ class clientes extends validator
 
     public function setDireccion($value)
     {
-        if ($this->validateAlphanumeric($value)) {
+        if ($this->validateAlphanumeric($value,1,50)) {
             $this->direccion = $value;
             return true;
         } else {
@@ -117,7 +117,7 @@ class clientes extends validator
 
     public function setNrc($value)
     {
-        if ($this->validateNIT($value)) {
+        if ($this->validateAlphanumeric($value,1,40)) {
             $this->nrc = $value;
             return true;
         } else {
@@ -129,7 +129,7 @@ class clientes extends validator
     
     public function setMontMaxVent($value)
     {
-        if ($this->validaNaturalnumber($value)) {
+        if ($this->validateNaturalNumber($value)) {
             $this->monmaxvent = $value;
             return true;
         } else {
@@ -140,7 +140,7 @@ class clientes extends validator
 
     public function setDescuento($value)
     {
-        if ($this->validaNaturalnumber($value)) {
+        if ($this->validateNaturalnumber($value)) {
             $this->descauto = $value;
             return true;
         } else {
@@ -151,7 +151,7 @@ class clientes extends validator
 
     public function setNumerojunta($value)
     {
-        if ($this->validaNaturalnumber($value)) {
+        if ($this->validateNaturalnumber($value)) {
             $this->nojunta = $value;
             return true;
         } else {
@@ -161,8 +161,8 @@ class clientes extends validator
 
     public function setEspeci($value)
     {
-        if ($this->validaNaturalnumber($value)) {
-            $this->idespeci = $value;
+        if ($this->validateNaturalnumber($value)) {
+            $this->especialidad = $value;
             return true;
         } else {
             return false;
@@ -171,10 +171,10 @@ class clientes extends validator
 
 
 
-    public function setIdInsti($value)
+    public function setInsti($value)
     {
-        if ($this->validaNaturalnumber($value)) {
-            $this->idinsti = $value;
+        if ($this->validateNaturalnumber($value)) {
+            $this->institucion = $value;
             return true;
         } else {
             return false;
@@ -259,12 +259,12 @@ class clientes extends validator
 
     public function getIdEspeci()
     {
-        return $this->idespeci;
+        return $this->especialidad;
     }
 
     public function getIdInsti()
     {
-        return $this->idinsti;
+        return $this->institucion;
     }
 
     public function getNit()
@@ -280,8 +280,8 @@ class clientes extends validator
     {
         $sql = 'SELECT id_cliente , nombre , nrc                                           
                 FROM cliente
-                WHERE nrc  ILIKE ?
-                ORDER BY nombre_linea';
+                WHERE nombre  ILIKE ?
+                ORDER BY nombre';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
@@ -331,5 +331,31 @@ class clientes extends validator
         return Database::executeRow($sql, $params);
     }
 
+    public function clienteInstitucion()
+    {
+        $sql = 'SELECT nombre,nombre_cont,horario from cliente inner join institucion using (id_insti)
+        where id_insti =?';
+        $params = array($this->institucion);
+        return Database::getRows($sql, $params);
+    }
+    public function clienteespecialidad()
+    {
+        $sql = 'SELECT c.nombre,e.nombre from cliente c inner join especialidad e using (id_especi)
+        where id_especi =?';
+        $params = array($this->especialidad);
+        return Database::getRow($sql, $params);
+    }
+      //Metodo para generar graficas
+
+    //grafica clientes que hacen mas pedidos
+    public function ClientesPedidos()
+    {
+        $sql = 'SELECT COUNT(*) AS "pedidos", nombre
+                FROM pedidos INNER JOIN cliente USING(id_cliente)
+                GROUP BY nombre ORDER BY pedidos DESC
+                LIMIT 5';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 }
 ?>

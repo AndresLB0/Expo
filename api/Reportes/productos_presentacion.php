@@ -39,8 +39,8 @@ if ($datapresentacion = $presentacion->readAll()) {
                 // Se recorren los registros ($dataProductos) fila por fila ($rowProducto).
                 foreach ($dataproducto as $rowproducto) {
                     // Se imprimen las celdas con los datos de los productos.
-                    $pdf->cell(60, 10, utf8_decode($rowproducto['nombre_producto']), 1, 0);
-                    $pdf->cell(50, 10, $rowproducto['precio_fact'], 1, 0);
+                    $pdf->cell(60, 10, utf8_decode($rowproducto['nombre']), 1, 0);
+                    $pdf->cell(50, 10, $rowproducto['precio_iva'], 1, 0);
                     $pdf->cell(40, 10,$rowproducto['existencias'], 1, 0);
                     $pdf->cell(36, 10,$rowproducto['vence'], 1, 1);
                 }
