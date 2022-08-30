@@ -298,9 +298,9 @@ class clientes extends validator
 
     public function readAll()
     {
-        $sql = 'SELECT id_cliente, nombre , direccion , dui , nrc
-                FROM cliente
-                ORDER BY id_cliente';
+        $sql = 'SELECT id_cliente, nombre , direccion ,horario, nrc,tipo_insti
+        FROM cliente inner join institucion using(id_insti)
+        ORDER BY id_cliente';
         $params = null;
         return Database::getRows($sql, $params);
     }

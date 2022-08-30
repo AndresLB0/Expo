@@ -28,10 +28,10 @@
         </div>
         <div class="col s12 m6">
           <div class="contenedor gris center">
-            <h4>Nueva linea</h4>
+            <h4>agregar envio</h4>
             <div class="col s12 m6 offset m3 offset-m3">
               <input type="text" name="especialidad" placeholder="Nombre" class="text" required>
-              <input type="button" value="agregar linea"></button>
+              <input type="button" value="agregar envio"></button>
             </div>
           </div>
           <div class="col s12 m6 offset-m2">
@@ -40,6 +40,7 @@
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
               <i class="material-icons">close</i>
             </div>
+            <a onclick="openReport()" class="waves-effect waves-light btn-floating btn-large waves-effect waves-light red boton hide-on-med-and-down"><i class="material-icons">assignment</i></a>
    <div class="lista">
     <table class="highlight">
       <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
@@ -50,7 +51,7 @@
           </tr>
       </thead>
   <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-  <tbody id="linea"></tbody>
+  <tbody id="envio"></tbody>
           </div>
           </div>
         </div>
@@ -60,7 +61,7 @@
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
   <script type="text/javascript" src="../controllers/components.js"></script>
-  <script type="text/javascript" src="../controllers/dashboard/linea.js"></script>
+  <script type="text/javascript" src="../controllers/dashboard/envio.js"></script>
 </body>
 
 </html>
