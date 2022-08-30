@@ -232,7 +232,8 @@ public function setDireccion($value)
       $params = array($this->cargo);
       return Database::getRows($sql, $params);
 }
-//graficos
+//graficos 
+//Grafica para mostrar la cantidad de pedidos de cada zona
 public function cantidadPedidosZona()
 {
     $sql = 'SELECT COUNT(*) AS pedidos, nombre_zona
@@ -241,7 +242,7 @@ public function cantidadPedidosZona()
     $params = null;
     return Database::getRows($sql, $params);
 }
- //Grafica para mostrar la cantidad de pedidos de cada zona
+
  public function cantidadPersonalCargo()
  {
      $sql = 'SELECT count(*) as personal, nombre_cargo
