@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
                     foreach ($dataProductos as $rowProducto) {
                         // Se imprimen las celdas con los datos de los productos.
                         $pdf->cell(126, 10, utf8_decode($rowProducto['nombre_producto']), 1, 0);
-                        $pdf->cell(30, 10, $rowProducto['precio_fact'], 1, 0);
+                        $pdf->cell(30, 10, $rowProducto['precio_iva'], 1, 0);
                         $pdf->cell(30, 10,$rowProducto['existencias'], 1, 1);
                         
                     }

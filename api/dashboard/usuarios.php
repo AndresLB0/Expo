@@ -175,6 +175,7 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos disponibles';
                     }
                     break;
+                   
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
@@ -223,7 +224,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Clave incorrecta';
                 }
                 break;
-            default:
+           // default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
     }

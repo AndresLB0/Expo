@@ -250,4 +250,5 @@ public function cantidadPedidosZona()
      $params = null;
      return Database::getRows($sql, $params);
  }
+
 }

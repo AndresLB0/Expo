@@ -41,7 +41,16 @@
               <i class="material-icons">close</i>
             </div>
    <div class="lista">
-            <div class="card-panel white">pastillas</div>
+    <table class="highlight">
+      <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
+      <thead>
+          <tr>
+              <th>Nombre</th>
+              <th>Acciones</th>
+          </tr>
+      </thead>
+  <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+  <tbody id="prod"></tbody>
           </div>
           </div>
         </div>
@@ -50,7 +59,8 @@
 
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
-  <script type="text/javascript" src="plantilla.js"></script>
+  <script type="text/javascript" src="../controllers/components.js"></script>
+  <script type="text/javascript" src="../controllers/dashboard/presentacion.js"></script>
 </body>
 
 </html>

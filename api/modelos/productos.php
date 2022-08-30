@@ -309,7 +309,7 @@ class Productos extends Validator
 }
 public function productopresentacion()
 {
-$sql = 'SELECT nombre_producto,precio_fact,presentacio,existencias,vence
+$sql = 'SELECT nombre_producto,precio_iva,presentacio,existencias,vence
 FROM lote inner join producto inner join presentacion using(id_presentacion) using(id_producto)
 WHERE id_presentacion =?
 order by id_presentacion';
@@ -356,6 +356,14 @@ public function cantidadProductosProveedor()
      $sql = 'SELECT count(*) as productos, nombre
      from producto inner join proveedor using (id_provee)
      group by nombre order by productos';
+     $params = null;
+     return Database::getRows($sql, $params);
+ }
+ public function productolineagraf()
+ {
+     $sql = 'SELECT count(*) as producto,nombre_linea
+	 from producto inner join linea  using (id_linea)
+	 group by nombre_linea order by producto';
      $params = null;
      return Database::getRows($sql, $params);
  }

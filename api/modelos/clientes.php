@@ -357,5 +357,15 @@ class clientes extends validator
         $params = null;
         return Database::getRows($sql, $params);
     }
+
+
+    public function personalPedido()
+    {
+        $sql = 'SELECT Count(*) as pedidos ,nombre
+    From pedidos inner join cliente using (id_cliente)
+    group by nombre';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 }
 ?>

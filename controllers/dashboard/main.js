@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     graficoBarraProductosPresentacion();
     graficoPersonalCargo();
     graficoLineaProductoProveedor();
+    graficoPoductoLinea();
+    graficopersonalPedido();
 });
 
 // Función para mostrar la cantidad de pedidos por zona en un gráfico de barras.
@@ -79,8 +81,6 @@ function graficoClientesPedidos() {
         }
     });
 }
-
-
 // Función para mostrar la cantidad de productos mas vendidos en un gráfico de barras.
 function graficoBarraProductosMasVendidos() {
     // Petición para obtener los datos del gráfico.
@@ -212,4 +212,66 @@ function graficoLineaProductoProveedor() {
         }
     });
 }
-
+function graficoPoductoLinea() {
+    // Petición para obtener los datos del gráfico.
+    fetch(API_PRODUCTOS + 'productolineagraf', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje en la consola indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos a graficar.
+                   let linea = [];
+                     let producto = [];
+                    
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se agregan los datos a los arreglos.
+                        linea.push(row.nombre_linea);
+                        producto.push(row.producto);
+                    });
+                    // Se llama a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
+                    pieGraph('chart7',linea,producto,'cantidad de productos por linea');
+                } else {
+                    document.getElementById('chart7').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    });
+}
+function graficoLineaProductoProveedor() {
+    // Petición para obtener los datos del gráfico.
+    fetch(API_PRODUCTOS + 'cantidadProductosProveedor', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje en la consola indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos a graficar.
+                    let proveedor= [];
+                    let producto = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se agregan los datos a los arreglos.
+                        proveedor.push(row.nombre);
+                        producto.push(row.productos);
+                    });
+                    // Se llama a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
+                    barGraph('chart6',proveedor,producto,'productos por proveedor','Cantidad de productos por proveedor');
+                } else {
+                    document.getElementById('chart6').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    });
+}

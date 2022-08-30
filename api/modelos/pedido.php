@@ -235,4 +235,7 @@ class pedidos extends validator
       $params =array($this->idenvio);
       return Database::getRows($sql, $params);
     }
+
+
+
 }

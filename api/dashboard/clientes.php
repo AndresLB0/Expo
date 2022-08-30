@@ -105,7 +105,13 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos disponibles';
                     }
                     break;
-            default:
+                    case 'personalPedido':
+                        if ($result['dataset'] = $personal->personalPedido()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'No hay datos disponibles';
+                        }
+                        break;
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
     }

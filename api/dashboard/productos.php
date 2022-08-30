@@ -67,7 +67,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$productos->setId($_POST['id'])) {
+                if (!$productos->setIdProducto($_POST['id'])) {
                     $result['exception'] = 'productos incorrecto';
                 } elseif ($result['dataset'] = $productos->readOne()) {
                     $result['status'] = 1;
@@ -79,7 +79,7 @@ if (isset($_GET['action'])) {
                 break;
             case 'update':
                 $_POST = $productos->validateForm($_POST);
-                if (!$productos->setId($_POST['id'])) {
+                if (!$productos->setIdProducto($_POST['id'])) {
                     $result['exception'] = 'productos incorrecto';
                 } elseif (!$data = $productos->readOne()) {
                     $result['exception'] = 'productos inexistente';
@@ -114,7 +114,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'delete':
-                if (!$productos->setId($_POST['id'])) {
+                if (!$productos->setIdProducto($_POST['id'])) {
                     $result['exception'] = 'productos incorrecto';
                 } elseif (!$data = $productos->readOne()) {
                     $result['exception'] = 'productos inexistente';
@@ -157,6 +157,14 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos disponibles';
                     }
                     break;
+                    case 'productolineagraf':
+                        if ($result['dataset'] = $productos->productolineagraf()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'No hay datos disponibles';
+                        }
+                        break;
+
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
