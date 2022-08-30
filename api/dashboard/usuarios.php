@@ -160,6 +160,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+                //graficos
             case 'cantidadPedidosZona':
                 if ($result['dataset']= $personal->cantidadPedidosZona()){
                     $result['status'] = 1;

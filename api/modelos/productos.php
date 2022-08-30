@@ -351,4 +351,12 @@ public function cantidadProductoPresentacion()
     $params = null;
     return Database::getRows($sql, $params);
 }
+public function cantidadProductosProveedor()
+ {
+     $sql = 'SELECT count(*) as productos, nombre
+     from producto inner join proveedor using (id_provee)
+     group by nombre order by productos';
+     $params = null;
+     return Database::getRows($sql, $params);
+ }
 }
