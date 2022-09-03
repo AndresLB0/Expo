@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var instances = M.Tabs.init(document.querySelector('.tabs',{
+    M.Tabs.init(document.querySelector('.tabs',{
         swipeable:true,
       }));
-      var instances = M.Sidenav.init(document.querySelectorAll('.sidenav'));
+       M.Sidenav.init(document.querySelectorAll('.sidenav'));
       });
       function openReport() {
         // Se establece la ruta del reporte en el servidor.

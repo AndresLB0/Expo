@@ -5,9 +5,11 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.2
 
--- Started on 2022-06-28 11:05:30
+-- Started on 2022-09-02 05:57:35
+
+
 --
--- TOC entry 209 (class 1259 OID 16506)
+-- TOC entry 209 (class 1259 OID 41236)
 -- Name: cargo; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -20,7 +22,7 @@ CREATE TABLE public.cargo (
 ALTER TABLE public.cargo OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 16509)
+-- TOC entry 210 (class 1259 OID 41239)
 -- Name: cargo_id_cargo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -36,7 +38,7 @@ CREATE SEQUENCE public.cargo_id_cargo_seq
 ALTER TABLE public.cargo_id_cargo_seq OWNER TO postgres;
 
 --
--- TOC entry 3467 (class 0 OID 0)
+-- TOC entry 3469 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: cargo_id_cargo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -45,7 +47,7 @@ ALTER SEQUENCE public.cargo_id_cargo_seq OWNED BY public.cargo.id_cargo;
 
 
 --
--- TOC entry 211 (class 1259 OID 16510)
+-- TOC entry 211 (class 1259 OID 41240)
 -- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -63,15 +65,15 @@ CREATE TABLE public.cliente (
     mont_maxvent integer,
     desc_auto integer,
     nojunta character varying(17),
-    id_especi integer NOT NULL,
-    id_insti integer NOT NULL
+    id_especi integer,
+    id_insti integer
 );
 
 
 ALTER TABLE public.cliente OWNER TO postgres;
 
 --
--- TOC entry 212 (class 1259 OID 16513)
+-- TOC entry 212 (class 1259 OID 41243)
 -- Name: cliente_id_cliente_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -87,7 +89,7 @@ CREATE SEQUENCE public.cliente_id_cliente_seq
 ALTER TABLE public.cliente_id_cliente_seq OWNER TO postgres;
 
 --
--- TOC entry 3468 (class 0 OID 0)
+-- TOC entry 3470 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: cliente_id_cliente_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -96,7 +98,7 @@ ALTER SEQUENCE public.cliente_id_cliente_seq OWNED BY public.cliente.id_cliente;
 
 
 --
--- TOC entry 213 (class 1259 OID 16514)
+-- TOC entry 213 (class 1259 OID 41244)
 -- Name: detalle_pedido; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -112,7 +114,7 @@ CREATE TABLE public.detalle_pedido (
 ALTER TABLE public.detalle_pedido OWNER TO postgres;
 
 --
--- TOC entry 214 (class 1259 OID 16517)
+-- TOC entry 214 (class 1259 OID 41247)
 -- Name: detalle_pedido_id_detapedi_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -128,7 +130,7 @@ CREATE SEQUENCE public.detalle_pedido_id_detapedi_seq
 ALTER TABLE public.detalle_pedido_id_detapedi_seq OWNER TO postgres;
 
 --
--- TOC entry 3469 (class 0 OID 0)
+-- TOC entry 3471 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: detalle_pedido_id_detapedi_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -137,7 +139,7 @@ ALTER SEQUENCE public.detalle_pedido_id_detapedi_seq OWNED BY public.detalle_ped
 
 
 --
--- TOC entry 215 (class 1259 OID 16518)
+-- TOC entry 215 (class 1259 OID 41248)
 -- Name: envio; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -150,7 +152,7 @@ CREATE TABLE public.envio (
 ALTER TABLE public.envio OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 16521)
+-- TOC entry 216 (class 1259 OID 41251)
 -- Name: envio_id_envio_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -166,7 +168,7 @@ CREATE SEQUENCE public.envio_id_envio_seq
 ALTER TABLE public.envio_id_envio_seq OWNER TO postgres;
 
 --
--- TOC entry 3470 (class 0 OID 0)
+-- TOC entry 3472 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: envio_id_envio_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -175,20 +177,20 @@ ALTER SEQUENCE public.envio_id_envio_seq OWNED BY public.envio.id_envio;
 
 
 --
--- TOC entry 217 (class 1259 OID 16522)
+-- TOC entry 217 (class 1259 OID 41252)
 -- Name: especialidad; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.especialidad (
     id_especi integer NOT NULL,
-    nombre character varying(50)
+    nombre_especi character varying(50)
 );
 
 
 ALTER TABLE public.especialidad OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 16525)
+-- TOC entry 218 (class 1259 OID 41255)
 -- Name: especialidad_id_especi_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -204,7 +206,7 @@ CREATE SEQUENCE public.especialidad_id_especi_seq
 ALTER TABLE public.especialidad_id_especi_seq OWNER TO postgres;
 
 --
--- TOC entry 3471 (class 0 OID 0)
+-- TOC entry 3473 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: especialidad_id_especi_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -213,7 +215,7 @@ ALTER SEQUENCE public.especialidad_id_especi_seq OWNED BY public.especialidad.id
 
 
 --
--- TOC entry 219 (class 1259 OID 16526)
+-- TOC entry 219 (class 1259 OID 41256)
 -- Name: institucion; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -226,7 +228,7 @@ CREATE TABLE public.institucion (
 ALTER TABLE public.institucion OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 16529)
+-- TOC entry 220 (class 1259 OID 41259)
 -- Name: institucion_id_insti_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -242,7 +244,7 @@ CREATE SEQUENCE public.institucion_id_insti_seq
 ALTER TABLE public.institucion_id_insti_seq OWNER TO postgres;
 
 --
--- TOC entry 3472 (class 0 OID 0)
+-- TOC entry 3474 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: institucion_id_insti_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -251,7 +253,7 @@ ALTER SEQUENCE public.institucion_id_insti_seq OWNED BY public.institucion.id_in
 
 
 --
--- TOC entry 221 (class 1259 OID 16530)
+-- TOC entry 221 (class 1259 OID 41260)
 -- Name: linea; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -264,7 +266,7 @@ CREATE TABLE public.linea (
 ALTER TABLE public.linea OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16533)
+-- TOC entry 222 (class 1259 OID 41263)
 -- Name: linea_id_linea_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -280,7 +282,7 @@ CREATE SEQUENCE public.linea_id_linea_seq
 ALTER TABLE public.linea_id_linea_seq OWNER TO postgres;
 
 --
--- TOC entry 3473 (class 0 OID 0)
+-- TOC entry 3475 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: linea_id_linea_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -289,7 +291,7 @@ ALTER SEQUENCE public.linea_id_linea_seq OWNED BY public.linea.id_linea;
 
 
 --
--- TOC entry 223 (class 1259 OID 16534)
+-- TOC entry 223 (class 1259 OID 41264)
 -- Name: lote; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -305,7 +307,7 @@ CREATE TABLE public.lote (
 ALTER TABLE public.lote OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 16537)
+-- TOC entry 224 (class 1259 OID 41267)
 -- Name: lote_id_lote_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -321,7 +323,7 @@ CREATE SEQUENCE public.lote_id_lote_seq
 ALTER TABLE public.lote_id_lote_seq OWNER TO postgres;
 
 --
--- TOC entry 3474 (class 0 OID 0)
+-- TOC entry 3476 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: lote_id_lote_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -330,7 +332,7 @@ ALTER SEQUENCE public.lote_id_lote_seq OWNED BY public.lote.id_lote;
 
 
 --
--- TOC entry 225 (class 1259 OID 16538)
+-- TOC entry 225 (class 1259 OID 41268)
 -- Name: pedidos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -345,14 +347,15 @@ CREATE TABLE public.pedidos (
     id_tipofact integer NOT NULL,
     id_envio integer NOT NULL,
     id_cliente integer NOT NULL,
-    id_zona integer NOT NULL
+    id_zona integer NOT NULL,
+    estado_pedido smallint DEFAULT 0 NOT NULL
 );
 
 
 ALTER TABLE public.pedidos OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 16541)
+-- TOC entry 226 (class 1259 OID 41272)
 -- Name: pedidos_id_pedidos_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -368,7 +371,7 @@ CREATE SEQUENCE public.pedidos_id_pedidos_seq
 ALTER TABLE public.pedidos_id_pedidos_seq OWNER TO postgres;
 
 --
--- TOC entry 3475 (class 0 OID 0)
+-- TOC entry 3477 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: pedidos_id_pedidos_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -377,7 +380,7 @@ ALTER SEQUENCE public.pedidos_id_pedidos_seq OWNED BY public.pedidos.id_pedidos;
 
 
 --
--- TOC entry 227 (class 1259 OID 16542)
+-- TOC entry 227 (class 1259 OID 41273)
 -- Name: personal; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -396,7 +399,7 @@ CREATE TABLE public.personal (
 ALTER TABLE public.personal OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 16545)
+-- TOC entry 228 (class 1259 OID 41276)
 -- Name: personal_id_personal_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -412,7 +415,7 @@ CREATE SEQUENCE public.personal_id_personal_seq
 ALTER TABLE public.personal_id_personal_seq OWNER TO postgres;
 
 --
--- TOC entry 3476 (class 0 OID 0)
+-- TOC entry 3478 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: personal_id_personal_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -421,7 +424,7 @@ ALTER SEQUENCE public.personal_id_personal_seq OWNED BY public.personal.id_perso
 
 
 --
--- TOC entry 229 (class 1259 OID 16546)
+-- TOC entry 229 (class 1259 OID 41277)
 -- Name: presentacion; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -434,7 +437,7 @@ CREATE TABLE public.presentacion (
 ALTER TABLE public.presentacion OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 16549)
+-- TOC entry 230 (class 1259 OID 41280)
 -- Name: presentacion_id_presentacion_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -450,7 +453,7 @@ CREATE SEQUENCE public.presentacion_id_presentacion_seq
 ALTER TABLE public.presentacion_id_presentacion_seq OWNER TO postgres;
 
 --
--- TOC entry 3477 (class 0 OID 0)
+-- TOC entry 3479 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: presentacion_id_presentacion_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -459,7 +462,7 @@ ALTER SEQUENCE public.presentacion_id_presentacion_seq OWNED BY public.presentac
 
 
 --
--- TOC entry 231 (class 1259 OID 16550)
+-- TOC entry 231 (class 1259 OID 41281)
 -- Name: producto; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -475,14 +478,15 @@ CREATE TABLE public.producto (
     existencias integer,
     id_provee integer NOT NULL,
     id_linea integer NOT NULL,
-    id_presentacion integer NOT NULL
+    id_presentacion integer NOT NULL,
+    estado_producto smallint DEFAULT 0 NOT NULL
 );
 
 
 ALTER TABLE public.producto OWNER TO postgres;
 
 --
--- TOC entry 232 (class 1259 OID 16553)
+-- TOC entry 232 (class 1259 OID 41285)
 -- Name: producto_id_producto_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -498,7 +502,7 @@ CREATE SEQUENCE public.producto_id_producto_seq
 ALTER TABLE public.producto_id_producto_seq OWNER TO postgres;
 
 --
--- TOC entry 3478 (class 0 OID 0)
+-- TOC entry 3480 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: producto_id_producto_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -507,7 +511,7 @@ ALTER SEQUENCE public.producto_id_producto_seq OWNED BY public.producto.id_produ
 
 
 --
--- TOC entry 233 (class 1259 OID 16554)
+-- TOC entry 233 (class 1259 OID 41286)
 -- Name: proveedor; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -522,7 +526,7 @@ CREATE TABLE public.proveedor (
 ALTER TABLE public.proveedor OWNER TO postgres;
 
 --
--- TOC entry 234 (class 1259 OID 16557)
+-- TOC entry 234 (class 1259 OID 41289)
 -- Name: proveedor_id_provee_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -538,7 +542,7 @@ CREATE SEQUENCE public.proveedor_id_provee_seq
 ALTER TABLE public.proveedor_id_provee_seq OWNER TO postgres;
 
 --
--- TOC entry 3479 (class 0 OID 0)
+-- TOC entry 3481 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: proveedor_id_provee_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -547,7 +551,7 @@ ALTER SEQUENCE public.proveedor_id_provee_seq OWNED BY public.proveedor.id_prove
 
 
 --
--- TOC entry 235 (class 1259 OID 16558)
+-- TOC entry 235 (class 1259 OID 41290)
 -- Name: tipo_fact; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -560,7 +564,7 @@ CREATE TABLE public.tipo_fact (
 ALTER TABLE public.tipo_fact OWNER TO postgres;
 
 --
--- TOC entry 236 (class 1259 OID 16561)
+-- TOC entry 236 (class 1259 OID 41293)
 -- Name: tipo_fact_id_tipofact_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -576,7 +580,7 @@ CREATE SEQUENCE public.tipo_fact_id_tipofact_seq
 ALTER TABLE public.tipo_fact_id_tipofact_seq OWNER TO postgres;
 
 --
--- TOC entry 3480 (class 0 OID 0)
+-- TOC entry 3482 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: tipo_fact_id_tipofact_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -585,7 +589,7 @@ ALTER SEQUENCE public.tipo_fact_id_tipofact_seq OWNED BY public.tipo_fact.id_tip
 
 
 --
--- TOC entry 237 (class 1259 OID 16562)
+-- TOC entry 237 (class 1259 OID 41294)
 -- Name: zona; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -598,7 +602,7 @@ CREATE TABLE public.zona (
 ALTER TABLE public.zona OWNER TO postgres;
 
 --
--- TOC entry 238 (class 1259 OID 16565)
+-- TOC entry 238 (class 1259 OID 41297)
 -- Name: zona_id_zona_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -614,7 +618,7 @@ CREATE SEQUENCE public.zona_id_zona_seq
 ALTER TABLE public.zona_id_zona_seq OWNER TO postgres;
 
 --
--- TOC entry 3481 (class 0 OID 0)
+-- TOC entry 3483 (class 0 OID 0)
 -- Dependencies: 238
 -- Name: zona_id_zona_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -623,7 +627,7 @@ ALTER SEQUENCE public.zona_id_zona_seq OWNED BY public.zona.id_zona;
 
 
 --
--- TOC entry 3234 (class 2604 OID 16566)
+-- TOC entry 3234 (class 2604 OID 41298)
 -- Name: cargo id_cargo; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -631,7 +635,7 @@ ALTER TABLE ONLY public.cargo ALTER COLUMN id_cargo SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3235 (class 2604 OID 16567)
+-- TOC entry 3235 (class 2604 OID 41299)
 -- Name: cliente id_cliente; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -639,7 +643,7 @@ ALTER TABLE ONLY public.cliente ALTER COLUMN id_cliente SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 3236 (class 2604 OID 16568)
+-- TOC entry 3236 (class 2604 OID 41300)
 -- Name: detalle_pedido id_detapedi; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -647,7 +651,7 @@ ALTER TABLE ONLY public.detalle_pedido ALTER COLUMN id_detapedi SET DEFAULT next
 
 
 --
--- TOC entry 3237 (class 2604 OID 16569)
+-- TOC entry 3237 (class 2604 OID 41301)
 -- Name: envio id_envio; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -655,7 +659,7 @@ ALTER TABLE ONLY public.envio ALTER COLUMN id_envio SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3238 (class 2604 OID 16570)
+-- TOC entry 3238 (class 2604 OID 41302)
 -- Name: especialidad id_especi; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -663,7 +667,7 @@ ALTER TABLE ONLY public.especialidad ALTER COLUMN id_especi SET DEFAULT nextval(
 
 
 --
--- TOC entry 3239 (class 2604 OID 16571)
+-- TOC entry 3239 (class 2604 OID 41303)
 -- Name: institucion id_insti; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -671,7 +675,7 @@ ALTER TABLE ONLY public.institucion ALTER COLUMN id_insti SET DEFAULT nextval('p
 
 
 --
--- TOC entry 3240 (class 2604 OID 16572)
+-- TOC entry 3240 (class 2604 OID 41304)
 -- Name: linea id_linea; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -679,7 +683,7 @@ ALTER TABLE ONLY public.linea ALTER COLUMN id_linea SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3241 (class 2604 OID 16573)
+-- TOC entry 3241 (class 2604 OID 41305)
 -- Name: lote id_lote; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -687,7 +691,7 @@ ALTER TABLE ONLY public.lote ALTER COLUMN id_lote SET DEFAULT nextval('public.lo
 
 
 --
--- TOC entry 3242 (class 2604 OID 16574)
+-- TOC entry 3243 (class 2604 OID 41306)
 -- Name: pedidos id_pedidos; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -695,7 +699,7 @@ ALTER TABLE ONLY public.pedidos ALTER COLUMN id_pedidos SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 3243 (class 2604 OID 16575)
+-- TOC entry 3244 (class 2604 OID 41307)
 -- Name: personal id_personal; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -703,7 +707,7 @@ ALTER TABLE ONLY public.personal ALTER COLUMN id_personal SET DEFAULT nextval('p
 
 
 --
--- TOC entry 3244 (class 2604 OID 16576)
+-- TOC entry 3245 (class 2604 OID 41308)
 -- Name: presentacion id_presentacion; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -711,7 +715,7 @@ ALTER TABLE ONLY public.presentacion ALTER COLUMN id_presentacion SET DEFAULT ne
 
 
 --
--- TOC entry 3245 (class 2604 OID 16577)
+-- TOC entry 3247 (class 2604 OID 41309)
 -- Name: producto id_producto; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -719,7 +723,7 @@ ALTER TABLE ONLY public.producto ALTER COLUMN id_producto SET DEFAULT nextval('p
 
 
 --
--- TOC entry 3246 (class 2604 OID 16578)
+-- TOC entry 3248 (class 2604 OID 41310)
 -- Name: proveedor id_provee; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -727,7 +731,7 @@ ALTER TABLE ONLY public.proveedor ALTER COLUMN id_provee SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3247 (class 2604 OID 16579)
+-- TOC entry 3249 (class 2604 OID 41311)
 -- Name: tipo_fact id_tipofact; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -735,7 +739,7 @@ ALTER TABLE ONLY public.tipo_fact ALTER COLUMN id_tipofact SET DEFAULT nextval('
 
 
 --
--- TOC entry 3248 (class 2604 OID 16580)
+-- TOC entry 3250 (class 2604 OID 41312)
 -- Name: zona id_zona; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -743,7 +747,7 @@ ALTER TABLE ONLY public.zona ALTER COLUMN id_zona SET DEFAULT nextval('public.zo
 
 
 --
--- TOC entry 3432 (class 0 OID 16506)
+-- TOC entry 3434 (class 0 OID 41236)
 -- Dependencies: 209
 -- Data for Name: cargo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -751,7 +755,86 @@ ALTER TABLE ONLY public.zona ALTER COLUMN id_zona SET DEFAULT nextval('public.zo
 
 
 --
--- TOC entry 3482 (class 0 OID 0)
+-- TOC entry 3436 (class 0 OID 41240)
+-- Dependencies: 211
+-- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3438 (class 0 OID 41244)
+-- Dependencies: 213
+-- Data for Name: detalle_pedido; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+--
+-- TOC entry 3440 (class 0 OID 41248)
+-- Dependencies: 215
+-- Data for Name: envio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3442 (class 0 OID 41252)
+-- Dependencies: 217
+-- Data for Name: especialidad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+--
+-- TOC entry 3444 (class 0 OID 41256)
+-- Dependencies: 219
+-- Data for Name: institucion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+
+--
+-- TOC entry 3446 (class 0 OID 41260)
+-- Dependencies: 221
+-- Data for Name: linea; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3448 (class 0 OID 41264)
+-- Dependencies: 223
+-- Data for Name: lote; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+
+--
+-- TOC entry 3450 (class 0 OID 41268)
+-- Dependencies: 225
+-- Data for Name: pedidos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+
+--
+-- TOC entry 3452 (class 0 OID 41273)
+-- Dependencies: 227
+-- Data for Name: personal; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+
+--
+-- TOC entry 3454 (class 0 OID 41277)
+-- Dependencies: 229
+-- Data for Name: presentacion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+--
+-- TOC entry 3484 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: cargo_id_cargo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -760,7 +843,7 @@ SELECT pg_catalog.setval('public.cargo_id_cargo_seq', 1, false);
 
 
 --
--- TOC entry 3483 (class 0 OID 0)
+-- TOC entry 3485 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: cliente_id_cliente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -769,7 +852,7 @@ SELECT pg_catalog.setval('public.cliente_id_cliente_seq', 1, false);
 
 
 --
--- TOC entry 3484 (class 0 OID 0)
+-- TOC entry 3486 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: detalle_pedido_id_detapedi_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -778,7 +861,7 @@ SELECT pg_catalog.setval('public.detalle_pedido_id_detapedi_seq', 1, false);
 
 
 --
--- TOC entry 3485 (class 0 OID 0)
+-- TOC entry 3487 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: envio_id_envio_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -787,7 +870,7 @@ SELECT pg_catalog.setval('public.envio_id_envio_seq', 1, false);
 
 
 --
--- TOC entry 3486 (class 0 OID 0)
+-- TOC entry 3488 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: especialidad_id_especi_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -796,7 +879,7 @@ SELECT pg_catalog.setval('public.especialidad_id_especi_seq', 1, false);
 
 
 --
--- TOC entry 3487 (class 0 OID 0)
+-- TOC entry 3489 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: institucion_id_insti_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -805,7 +888,7 @@ SELECT pg_catalog.setval('public.institucion_id_insti_seq', 1, false);
 
 
 --
--- TOC entry 3488 (class 0 OID 0)
+-- TOC entry 3490 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: linea_id_linea_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -814,7 +897,7 @@ SELECT pg_catalog.setval('public.linea_id_linea_seq', 1, false);
 
 
 --
--- TOC entry 3489 (class 0 OID 0)
+-- TOC entry 3491 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: lote_id_lote_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -823,7 +906,7 @@ SELECT pg_catalog.setval('public.lote_id_lote_seq', 1, false);
 
 
 --
--- TOC entry 3490 (class 0 OID 0)
+-- TOC entry 3492 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: pedidos_id_pedidos_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -832,7 +915,7 @@ SELECT pg_catalog.setval('public.pedidos_id_pedidos_seq', 1, false);
 
 
 --
--- TOC entry 3491 (class 0 OID 0)
+-- TOC entry 3493 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: personal_id_personal_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -841,7 +924,7 @@ SELECT pg_catalog.setval('public.personal_id_personal_seq', 1, false);
 
 
 --
--- TOC entry 3492 (class 0 OID 0)
+-- TOC entry 3494 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: presentacion_id_presentacion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -850,7 +933,7 @@ SELECT pg_catalog.setval('public.presentacion_id_presentacion_seq', 1, false);
 
 
 --
--- TOC entry 3493 (class 0 OID 0)
+-- TOC entry 3495 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: producto_id_producto_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -859,7 +942,7 @@ SELECT pg_catalog.setval('public.producto_id_producto_seq', 1, false);
 
 
 --
--- TOC entry 3494 (class 0 OID 0)
+-- TOC entry 3496 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: proveedor_id_provee_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -868,7 +951,7 @@ SELECT pg_catalog.setval('public.proveedor_id_provee_seq', 1, false);
 
 
 --
--- TOC entry 3495 (class 0 OID 0)
+-- TOC entry 3497 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: tipo_fact_id_tipofact_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -877,7 +960,7 @@ SELECT pg_catalog.setval('public.tipo_fact_id_tipofact_seq', 1, false);
 
 
 --
--- TOC entry 3496 (class 0 OID 0)
+-- TOC entry 3498 (class 0 OID 0)
 -- Dependencies: 238
 -- Name: zona_id_zona_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -886,7 +969,7 @@ SELECT pg_catalog.setval('public.zona_id_zona_seq', 1, false);
 
 
 --
--- TOC entry 3250 (class 2606 OID 16582)
+-- TOC entry 3252 (class 2606 OID 41314)
 -- Name: cargo cargo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -895,7 +978,7 @@ ALTER TABLE ONLY public.cargo
 
 
 --
--- TOC entry 3252 (class 2606 OID 16584)
+-- TOC entry 3254 (class 2606 OID 41316)
 -- Name: cliente cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -904,7 +987,7 @@ ALTER TABLE ONLY public.cliente
 
 
 --
--- TOC entry 3254 (class 2606 OID 16586)
+-- TOC entry 3256 (class 2606 OID 41318)
 -- Name: detalle_pedido detalle_pedido_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -913,7 +996,7 @@ ALTER TABLE ONLY public.detalle_pedido
 
 
 --
--- TOC entry 3256 (class 2606 OID 16588)
+-- TOC entry 3258 (class 2606 OID 41320)
 -- Name: envio envio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -922,7 +1005,7 @@ ALTER TABLE ONLY public.envio
 
 
 --
--- TOC entry 3258 (class 2606 OID 16590)
+-- TOC entry 3260 (class 2606 OID 41322)
 -- Name: especialidad especialidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -931,7 +1014,7 @@ ALTER TABLE ONLY public.especialidad
 
 
 --
--- TOC entry 3260 (class 2606 OID 16592)
+-- TOC entry 3262 (class 2606 OID 41324)
 -- Name: institucion institucion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -940,7 +1023,7 @@ ALTER TABLE ONLY public.institucion
 
 
 --
--- TOC entry 3262 (class 2606 OID 16594)
+-- TOC entry 3264 (class 2606 OID 41326)
 -- Name: linea linea_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -949,7 +1032,7 @@ ALTER TABLE ONLY public.linea
 
 
 --
--- TOC entry 3264 (class 2606 OID 16596)
+-- TOC entry 3266 (class 2606 OID 41328)
 -- Name: lote lote_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -958,7 +1041,7 @@ ALTER TABLE ONLY public.lote
 
 
 --
--- TOC entry 3266 (class 2606 OID 16598)
+-- TOC entry 3268 (class 2606 OID 41330)
 -- Name: pedidos pedidos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -967,7 +1050,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- TOC entry 3268 (class 2606 OID 16600)
+-- TOC entry 3270 (class 2606 OID 41332)
 -- Name: personal personal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -976,7 +1059,7 @@ ALTER TABLE ONLY public.personal
 
 
 --
--- TOC entry 3270 (class 2606 OID 16602)
+-- TOC entry 3272 (class 2606 OID 41334)
 -- Name: presentacion presentacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -985,7 +1068,7 @@ ALTER TABLE ONLY public.presentacion
 
 
 --
--- TOC entry 3272 (class 2606 OID 16604)
+-- TOC entry 3274 (class 2606 OID 41336)
 -- Name: producto producto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -994,7 +1077,7 @@ ALTER TABLE ONLY public.producto
 
 
 --
--- TOC entry 3274 (class 2606 OID 16606)
+-- TOC entry 3276 (class 2606 OID 41338)
 -- Name: proveedor proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1003,7 +1086,7 @@ ALTER TABLE ONLY public.proveedor
 
 
 --
--- TOC entry 3276 (class 2606 OID 16608)
+-- TOC entry 3278 (class 2606 OID 41340)
 -- Name: tipo_fact tipo_fact_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1012,7 +1095,7 @@ ALTER TABLE ONLY public.tipo_fact
 
 
 --
--- TOC entry 3278 (class 2606 OID 16610)
+-- TOC entry 3280 (class 2606 OID 41342)
 -- Name: zona zona_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1021,7 +1104,7 @@ ALTER TABLE ONLY public.zona
 
 
 --
--- TOC entry 3279 (class 2606 OID 16611)
+-- TOC entry 3281 (class 2606 OID 41343)
 -- Name: cliente cliente_id_especi_especialidad_id_especi; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1030,7 +1113,7 @@ ALTER TABLE ONLY public.cliente
 
 
 --
--- TOC entry 3280 (class 2606 OID 16616)
+-- TOC entry 3282 (class 2606 OID 41348)
 -- Name: cliente cliente_id_insti_institucion_id_insti; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1039,7 +1122,7 @@ ALTER TABLE ONLY public.cliente
 
 
 --
--- TOC entry 3281 (class 2606 OID 16621)
+-- TOC entry 3283 (class 2606 OID 41353)
 -- Name: detalle_pedido detalle_pedido_id_pedidos_pedidos_id_pedidos; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1048,7 +1131,7 @@ ALTER TABLE ONLY public.detalle_pedido
 
 
 --
--- TOC entry 3282 (class 2606 OID 16626)
+-- TOC entry 3284 (class 2606 OID 41358)
 -- Name: detalle_pedido detalle_pedido_id_producto_producto_id_producto; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1057,7 +1140,7 @@ ALTER TABLE ONLY public.detalle_pedido
 
 
 --
--- TOC entry 3283 (class 2606 OID 16631)
+-- TOC entry 3285 (class 2606 OID 41363)
 -- Name: lote lote_id_producto_producto_id_producto; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1066,7 +1149,7 @@ ALTER TABLE ONLY public.lote
 
 
 --
--- TOC entry 3284 (class 2606 OID 16636)
+-- TOC entry 3286 (class 2606 OID 41368)
 -- Name: pedidos pedidos_id_cliente_cliente_id_cliente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1075,7 +1158,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- TOC entry 3285 (class 2606 OID 16641)
+-- TOC entry 3287 (class 2606 OID 41373)
 -- Name: pedidos pedidos_id_envio_envio_id_envio; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1084,7 +1167,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- TOC entry 3286 (class 2606 OID 16646)
+-- TOC entry 3288 (class 2606 OID 41378)
 -- Name: pedidos pedidos_id_personal_personal_id_personal; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1093,7 +1176,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- TOC entry 3287 (class 2606 OID 16651)
+-- TOC entry 3289 (class 2606 OID 41383)
 -- Name: pedidos pedidos_id_tipofact_tipo_fact_id_tipofact; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1102,7 +1185,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- TOC entry 3288 (class 2606 OID 16656)
+-- TOC entry 3290 (class 2606 OID 41388)
 -- Name: pedidos pedidos_id_zona_zona_id_zona; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1111,7 +1194,7 @@ ALTER TABLE ONLY public.pedidos
 
 
 --
--- TOC entry 3289 (class 2606 OID 16661)
+-- TOC entry 3291 (class 2606 OID 41393)
 -- Name: personal personal_id_cargo_cargo_id_cargo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1120,7 +1203,7 @@ ALTER TABLE ONLY public.personal
 
 
 --
--- TOC entry 3290 (class 2606 OID 16666)
+-- TOC entry 3292 (class 2606 OID 41398)
 -- Name: producto producto_id_linea_linea_id_linea; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1129,7 +1212,7 @@ ALTER TABLE ONLY public.producto
 
 
 --
--- TOC entry 3291 (class 2606 OID 16671)
+-- TOC entry 3293 (class 2606 OID 41403)
 -- Name: producto producto_id_presentacion_presentacion_id_presentacion; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1138,7 +1221,7 @@ ALTER TABLE ONLY public.producto
 
 
 --
--- TOC entry 3292 (class 2606 OID 16676)
+-- TOC entry 3294 (class 2606 OID 41408)
 -- Name: producto producto_id_provee_proveedor_id_provee; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1146,7 +1229,7 @@ ALTER TABLE ONLY public.producto
     ADD CONSTRAINT producto_id_provee_proveedor_id_provee FOREIGN KEY (id_provee) REFERENCES public.proveedor(id_provee);
 
 
--- Completed on 2022-06-28 11:05:31
+-- Completed on 2022-09-02 05:57:35
 
 --
 -- PostgreSQL database dump complete

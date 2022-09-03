@@ -125,12 +125,12 @@ public function setDireccion($value)
     }
     public function getClave()
     {
-        return $this->contacto;
+        return $this->clave;
     }
 
     public function getCargo()
     {
-        return $this->telefono;
+        return $this->cargo;
     }
 
     public function searchRows($value)
@@ -147,15 +147,25 @@ public function setDireccion($value)
     {
         $sql = 'INSERT INTO personal(nombre,dui,telefono,direccion,usuario,clave,id_cargo)
                 VALUES(?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->contacto, $this->telefono);
+        $params = array($this->nombre,$this->dui, $this->telefono,$this->direccion,$this->usuario,$this->clave,$this->cargo);
+        return Database::executeRow($sql, $params);
+    }
+    public function registro()
+    {
+        $sql = "WITH auto_cargo as (
+          INSERT INTO cargo (nombre_cargo) VALUES ('propietario') 
+          RETURNING id_cargo)
+        INSERT INTO personal (nombre,telefono,usuario,clave,id_cargo)
+        VALUES (?,?,?,?,(SELECT id_cargo FROM auto_cargo))";
+        $params = array($this->nombre, $this->telefono,$this->usuario,$this->clave);
         return Database::executeRow($sql, $params);
     }
     public function readAll()
     {
-        $sql = 'SELECT id_personal, nombre,dui,telefono,direccion,usuario,clave,nombre_cargo
-                FROM personal INNER JOIN cargo USING (id_cargo)
+        $sql = 'SELECT id_personal, nombre,dui,telefono,direccion,usuario,clave
+                FROM personal
                 ORDER BY nombre';
-        $params = null;
+         $params = null;
         return Database::getRows($sql, $params);
     }
 
@@ -180,7 +190,7 @@ public function setDireccion($value)
         $sql = 'SELECT id_personal FROM personal WHERE usuario = ?';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
-            $this->id = $data['id_usuario'];
+            $this->id = $data['id_personal'];
             $this->usuario = $usuario;
             return true;
         } else {
@@ -214,7 +224,14 @@ public function setDireccion($value)
         $params = array($_SESSION['id_personal']);
         return Database::getRow($sql, $params);
     }
-
+    public function updateRow()
+    {
+        $sql = 'UPDATE personal
+                SET nombres = ?,telefono = ?
+                WHERE id_personal = ?';
+        $params = array($this->nombre,$this->telefono, $this->id);
+        return Database::executeRow($sql, $params);
+    }
     public function editProfile()
     {
         $sql = 'UPDATE personal
@@ -223,6 +240,7 @@ public function setDireccion($value)
         $params = array($this->nombre, $this->dui, $this->telefono, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
     }
+    //REPORTE
     public function personalcargo()
     {
     $sql = 'SELECT c.id_cargo,p.nombre,p.telefono,p.usuario,c.nombre_cargo

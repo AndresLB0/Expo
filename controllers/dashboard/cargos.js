@@ -1,41 +1,56 @@
-const API_PRESEN = SERVER + 'dashboard/presentacion.php?action=';
+const API_CARGO = SERVER + 'dashboard/cargo.php?action=';
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    readRows(API_PRESEN);
+    readRows(API_CARGO);
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
 });
 
+if (document.getElementById("cargo")) {
+    function fillTable(dataset) {
+        let content = '';
+        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+        dataset.map(function (row) {
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+            content += `
+                <tr>
+                    <td>${row.nombre_cargo}</td>
+                    <td>
+                        <a onclick="openUpdate(${row.id_cargo})" class="btn-floating blue tooltipped" data-tooltip="Actualizar">
+                            <i class="material-icons">mode_edit</i>
+                        </a>
+                        <a onclick="openDelete(${row.id_cargo})" class="btn-floating red tooltipped" data-tooltip="Eliminar">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            `;
+        });
+        // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
+        document.getElementById('cargo').innerHTML = content;
+        // Se inicializa el componente Material Box para que funcione el efecto Lightbox.
+        M.Materialbox.init(document.querySelectorAll('.materialboxed'));
+        // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
+        M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+    }
+    }
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
+
 function fillTable(dataset) {
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
     dataset.map(function (row) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += `
-            <tr>
-                <td>${row.presentacio}</td>
-                <td>
-                    <a onclick="openUpdate(${row.id_presentacion})" class="btn-floating blue tooltipped" data-tooltip="Actualizar">
-                        <i class="material-icons">mode_edit</i>
-                    </a>
-                    <a onclick="openDelete(${row.id_presentacion})" class="btn-floating red tooltipped" data-tooltip="Eliminar">
-                        <i class="material-icons">delete</i>
-                    </a>
-                    <a onclick="openReport(${row.id_presentacion})" class="btn-floating indigo tooltipped" data-tooltip="Reporte">
-                        <i class="material-icons">assignment</i>
-                    </a>
-                </td>
-            </tr>
+        <li class="tab col s3 m3 l2"><a href="#${row.id_cargo}">${row.nombre_cargo}</a></li>
         `;
     });
     // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
-    document.getElementById('prod').innerHTML = content;
+    document.getElementById('tabs-swipe-demo').innerHTML = content;
     // Se inicializa el componente Material Box para que funcione el efecto Lightbox.
-    M.Materialbox.init(document.querySelectorAll('.materialboxed'));
     // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
-    M.Tooltip.init(document.querySelectorAll('.tooltipped'));
-}
+  }
+
 
 // Función para preparar el formulario al momento de insertar un registro.
 function openCreate() {
@@ -48,14 +63,6 @@ function openCreate() {
 }
 
 // Función para abrir el reporte de productos por categoría.
-function openReport(id) {
-    // Se define una variable para inicializar los parámetros del reporte.
-    let params = '?id=' + id;
-    // Se establece la ruta del reporte en el servidor.
-    let url = SERVER + 'Reportes/presentacion.php';
-    // Se abre el reporte en una nueva pestaña del navegador web.
-    window.open(url + params);
-}
 
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdate(id) {
@@ -69,7 +76,7 @@ function openUpdate(id) {
     const data = new FormData();
     data.append('id', id);
     // Petición para obtener los datos del registro solicitado.
-    fetch(API_PRESEN + 'readOne', {
+    fetch(API_MARCAS + 'readOne', {
         method: 'post',
         body: data
     }).then(function (request) {
@@ -100,5 +107,5 @@ function openDelete(id) {
     const data = new FormData();
     data.append('id', id);
     // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
-    confirmDelete(API_PRESEN, data);
+    confirmDelete(API_MARCAS, data);
 }

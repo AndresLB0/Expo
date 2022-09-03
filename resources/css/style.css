@@ -47,7 +47,8 @@ body.azul {
 .boton:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
-input[type="submit"]:hover {
+input[type="submit"]:hover 
+button {
   text-decoration: none;
   background-color: #3ecce9;
 }
@@ -82,7 +83,8 @@ input[type="submit"]:hover {
   /* disenio de los botones de button,reset y submit (brs 1/4) */
   input[type="button"],
   input[type="reset"],
-  input[type="submit"] {
+  input[type="submit"]
+  button  {
     background-color: #63e4fe;
     border-radius: 32px;
     height: 40px;
@@ -110,7 +112,8 @@ input[type="submit"]:hover {
   /* disenio de los botones de button,reset y submit (brs 2/4) */
   input[type="button"],
   input[type="reset"],
-  input[type="submit"] {
+  input[type="submit"] 
+  button {
     background-color: #63e4fe;
     border-radius: 32px;
     height: 40px;
@@ -142,7 +145,8 @@ input[type="submit"]:hover {
   /* plantilla de los botones (brs 3/4) */
   input[type="button"],
   input[type="reset"],
-  input[type="submit"] {
+  input[type="submit"] 
+  button {
     background-color: #63e4fe;
     border-radius: 32px;
     height: 50px;
@@ -403,7 +407,8 @@ input[type="submit"]:hover {
   /* plantilla de los botones (brs 4/4) */
   input[type="button"],
   input[type="reset"],
-  input[type="submit"] {
+  input[type="submit"]
+  button {
     background-color: #63e4fe;
     border-radius: 32px;
     height: 50px;

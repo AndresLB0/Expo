@@ -1,14 +1,14 @@
 <?php
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/presentacion.php');
+require_once('../modelos/cargos.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $presentacion = new presentacion;
+    $cargo = new cargos;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -16,7 +16,7 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'readAll':
-                if ($result['dataset'] = $presentacion->readAll()) {
+                if ($result['dataset'] = $cargo->readAll()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -25,10 +25,10 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'search':
-                $_POST = $presentacion->validateForm($_POST);
+                $_POST = $cargo->validateForm($_POST);
                 if ($_POST['search'] == '') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $presentacion->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $cargo->searchRows($_POST['search'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Valor encontrado';
                 } elseif (Database::getException()) {
@@ -38,92 +38,88 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'create':
-                $_POST = $presentacion->validateForm($_POST);
-                if (!$presentacion->setNombre($_POST['nombre'])) {
+                $_POST = $cargo->validateForm($_POST);
+                if (!$cargo->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$presentacion->setDescripcion($_POST['descripcion'])) {
+                } elseif (!$cargo->setDescripcion($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$presentacion->setPrecio($_POST['precio'])) {
+                } elseif (!$cargo->setPrecio($_POST['precio'])) {
                     $result['exception'] = 'Precio incorrecto';
                 } elseif (!isset($_POST['categoria'])) {
                     $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$presentacion->setCategoria($_POST['categoria'])) {
+                } elseif (!$cargo->setCategoria($_POST['categoria'])) {
                     $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$presentacion->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                } elseif (!$cargo->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                     $result['exception'] = 'Estado incorrecto';
-                } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!$presentacion->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $presentacion->getFileError();
-                } elseif ($presentacion->createRow()) {
+                }  elseif ($cargo->createRow()) {
                     $result['status'] = 1;
-                    if ($presentacion->saveFile($_FILES['archivo'], $presentacion->getRuta(), $presentacion->getImagen())) {
-                        $result['message'] = 'presentacion creado correctamente';
+                    if ($cargo->saveFile($_FILES['archivo'], $cargo->getRuta(), $cargo->getImagen())) {
+                        $result['message'] = 'cargo creado correctamente';
                     } else {
-                        $result['message'] = 'presentacion creado pero no se guardó la imagen';
+                        $result['message'] = 'cargo creado pero no se guardó la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();;
                 }
                 break;
             case 'readOne':
-                if (!$presentacion->setID($_POST['id'])) {
-                    $result['exception'] = 'presentacion incorrecto';
-                } elseif ($result['dataset'] = $presentacion->readOne()) {
+                if (!$cargo->setID($_POST['id'])) {
+                    $result['exception'] = 'cargo incorrecto';
+                } elseif ($result['dataset'] = $cargo->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'presentacion inexistente';
+                    $result['exception'] = 'cargo inexistente';
                 }
                 break;
             case 'update':
-                $_POST = $presentacion->validateForm($_POST);
-                if (!$presentacion->setID($_POST['id'])) {
-                    $result['exception'] = 'presentacion incorrecto';
-                } elseif (!$data = $presentacion->readOne()) {
-                    $result['exception'] = 'presentacion inexistente';
-                } elseif (!$presentacion->setNombre($_POST['nombre'])) {
+                $_POST = $cargo->validateForm($_POST);
+                if (!$cargo->setID($_POST['id'])) {
+                    $result['exception'] = 'cargo incorrecto';
+                } elseif (!$data = $cargo->readOne()) {
+                    $result['exception'] = 'cargo inexistente';
+                } elseif (!$cargo->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$presentacion->setDescripcion($_POST['descripcion'])) {
+                } elseif (!$cargo->setDescripcion($_POST['descripcion'])) {
                     $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$presentacion->setPrecio($_POST['precio'])) {
+                } elseif (!$cargo->setPrecio($_POST['precio'])) {
                     $result['exception'] = 'Precio incorrecto';
-                } elseif (!$presentacion->setCategoria($_POST['categoria'])) {
+                } elseif (!$cargo->setCategoria($_POST['categoria'])) {
                     $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$presentacion->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                } elseif (!$cargo->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    if ($presentacion->updateRow($data['imagen_presentacion'])) {
+                    if ($cargo->updateRow($data['imagen_cargo'])) {
                         $result['status'] = 1;
-                        $result['message'] = 'presentacion modificado correctamente';
+                        $result['message'] = 'cargo modificado correctamente';
                     } else {
                         $result['exception'] = Database::getException();
                     }
-                } elseif (!$presentacion->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $presentacion->getFileError();
-                } elseif ($presentacion->updateRow($data['imagen_presentacion'])) {
+                } elseif (!$cargo->setImagen($_FILES['archivo'])) {
+                    $result['exception'] = $cargo->getFileError();
+                } elseif ($cargo->updateRow($data['imagen_cargo'])) {
                     $result['status'] = 1;
-                    if ($presentacion->saveFile($_FILES['archivo'], $presentacion->getRuta(), $presentacion->getImagen())) {
-                        $result['message'] = 'presentacion modificado correctamente';
+                    if ($cargo->saveFile($_FILES['archivo'], $cargo->getRuta(), $cargo->getImagen())) {
+                        $result['message'] = 'cargo modificado correctamente';
                     } else {
-                        $result['message'] = 'presentacion modificado pero no se guardó la imagen';
+                        $result['message'] = 'cargo modificado pero no se guardó la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();
                 }
                 break;
             case 'delete':
-                if (!$presentacion->setID($_POST['id'])) {
-                    $result['exception'] = 'presentacion incorrecto';
-                } elseif (!$data = $presentacion->readOne()) {
-                    $result['exception'] = 'presentacion inexistente';
-                } elseif ($presentacion->deleteRow()) {
+                if (!$cargo->setID($_POST['id'])) {
+                    $result['exception'] = 'cargo incorrecto';
+                } elseif (!$data = $cargo->readOne()) {
+                    $result['exception'] = 'cargo inexistente';
+                } elseif ($cargo->deleteRow()) {
                     $result['status'] = 1;
-                    if ($presentacion->deleteFile($presentacion->getRuta(), $data['imagen_presentacion'])) {
-                        $result['message'] = 'presentacion eliminado correctamente';
+                    if ($cargo->deleteFile($cargo->getRuta(), $data['imagen_cargo'])) {
+                        $result['message'] = 'cargo eliminado correctamente';
                     } else {
-                        $result['message'] = 'presentacion eliminado pero no se borró la imagen';
+                        $result['message'] = 'cargo eliminado pero no se borró la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();
