@@ -37,15 +37,6 @@ function fillTable(dataset) {
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }
 
-// Función para preparar el formulario al momento de insertar un registro.
-function openCreate() {
-    // Se abre la caja de diálogo (modal) que contiene el formulario.
-    M.Modal.getInstance(document.getElementById('save-modal')).open();
-    // Se asigna el título para la caja de diálogo (modal).
-    document.getElementById('modal-title').textContent = 'Crear categoría';
-    // Se establece el campo de archivo como obligatorio.
-    document.getElementById('archivo').required = true;
-}
 
 // Función para abrir el reporte de productos por categoría.
 function openReport(id) {
@@ -80,8 +71,7 @@ function openUpdate(id) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-                    document.getElementById('id').value = response.dataset.id_marca;
-                    document.getElementById('nombre').value = response.dataset.nombre_marca;
+                    document.getElementById('presentacion').value = response.dataset.presentacio;
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
                     M.updateTextFields();
                 } else {
@@ -94,6 +84,16 @@ function openUpdate(id) {
     });
 }
 
+document.getElementById('save-form').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se define una variable para establecer la acción a realizar en la API.
+    let action = '';
+    // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
+    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
+    saveRow(API_PRESEN, action, 'save-form');
+});
 // Función para establecer el registro a eliminar y abrir una caja de diálogo de confirmación.
 function openDelete(id) {
     // Se define un objeto con los datos del registro seleccionado.

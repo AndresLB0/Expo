@@ -25,10 +25,13 @@
         <div class="col s12 m6">
           <div class="contenedor gris center">
             <h4>agregar presentacion</h4>
-            <div class="col s12 m6 offset m3 offset-m3">
-              <input type="text" name="especialidad" placeholder="Nombre" class="text" required>
-              <input type="button" value="agregar presentacion"></button>
+            <form method="post" id="save-form"  enctype="multipart/form-data">
+              <input class="hide" type="number" id="id" name="id">
+            <div class="input-field col s12 m6 offset m3 offset-m3">
+              <input type="text" id="presentacion" name="presentacion" placeholder="Nombre" class="text" required>
             </div>
+            <button class="boton" type="submit">agregar presentacion</button>
+            </form>
           </div>
           <div class="col s12 m6 offset-m2">
             <div class="input-field">

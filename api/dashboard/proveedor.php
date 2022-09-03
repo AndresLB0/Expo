@@ -37,35 +37,21 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-            case 'create':
-                $_POST = $proveedores->validateForm($_POST);
-                if (!$proveedores->setNombre($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$proveedores->setDescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$proveedores->setPrecio($_POST['precio'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!isset($_POST['categoria'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$proveedores->setCategoria($_POST['categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$proveedores->setEstado(isset($_POST['estado']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!$proveedores->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $proveedores->getFileError();
-                } elseif ($proveedores->createRow()) {
-                    $result['status'] = 1;
-                    if ($proveedores->saveFile($_FILES['archivo'], $proveedores->getRuta(), $proveedores->getImagen())) {
-                        $result['message'] = 'proveedores creado correctamente';
+                case 'create':
+                    $_POST = $proveedores->validateForm($_POST);
+                    if (!$proveedores->setNombre($_POST['nombre'])) {
+                        $result['exception'] = 'Nombre incorrecto';
+                    } elseif (!$proveedores->setContacto($_POST['contacto'])) {
+                        $result['exception'] = 'Nombre de contacto incorrecto';
+                    }elseif (!$proveedores->setTelefono($_POST['telefono'])) {
+                        $result['exception'] = 'telefono incorrecto';
+                    }elseif ($proveedores->createRow()) {
+                        $result['status'] = 1;
+                            $result['message'] = 'Producto creado correctamente';
                     } else {
-                        $result['message'] = 'proveedores creado pero no se guardó la imagen';
+                        $result['exception'] = Database::getException();;
                     }
-                } else {
-                    $result['exception'] = Database::getException();;
-                }
-                break;
+                    break;
             case 'readOne':
                 if (!$proveedores->setID($_POST['id'])) {
                     $result['exception'] = 'proveedores incorrecto';

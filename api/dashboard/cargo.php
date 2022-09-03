@@ -37,31 +37,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-            case 'create':
-                $_POST = $cargo->validateForm($_POST);
-                if (!$cargo->setNombre($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$cargo->setDescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$cargo->setPrecio($_POST['precio'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!isset($_POST['categoria'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$cargo->setCategoria($_POST['categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$cargo->setEstado(isset($_POST['estado']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                }  elseif ($cargo->createRow()) {
-                    $result['status'] = 1;
-                    if ($cargo->saveFile($_FILES['archivo'], $cargo->getRuta(), $cargo->getImagen())) {
-                        $result['message'] = 'cargo creado correctamente';
+                case 'create':
+                    $_POST = $cargo->validateForm($_POST);
+                    if (!$cargo->setNombre($_POST['nombre'])) {
+                        $result['exception'] = 'Nombre incorrecto';
+                    } elseif ($cargo->createRow()) {
+                        $result['status'] = 1;
+                            $result['message'] = 'cargo creado correctamente';
                     } else {
-                        $result['message'] = 'cargo creado pero no se guardó la imagen';
+                        $result['exception'] = Database::getException();;
                     }
-                } else {
-                    $result['exception'] = Database::getException();;
-                }
-                break;
+                    break;
             case 'readOne':
                 if (!$cargo->setID($_POST['id'])) {
                     $result['exception'] = 'cargo incorrecto';
@@ -109,22 +95,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'delete':
-                if (!$cargo->setID($_POST['id'])) {
-                    $result['exception'] = 'cargo incorrecto';
-                } elseif (!$data = $cargo->readOne()) {
-                    $result['exception'] = 'cargo inexistente';
-                } elseif ($cargo->deleteRow()) {
-                    $result['status'] = 1;
-                    if ($cargo->deleteFile($cargo->getRuta(), $data['imagen_cargo'])) {
-                        $result['message'] = 'cargo eliminado correctamente';
+                case 'delete':
+                    if (!$cargo->setId($_POST['id'])) {
+                        $result['exception'] = 'cargo incorrecto';
+                    } elseif (!$data = $cargo->readOne()) {
+                        $result['exception'] = 'cargo inexistente';
+                    } elseif ($cargo->deleteRow()) {
+                        $result['status'] = 1;
+                            $result['message'] = 'cargo eliminado correctamente';
                     } else {
-                        $result['message'] = 'cargo eliminado pero no se borró la imagen';
+                        $result['exception'] = Database::getException();
                     }
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
+                    break;
             
         
 

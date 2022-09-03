@@ -20,19 +20,20 @@
   <main>
     <div class="contenedor gris">
       <h4>nuevo proveedor</h4>
-      <div class="row">
+      <form method="post" id="save-form" class="row">
+        <input class="hide" type="number" id="id" name="id">
         <div class="col s12 m4">
-          <input placeholder="nombre" id="nombre" type="text" class="validate text">
+          <input placeholder="nombre" name="nombre" id="nombre" type="text" class="validate text">
         </div>
         <div class="col s6 m4">
-          <input placeholder="nombre del contacto" id="contacto" type="text" class="validate text">
+          <input placeholder="nombre del contacto" name="contacto" id="contacto" type="text" class="validate text">
         </div>
         <div class="col s6 m4">
-          <input placeholder="telefono" id="tel" type="tel" class="validate text">
+          <input placeholder="telefono" name="telefono" id="tel" type="tel" class="validate text">
         </div>  
         <div class="container center">
-        <input id="enviar" type="submit" class="validate">
-      </div>
+        <button type="submit" class="validate boton">agregar proveedor</button>
+        </form>
       </div>
     
     </div>

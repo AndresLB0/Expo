@@ -4,9 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
   readRows(API_PERSO);
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
-    M.Tabs.init(document.querySelector('.tabs',{
-      swipeable:true
-    }));
 });
 
 

@@ -563,12 +563,6 @@ input.fecha[type=text]:not(.browser-default) {
 }
 
 /*manda a llamar a la fuente material icons */
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(../../fonts/icons.woff2) format('woff2');
-}
 
 .material-icons {
   font-family: 'Material Icons';

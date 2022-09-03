@@ -25,10 +25,13 @@
         <div class="col s12 m6">
           <div class="contenedor gris center">
             <h4>Nuevo cargo</h4>
+          <form id="save-form" method="post">
+          <input class="hide" type="number" id="id" name="id">
             <div class="col s12 m6 offset m3 offset-m3">
-              <input type="text" name="cargo" placeholder="Nombre" class="text" required>
-              <input type="button" value="agregar cargo"></button>
+              <input type="text" name="nombre" placeholder="Nombre" class="text" required>
+              <button type="submit" class="boton">agregar/modificar cargo</button>
             </div>
+            </form>
           </div>
           <div class="col s12 m6 offset-m2">
             <div class="input-field">
@@ -55,6 +58,7 @@
 
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+  <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
   <script type="text/javascript" src="../controllers/components.js"></script>
   <script type="text/javascript" src="../controllers/dashboard/cargos.js"></script>
 </body>

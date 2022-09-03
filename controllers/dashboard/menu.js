@@ -46,6 +46,7 @@ class="sidenav-trigger"><i class="material-icons">menu</i></a>
                         document.querySelector('header').innerHTML = menu;
                         M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
                         M.Sidenav.init(document.querySelectorAll('.sidenav'));
+
                     } else {
                         sweetAlert(3, response.exception, 'index.html');
                     }

@@ -37,35 +37,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-            case 'create':
-                $_POST = $presentacion->validateForm($_POST);
-                if (!$presentacion->setNombre($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$presentacion->setDescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$presentacion->setPrecio($_POST['precio'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!isset($_POST['categoria'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$presentacion->setCategoria($_POST['categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$presentacion->setEstado(isset($_POST['estado']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!$presentacion->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $presentacion->getFileError();
-                } elseif ($presentacion->createRow()) {
-                    $result['status'] = 1;
-                    if ($presentacion->saveFile($_FILES['archivo'], $presentacion->getRuta(), $presentacion->getImagen())) {
-                        $result['message'] = 'presentacion creado correctamente';
+                case 'create':
+                    $_POST = $presentacion->validateForm($_POST);
+                    if (!$presentacion->setPresentacio($_POST['presentacion'])) {
+                        $result['exception'] = 'Nombre incorrecto';
+                    } elseif ($presentacion->createRow()) {
+                        $result['status'] = 1;
+                            $result['message'] = 'Producto creado correctamente';
                     } else {
-                        $result['message'] = 'presentacion creado pero no se guardó la imagen';
+                        $result['exception'] = Database::getException();;
                     }
-                } else {
-                    $result['exception'] = Database::getException();;
-                }
-                break;
+                    break;
             case 'readOne':
                 if (!$presentacion->setID($_POST['id'])) {
                     $result['exception'] = 'presentacion incorrecto';
@@ -113,22 +95,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'delete':
-                if (!$presentacion->setID($_POST['id'])) {
-                    $result['exception'] = 'presentacion incorrecto';
-                } elseif (!$data = $presentacion->readOne()) {
-                    $result['exception'] = 'presentacion inexistente';
-                } elseif ($presentacion->deleteRow()) {
-                    $result['status'] = 1;
-                    if ($presentacion->deleteFile($presentacion->getRuta(), $data['imagen_presentacion'])) {
-                        $result['message'] = 'presentacion eliminado correctamente';
+                case 'delete':
+                    if (!$presentacion->setId($_POST['id'])) {
+                        $result['exception'] = 'Producto incorrecto';
+                    } elseif (!$data = $presentacion->readOne()) {
+                        $result['exception'] = 'Producto inexistente';
+                    } elseif ($presentacion->deleteRow()) {
+                        $result['status'] = 1;
+                            $result['message'] = 'Producto eliminado correctamente';
                     } else {
-                        $result['message'] = 'presentacion eliminado pero no se borró la imagen';
+                        $result['exception'] = Database::getException();
                     }
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
+                    break;
             
         
 
