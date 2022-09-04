@@ -70,7 +70,7 @@ function graficoClientesPedidos() {
                         pedidos.push(row.pedidos);
                     });
                     // Se llama a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
-                    pieGraph('chart2', clientes, pedidos,'Clientes que hacen mas pedidos', 'Clientes con mas cantidad de pedidos');
+                    pieGraph('chart2', clientes, pedidos,'Top 5 clientes con mas pedidos');
                 } else {
                     document.getElementById('chart2').remove();
                     console.log(response.exception);
@@ -169,7 +169,7 @@ function graficoPersonalCargo() {
                         personal.push(row.personal);
                     });
                     // Se llama a la función que genera y muestra un gráfico de barras. Se encuentra en el archivo components.js
-                    doughnutGraph('chart5', cargo, personal,'Cantidad personal', 'Cantidad de personal por cargo');
+                    doughnutGraph('chart5', cargo, personal,'Cantidad personal por cargo');
                 } else {
                     document.getElementById('chart5').remove();
                     console.log(response.exception);

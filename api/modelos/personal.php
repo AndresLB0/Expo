@@ -282,7 +282,7 @@ public function cantidadPedidosZona()
  {
      $sql = 'SELECT count(*) as pedidos, nombre
      from pedidos inner join personal using (id_personal)
-     group by nombre';
+     group by nombre limit 5';
      $params = null;
      return Database::getRows($sql, $params);
  }
