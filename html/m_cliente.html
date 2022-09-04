@@ -53,30 +53,20 @@
             <!-- agregar el contenido abajo del comentario -->
             <div class="container">
               <div class="card white">
-                <div class="row">
-                  <div class="col s4 m2">
-                    <p> Nombre:Federico Campos</p>
-                    Nombre de contacto: <br> Roberto Muñoz <br> <br>
-                    Horarios de atencion: <br> 9:00 AM - 4:00 PM <br>
-                  </div>
-                  <div class="col m2">
-                    Monto maximo: <br> 50 <br> <br>
-                    Descuento autorizado: <br> 8% <br> <br>
-                    DNM: <br> 50676867564 <br>
-                  </div>
-                  <div class="col m2">
-                    NRC: <br> 50232242 <br> <br>
-                    Especialidad: <br> Medicina general <br> <br>
-                    no de junta <br> 23232312 <br>
-                  </div>
-                  <div class="col m2">
-                    Dui o Nit <br> 5022323213<br> <br>
-                    Fecha: <br> 04-07-1450 <br>
-                  </div>
-                  <div class="col m2">
-                    <textarea disabled name="" id="" cols="30" rows="10"></textarea>
-                  </div>
-                </div>
+                <table class="highlight">
+                  <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
+                  <thead>
+                      <tr>
+                          <th>Nombre</th>
+                          <th>Direccion</th>
+                          <th>horario</th>
+                          <th>especialidad</th>
+                          <th>Acciones</th>
+                      </tr>
+                  </thead>
+                  <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                  <tbody id="medic"></tbody>
+              </table>
               </div>
               <a class="tab no swipe col s8 waves-effect waves-light boton hide-on-large-only"
               href="a_medi.html">Agregar medico</a>
@@ -110,7 +100,7 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Nombre de contacto</th>
+                        <th>Direccion</th>
                         <th>horario</th>
                         <th>Institucion</th>
                         <th>Acciones</th>

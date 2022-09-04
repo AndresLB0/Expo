@@ -241,6 +241,15 @@ public function setDireccion($value)
         return Database::executeRow($sql, $params);
     }
     //REPORTE
+    public function readPeronalCargo()
+    {
+        $sql = 'SELECT nombre,nombre_cargo
+        FROM personal INNER JOIN cargo USING (id_cargo)
+        WHERE id_cargo = ?
+        order by id_cargo';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
     public function personalcargo()
     {
     $sql = 'SELECT c.id_cargo,p.nombre,p.telefono,p.usuario,c.nombre_cargo

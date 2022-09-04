@@ -4,12 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     readRows(API_CARGO);
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
-    M.Tabs.init(document.querySelectorAll('.tabs',{
-        swipeable:true
-      }));
 });
 
-if (document.getElementById("cargo")) {
     function fillTable(dataset) {
         let content = '';
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
@@ -36,23 +32,8 @@ if (document.getElementById("cargo")) {
         // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
         M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     }
-    }
-// Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 
-function fillTable(dataset) {
-    let pestania = '';
-    // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-    dataset.map(function (row) {
-        // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-        pestania += `
-        <li class="tab col s3 m3 l2"><a href="#${row.id_cargo}">${row.nombre_cargo}</a></li>
-        `;
-    });
-    // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
-    document.getElementById('tabs-swipe-demo').innerHTML = pestania;
-    // Se inicializa el componente Material Box para que funcione el efecto Lightbox.
-    // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
-  }
+// Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 
 
 // Función para preparar el formulario al momento de insertar un registro.

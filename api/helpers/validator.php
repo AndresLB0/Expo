@@ -219,7 +219,7 @@ class Validator
     public function validatePassword($value)
     {
         // Se verifica la longitud mínima.
-        if (strlen($value) >= 6) {
+        if (strlen($value) >= 8) {
             // Se verifica la longitud máxima.
             if (strlen($value) <= 72) {
                 return true;
@@ -228,7 +228,7 @@ class Validator
                 return false;
             }
         } else {
-            $this->passwordError = 'Clave menor a 6 caracteres';
+            $this->passwordError = 'Clave menor a 8 caracteres';
             return false;
         }
     }

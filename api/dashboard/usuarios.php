@@ -71,15 +71,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'readAll':
-                if ($result['dataset'] = $personal->readAll()) {
-                    $result['status'] = 1;
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
             case 'search':
                 $_POST = $personal->validateForm($_POST);
                 if ($_POST['search'] == '') {

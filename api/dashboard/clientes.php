@@ -16,8 +16,8 @@ if (isset($_GET['action'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un clientes ha iniciado sesión.
         switch ($_GET['action']) {
-            case 'readAll':
-                if ($result['dataset'] = $clientes->readAll()) {
+            case 'readAllInsti':
+                if ($result['dataset'] = $clientes->readAllInsti()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -25,6 +25,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                case 'readAllMedi':
+                    if ($result['dataset'] = $clientes->readAllMedi()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
+                    break;
             case 'getUser':
                 if (isset($_SESSION['correo_clientes'])) {
                     $result['status'] = 1;

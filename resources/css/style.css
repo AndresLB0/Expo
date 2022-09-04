@@ -20,6 +20,7 @@ body.azul {
   background-color: #5787ff !important;
 }
 
+
 /* disenio de los botones normales */
 .boton {
   background-color: #63e4fe;
@@ -60,7 +61,13 @@ button {
     border-radius: 32px;
     max-height: 550px;
   }
-
+  .error{
+    width: 640px;
+    height:640px;
+  }
+  .e404{
+    width: 1000px;
+  }
   .contenedor.blanco {
     background-color: white;
     margin-top: 5%;
@@ -94,7 +101,14 @@ button {
 
 /* adaptable para compus grandes no testiado */
 @media only screen and (min-width: 1367px) {
-
+  .error{
+    width: 600px;
+    height:600px;
+  }
+  .e404{
+    width: 1367px;
+    height:800px;
+  }
   /* (c 2/4) */
   .contenedor{
     border-radius: 32px;
@@ -124,7 +138,13 @@ button {
 
 /* adaptandolo a pantallas medianamente pequenias osea tablets */
 @media only screen and (min-width: 601px) and (max-width: 999px) {
-
+  .error{
+    width: 700px;
+    height:700px;
+  }
+  .e404{
+    width: 900px;
+  }
   /* (c 3/4) */
   .contenedor {
     border-radius: 32px;
@@ -386,7 +406,10 @@ button {
 
 /*adaptable para pantallas pequeñas celulares*/
 @media only screen and (max-width: 600px) {
-
+  .error{
+    width: 600px;
+    height:1000px;;
+  }
   /* (c 4/4) */
   .contenedor {
     border-radius: 32px;
@@ -561,6 +584,7 @@ input.fecha[type=text]:not(.browser-default) {
 .material-icons.md-light {
   color: rgba(255, 255, 255, 1);
 }
+ 
 
 /*manda a llamar a la fuente material icons */
 

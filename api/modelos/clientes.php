@@ -296,10 +296,18 @@ class clientes extends validator
         return Database::executeRow($sql, $params);
     }
 
-    public function readAll()
+    public function readAllInsti()
     {
         $sql = 'SELECT id_cliente, nombre , direccion ,horario, nrc,tipo_insti
         FROM cliente inner join institucion using(id_insti)
+        ORDER BY id_cliente';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+    public function readAllMedi()
+    {
+        $sql = 'SELECT id_cliente,nombre,nombre_especi, direccion ,horario, nrc
+        FROM cliente inner join especialidad using(id_especi)
         ORDER BY id_cliente';
         $params = null;
         return Database::getRows($sql, $params);
@@ -340,7 +348,7 @@ class clientes extends validator
     }
     public function clienteespecialidad()
     {
-        $sql = 'SELECT c.nombre,e.nombre from cliente c inner join especialidad e using (id_especi)
+        $sql = 'SELECT nombre,nombre_especi from cliente inner join especialidad using (id_especi)
         where id_especi =?';
         $params = array($this->especialidad);
         return Database::getRow($sql, $params);
