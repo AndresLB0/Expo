@@ -37,35 +37,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-            case 'create':
-                $_POST = $linea->validateForm($_POST);
-                if (!$linea->setNombre($_POST['nombre'])) {
-                    $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$linea->setDescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$linea->setPrecio($_POST['precio'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!isset($_POST['categoria'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$linea->setCategoria($_POST['categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$linea->setEstado(isset($_POST['estado']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!$linea->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $linea->getFileError();
-                } elseif ($linea->createRow()) {
-                    $result['status'] = 1;
-                    if ($linea->saveFile($_FILES['archivo'], $linea->getRuta(), $linea->getImagen())) {
-                        $result['message'] = 'linea creado correctamente';
+                case 'create':
+                    $_POST = $linea->validateForm($_POST);
+                    if (!$linea->setNombre($_POST['linea'])) {
+                        $result['exception'] = 'Nombre incorrecto';
+                    } elseif ($linea->createRow()) {
+                        $result['status'] = 1;
+                            $result['message'] = 'linea creado correctamente';
                     } else {
-                        $result['message'] = 'linea creado pero no se guardó la imagen';
+                        $result['exception'] = Database::getException();;
                     }
-                } else {
-                    $result['exception'] = Database::getException();;
-                }
-                break;
+                    break;
             case 'readOne':
                 if (!$linea->setID($_POST['id'])) {
                     $result['exception'] = 'linea incorrecto';

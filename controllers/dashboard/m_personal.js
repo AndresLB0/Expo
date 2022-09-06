@@ -2,7 +2,6 @@ const API_CONFU = SERVER + 'dashboard/personal.php?action=';
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    M.Sidenav.init(document.querySelectorAll('.sidenav'));
     M.Tabs.init(document.querySelectorAll('.tabs', {
         swipeable: true
     }));
@@ -48,9 +47,10 @@ function personalCargo(id,cargo) {
                             </td>
                         </tr>
                     `
+                    pestania+=`<li class="tab col s3 m3 l2"><a href="#${row.id_cargo}">${row.nombre_cargo}</a></li>`
                     });
                     // Se asigna como título la categoría de los productos.
-                    document.getElementById('tabs-swipe-demo').innerHTML = '<li class="tab col s3 m3 l2"><a href="#'+id+'">'+cargo+'</a></li>';
+                    document.getElementById('tabs-swipe-demo').innerHTML =pestania;
                     // Se agregan las tarjetas a la etiqueta div mediante su id para mostrar los productos.
                     document.getElementById('perso').innerHTML = content;
                     // Se inicializa el componente Material Box para que funcione el efecto Lightbox.

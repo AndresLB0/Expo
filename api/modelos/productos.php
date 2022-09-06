@@ -241,7 +241,7 @@ class Productos extends Validator
 
     public function readAll()
     {
-        $sql = 'SELECT id_producto, imagen_producto, nombre_producto, descripcion_producto, precio_producto, nombre,existencias,presentacion, estado_producto
+        $sql = 'SELECT id_producto, nombre_producto, descripcion, precio_iva, nombre,existencias,presentacio, estado_producto
                 FROM producto INNER JOIN proveedor USING(id_provee) inner join presentacion using(id_presentacion)
                 ORDER BY nombre_producto';
         $params = null;

@@ -16,7 +16,7 @@ class Database
     {
         // Credenciales para establecer la conexión con la base de datos.
         $server = 'localhost';
-        $database = 'fatyssa';
+        $database = 'fatyssanull';
         $username = 'postgres';
         $password = '123';//poner aqui la pswd de postgress
 
@@ -136,7 +136,7 @@ class Database
             case '7':
                 self::$error = 'Existe un problema al conectar con el servidor';
                 break;
-            //case '42703':
+            case '42703':
                 self::$error = 'Nombre de campo desconocido';
                 break;
             case '23505':
@@ -148,7 +148,7 @@ class Database
             case '23503':
                 self::$error = 'Registro ocupado, no se puede eliminar';
                 break;
-            //default:
+        default:
                 self::$error = 'Ocurrió un problema en la base de datos';
         }
     }

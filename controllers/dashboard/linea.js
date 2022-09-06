@@ -38,14 +38,16 @@ function fillTable(dataset) {
 }
 
 // Función para preparar el formulario al momento de insertar un registro.
-function openCreate() {
-    // Se abre la caja de diálogo (modal) que contiene el formulario.
-    M.Modal.getInstance(document.getElementById('save-modal')).open();
-    // Se asigna el título para la caja de diálogo (modal).
-    document.getElementById('modal-title').textContent = 'Crear categoría';
-    // Se establece el campo de archivo como obligatorio.
-    document.getElementById('archivo').required = true;
-}
+document.getElementById('save-form').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se define una variable para establecer la acción a realizar en la API.
+    let action = '';
+    // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
+    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
+    saveRow(API_LINEA, action, 'save-form');
+});
 
 // Función para abrir el reporte de productos por categoría.
 function openReport(id) {

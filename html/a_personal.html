@@ -6,7 +6,7 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css"  media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
     <link rel="icon" href="../imagenes/icono/fatyssa.png" />
 
@@ -27,19 +27,20 @@
             </div>
 
             <div class="col s12 m6">
-                <input placeholder="nombre" id="nombre" type="text" class="validate text" autocomplete="off">
-                <input placeholder="usuario" id="usuario" type="text" class="validate text" autocomplete="off">
-                <input placeholder="clave" id="psw" type="password" class="validate text" autocomplete="off">
-                <div class="col s12 m6 offset m6">
-                    <div class="program">
-                        <select>
-                            <option value="" disabled selected>cargo</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
+                <form id="save-form">
+                    <input placeholder="nombre" id="nombre" type="text" class="validate text" autocomplete="off">
+                    <input placeholder="usuario" id="usuario" type="text" class="validate text" autocomplete="off">
+                    <input placeholder="clave" id="psw" type="password" class="validate text">
+                    <div class="col s12 m6 offset m6">
+                        <div class="program">
+                            <select>
+                                <option value="" disabled selected>cargo</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
             </div>
             <div class="col s6 m3">
                 <input placeholder="DUI" id="dui" type="text" class="validate text" autocomplete="off">
@@ -51,11 +52,15 @@
                 <textarea placeholder="direccion" id="direccion" autocomplete="off"></textarea>
                 <button class="boton" type="submit">agregar usuario</button>
             </div>
+            </form>
         </div>
     </main>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
-    <script type="text/javascript" src="../js/a_personal.js"></script>
+    <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../controllers/components.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/a_personal.js"></script>
+   
 </body>
 
 </html>

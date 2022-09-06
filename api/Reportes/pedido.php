@@ -22,27 +22,25 @@ if (isset($_GET['id'])) {
                 if ($datapedidos = $pedido->pedidocliente()) {
                     // Se establece un color de relleno para los encabezados.
                     $pdf->setFillColor(80, 80, 200);
-                // Se verifica si existen registros (pedidos) para mos
+                    $pdf->cell(40, 10, utf8_decode('producto'), 1, 0, 'C', 1);
+                    $pdf->cell(40, 10, utf8_decode('Precio c/u (US$)'), 1, 0, 'C', 1);
+                    $pdf->cell(40, 10, utf8_decode('cantidad'), 1, 0, 'C', 1);
+                    $pdf->cell(40, 10, utf8_decode('fecha'), 1, 0, 'C', 1);
+                    $pdf->cell(40, 10, utf8_decode('zona'), 'B', 1, 'C', 1);
                     // Se recorren los registros ($datapedidos) fila por fila ($rowpedido).
                     foreach ($datapedidos as $rowpedido) {
-                    // Se establece la fuente para los encabezados.
-                    $pdf->setFont('Times', 'B', 11);  
-                    $pdf->SetTextColor(0,0,0);
-                    // Se imprimen las celdas con la linea de arriba siendo los campos y la que esta abajo es el dato correspondiente al campo
-                    $pdf->cell(60, 10, utf8_decode('producto'), 0, 0, 'C', 1);
-                    $pdf->cell(60, 10, utf8_decode($rowpedido['nombre_producto']), 0, 1);
-                    $pdf->cell(60, 10, utf8_decode('Precio c/u (US$)'), 0, 0, 'C', 1);
-                    $pdf->cell(50, 10, $rowpedido["precio_iva"], 0, 1);
-                    $pdf->cell(60, 10, utf8_decode('cantidad'), 0, 0, 'C', 1);
-                    $pdf->cell(40, 10, $rowpedido['cantidad'], 0, 1);
-                    $pdf->cell(60, 10, utf8_decode('fecha'),0, 0, 'C', 1);
-                    $pdf->cell(125, 10, $rowpedido['fecha'], 0, 1);
-                    $pdf->cell(60, 10, utf8_decode('zona'),'B', 0, 'C', 1);
-                    $pdf->cell(125, 10, $rowpedido['nombre_zona'], 'B', 1);
-                    $pdf->Ln(4);
-                    // Se establece la fuente para los datos de los pedid
-                }
-             } else {
+                        // Se establece la fuente para los encabezados.
+                        $pdf->setFont('Times', 'B', 11);
+                        $pdf->SetTextColor(0, 0, 0);
+                        // Se imprimen las celdas con la linea de arriba siendo los campos y la que esta abajo es el dato correspondiente al campo
+                        $pdf->cell(40, 10, utf8_decode($rowpedido['nombre_producto']), 1, 0);
+                        $pdf->cell(40, 10, $rowpedido["precio_iva"], 1,0);
+                        $pdf->cell(40, 10, $rowpedido['cantidad'], 1, 0);
+                        $pdf->cell(40, 10, $rowpedido['fecha'], 1, 0);
+                        $pdf->cell(40, 10, $rowpedido['nombre_zona'],1, 1);
+                        // Se establece la fuente para los datos de los pedid
+                    }
+                } else {
                     $pdf->cell(0, 10, utf8_decode('No hay pedidos para esta categoría'), 1, 1);
                 }
                 // Se envía el documento al navegador y se llama al método footer()

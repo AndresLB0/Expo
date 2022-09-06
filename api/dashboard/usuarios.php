@@ -178,7 +178,7 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existe al menos un personal registrado';
                 } else {
-                    $result['exception'] = 'No existen personals registrados';
+                    $result['exception'] = 'No existen personal registrados';
                 }
                 break;
             case 'register':
@@ -203,14 +203,14 @@ if (isset($_GET['action'])) {
             case 'logIn':
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->checkUser($_POST['usuario'])) {
-                    $result['exception'] = 'Usuario incorrecto';
+                    $result['exception'] = 'Usuario o Contraseña incorrectos';
                 } elseif ($personal->checkPassword($_POST['clave'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
                     $_SESSION['id_personal'] = $personal->getId();
                     $_SESSION['usuario'] = $personal->getUsuario();
                 } else {
-                    $result['exception'] = 'Clave incorrecta';
+                    $result['exception'] = 'Usuario o Contraseña incorectos';
                 }
                 break;
            // default:

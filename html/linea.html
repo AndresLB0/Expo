@@ -26,8 +26,11 @@
           <div class="contenedor gris center">
             <h4>Nueva linea</h4>
             <div class="col s12 m6 offset m3 offset-m3">
-              <input type="text" name="especialidad" placeholder="Nombre" class="text" required>
-              <input type="button" value="agregar linea"></button>
+              <form id="save-form" method="post">
+                <input class="hide" type="number" id="id" name="id">
+              <input type="text" name="linea" placeholder="Nombre" class="text" required>
+              <button type="submit" class="boton">agregar linea</button>
+              </form>
             </div>
           </div>
           <div class="col s12 m6 offset-m2">
@@ -55,6 +58,7 @@
 
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+  <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
   <script type="text/javascript" src="../controllers/components.js"></script>
   <script type="text/javascript" src="../controllers/dashboard/linea.js"></script>
 </body>

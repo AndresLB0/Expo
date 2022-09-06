@@ -219,18 +219,25 @@ class Validator
     public function validatePassword($value)
     {
         // Se verifica la longitud mínima.
-        if (strlen($value) >= 8) {
-            // Se verifica la longitud máxima.
-            if (strlen($value) <= 72) {
-                return true;
-            } else {
-                $this->passwordError = 'Clave mayor a 72 caracteres';
-                return false;
-            }
-        } else {
+        if (strlen($value) < 8) {
             $this->passwordError = 'Clave menor a 8 caracteres';
             return false;
-        }
+        }elseif (strlen($value) > 72) {
+            $this->passwordError = 'Clave mayor a 72 caracteres';
+            return false;
+        }elseif(!preg_match('/[9-0]/',$value)){
+            $this->passwordError = 'Debe tener por lo menos un digito';
+            return false;
+        }elseif(!preg_match('/[a-z]/',$value)){
+            $this->passwordError = 'Debe tener por lo menos una letra minúscula';
+            return false;
+        }elseif(!preg_match('/[A-Z]/',$value)){
+            $this->passwordError = 'Debe tener por lo menos una letra mayúscula';
+            return false;
+        }elseif(!preg_match('/[!#$%&()?¿¡ñÑáäÁÄéëÉËíïÏÍóÓÖöÚÜúü]/',$value)){
+            $this->passwordError = 'Debe tener por lo menos un caracter especial';
+            return false;
+        }           
     }
 
     /*
