@@ -225,7 +225,7 @@ class Validator
         }elseif (strlen($value) > 72) {
             $this->passwordError = 'Clave mayor a 72 caracteres';
             return false;
-        }elseif(!preg_match('/[9-0]/',$value)){
+        }elseif(!preg_match('/[0-9]/',$value)){
             $this->passwordError = 'Debe tener por lo menos un digito';
             return false;
         }elseif(!preg_match('/[a-z]/',$value)){
@@ -237,6 +237,8 @@ class Validator
         }elseif(!preg_match('/[!#$%&()?¿¡ñÑáäÁÄéëÉËíïÏÍóÓÖöÚÜúü]/',$value)){
             $this->passwordError = 'Debe tener por lo menos un caracter especial';
             return false;
+        }else{
+            return true;
         }           
     }
 

@@ -16,7 +16,7 @@ class Database
     {
         // Credenciales para establecer la conexión con la base de datos.
         $server = 'localhost';
-        $database = 'fatyssanull';
+        $database = 'fatyssanul';
         $username = 'postgres';
         $password = '123';//poner aqui la pswd de postgress
 
