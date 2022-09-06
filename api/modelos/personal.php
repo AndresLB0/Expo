@@ -9,6 +9,7 @@ class personal extends validator
     private $usuario=null;
     private $clave=null;
     private $cargo=null;
+    private $correo=null;
 
     public function setID($value)
     {
@@ -72,6 +73,15 @@ public function setDireccion($value)
             return false;
         }
     }
+    public function setEmail($value)
+    {
+        if ($this->validateEmail($value)) {
+            $this->correo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     public function setClave($value)
@@ -113,6 +123,11 @@ public function setDireccion($value)
     {
         return $this->telefono;
     }
+    public function getEmail()
+    {
+        return $this->correo;
+    }
+
 
     public function getDireccion()
     {
@@ -135,7 +150,7 @@ public function setDireccion($value)
 
     public function searchRows($value)
     {
-        $sql = 'SELECT id_personal,nombre,dui,telefono,direccion,usuario,clave,nombre_cargo
+        $sql = 'SELECT id_personal,nombre,dui,telefono,email,direccion,usuario,clave,nombre_cargo
                 FROM personal INNER JOIN cargo USING (id_cargo)
                 WHERE nombre ILIKE ? OR usuario ILIKE ?
                 ORDER BY nombre';
@@ -145,9 +160,9 @@ public function setDireccion($value)
 
     public function createRow()
     {
-        $sql = 'INSERT INTO personal(nombre,dui,telefono,direccion,usuario,clave,id_cargo)
-                VALUES(?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre,$this->dui, $this->telefono,$this->direccion,$this->usuario,$this->clave,$this->cargo);
+        $sql = 'INSERT INTO personal(nombre,dui,telefono,email,direccion,usuario,clave,id_cargo)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre,$this->dui, $this->telefono,$this->correo,$this->direccion,$this->usuario,$this->clave,$this->cargo);
         return Database::executeRow($sql, $params);
     }
     public function registro()
@@ -155,14 +170,14 @@ public function setDireccion($value)
         $sql = "WITH auto_cargo as (
           INSERT INTO cargo (nombre_cargo) VALUES ('propietario') 
           RETURNING id_cargo)
-        INSERT INTO personal (nombre,telefono,usuario,clave,id_cargo)
-        VALUES (?,?,?,?,(SELECT id_cargo FROM auto_cargo))";
-        $params = array($this->nombre, $this->telefono,$this->usuario,$this->clave);
+        INSERT INTO personal (nombre,email,telefono,usuario,clave,id_cargo)
+        VALUES (?,?,?,?,?,(SELECT id_cargo FROM auto_cargo))";
+        $params = array($this->nombre,$this->correo, $this->telefono,$this->usuario,$this->clave);
         return Database::executeRow($sql, $params);
     }
     public function readAll()
     {
-        $sql = 'SELECT id_personal, nombre,dui,telefono,direccion,usuario,clave
+        $sql = 'SELECT id_personal, nombre,dui,email,telefono,direccion,usuario,clave
                 FROM personal
                 ORDER BY nombre';
          $params = null;
@@ -171,7 +186,7 @@ public function setDireccion($value)
 
     public function readOne()
     {
-        $sql = 'SELECT id_personal, nombre,dui,telefono,direccion,usuario,clave,nombre_cargo
+        $sql = 'SELECT id_personal, nombre,dui,email,telefono,direccion,usuario,clave,nombre_cargo
         FROM personal INNER JOIN cargo USING (id_cargo)
                 WHERE id_personal = ?';
         $params = array($this->id);
@@ -227,17 +242,17 @@ public function setDireccion($value)
     public function updateRow()
     {
         $sql = 'UPDATE personal
-                SET nombres = ?,telefono = ?
+                SET nombres = ?,telefono = ?,email=?
                 WHERE id_personal = ?';
-        $params = array($this->nombre,$this->telefono, $this->id);
+        $params = array($this->nombre,$this->telefono,$this->correo, $this->id);
         return Database::executeRow($sql, $params);
     }
     public function editProfile()
     {
         $sql = 'UPDATE personal
-                SET nombre =? ,dui=?,telefono=?,direccion=?,usuario=?,clave=?,nombre_cargo=?
+                SET nombre =? ,dui=?,telefono=?,email=?,direccion=?
                 WHERE id_personal = ?';
-        $params = array($this->nombre, $this->dui, $this->telefono, $_SESSION['id_personal']);
+        $params = array($this->nombre, $this->dui, $this->telefono,$this->correo, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
     }
     //REPORTE

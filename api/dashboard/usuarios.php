@@ -45,8 +45,8 @@ if (isset($_GET['action'])) {
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$personal->setTelefono($_POST['telefono'])) {
-                    $result['exception'] = 'telefono incorrecto';
+                } elseif (!$personal->setEmail($_POST['correo'])) {
+                    $result['exception'] = 'correo incorrecto';
                 } elseif ($personal->editProfile()) {
                     $result['status'] = 1;
                     $result['message'] = 'Perfil modificado correctamente';
@@ -88,7 +88,7 @@ if (isset($_GET['action'])) {
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombres incorrectos';
-                }  elseif (!$personal->setTelefono($_POST['telefono'])) {
+                }  elseif (!$personal->setEmail($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$personal->setUsuario($_POST['usuario'])) {
                     $result['exception'] = 'Alias incorrecto';
@@ -122,7 +122,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'personal inexistente';
                 } elseif (!$personal->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombres incorrectos';
-                }  elseif (!$personal->setTelefono($_POST['telefono'])) {
+                }  elseif (!$personal->setEmail($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif ($personal->updateRow()) {
                     $result['status'] = 1;
@@ -185,9 +185,11 @@ if (isset($_GET['action'])) {
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombres incorrectos';
+                } elseif (!$personal->setEmail($_POST['correo'])) {
+                    $result['exception'] = 'correo incorrecto';
                 } elseif (!$personal->setTelefono($_POST['telefono'])) {
-                    $result['exception'] = 'telefono incorrecto';
-                } elseif (!$personal->setUsuario($_POST['usuario'])) {
+                    $result['exception'] = 'correo incorrecto';
+                }elseif (!$personal->setUsuario($_POST['usuario'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($_POST['clave'] != $_POST['confirmar']) {
                     $result['exception'] = 'Claves diferentes';
