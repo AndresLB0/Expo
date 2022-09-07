@@ -25,31 +25,52 @@
             <div class="col s2 m1">
                 <a href="m_personal.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
             </div>
-
+            <form id="save-form" method="post" autocomplete="off">
             <div class="col s12 m6">
-                <form id="save-form">
-                    <input placeholder="nombre" id="nombre" type="text" class="validate text" autocomplete="off">
-                    <input placeholder="usuario" id="usuario" type="text" class="validate text" autocomplete="off">
-                    <input placeholder="clave" id="psw" type="password" class="validate text">
-                    <div class="col s12 m6 offset m6">
-                        <div class="program">
-                            <select>
-                                <option value="" disabled selected>cargo</option>
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                            </select>
-                        </div>
+                    <input class="hide" type="number" id="id" name="id">
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <input name="nombre" id="nombre" type="text" class="validate text">
+                        <label for="nombre">nombre</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">person_pin</i>
+                        <input name="usuario" id="usuario" type="text" class="validate text">
+                        <label for="usuario">usuario</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">security</i>
+                        <input name="clave" id="psw" type="password" class="validate text">
+                        <label for="psw">contraseña</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">security</i>
+                        <input id="confirmar" type="password" name="confirmar" class="validate" required>
+                        <label for="confirmar">Confirmar clave</label>
                     </div>
             </div>
-            <div class="col s6 m3">
-                <input placeholder="DUI" id="dui" type="text" class="validate text" autocomplete="off">
+            <div class="input-field col s6 m3">
+                <i class="material-icons prefix">badge</i>
+                <input name="dui" id="dui" type="text" class="validate text">
+                <label for="dui">dui</label>
             </div>
-            <div class="col s6 m3">
-                <input placeholder="telefono" id="telefono" type="tel" class="validate text" autocomplete="off">
+            <div class="input-field col s6 m3">
+                <i class="material-icons prefix">email</i>
+                <input name="correo" id="correo" type="email" class="validate text">
+                <label for="correo">correo</label>
             </div>
-            <div class="col s12 m6 center">
-                <textarea placeholder="direccion" id="direccion" autocomplete="off"></textarea>
+            <div class="input-field col s6 m3">
+                <i class="material-icons prefix">call</i>
+                <input name="telefono" id="telefono" type="tel" class="validate text">
+                <label for="telefono">telefono</label>
+            </div>
+            <div class="input-field col s12 m3">
+                <div class="program">
+                    <select id="cargo" name="cargo"></select>
+                    <label>cargo</label>
+                </div>
+            </div>
+            <div class="col s12 m4 offset-m4 offset m4 center">
                 <button class="boton" type="submit">agregar usuario</button>
             </div>
             </form>
@@ -60,7 +81,8 @@
     <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="../controllers/components.js"></script>
     <script type="text/javascript" src="../controllers/dashboard/a_personal.js"></script>
-   
+    
+
 </body>
 
 </html>

@@ -41,6 +41,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'personal inexistente';
                 }
                 break;
+                case 'readAll':
+                    if ($result['dataset'] = $personal->readAll()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No existen categorías para mostrar';
+                    }
+                    break;
             case 'editProfile':
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->setNombre($_POST['nombre'])) {
@@ -92,7 +101,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$personal->setUsuario($_POST['usuario'])) {
                     $result['exception'] = 'Alias incorrecto';
-                } elseif ($_POST['clave'] != $_POST['confirmar']) {
+                } elseif (!$personal->setDUI($_POST['dui'])) {
+                    $result['exception'] = 'DUI incorrecto';
+                }elseif (!$personal->setTelefono($_POST['telefono'])) {
+                    $result['exception'] = 'Telefono incorrecto';
+                }elseif (!$personal->setCargo($_POST['cargo'])) {
+                    $result['exception'] = 'Cargo incorrecto';
+                }elseif ($_POST['clave'] != $_POST['confirmar']) {
                     $result['exception'] = 'Claves diferentes';
                 } elseif (!$personal->setClave($_POST['clave'])) {
                     $result['exception'] = $personal->getPasswordError();

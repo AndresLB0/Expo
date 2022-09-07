@@ -177,8 +177,8 @@ public function setDireccion($value)
     }
     public function readAll()
     {
-        $sql = 'SELECT id_personal, nombre,dui,email,telefono,direccion,usuario,clave
-                FROM personal
+        $sql = 'SELECT id_personal, nombre,dui,email,telefono,direccion,usuario,clave,nombre_cargo
+                FROM personal inner join cargo using(id_cargo)
                 ORDER BY nombre';
          $params = null;
         return Database::getRows($sql, $params);
