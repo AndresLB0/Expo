@@ -105,6 +105,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'DUI incorrecto';
                 }elseif (!$personal->setTelefono($_POST['telefono'])) {
                     $result['exception'] = 'Telefono incorrecto';
+                }elseif (!$personal->setDireccion($_POST['direccion'])) {
+                    $result['exception'] = 'Telefono incorrecto';
                 }elseif (!$personal->setCargo($_POST['cargo'])) {
                     $result['exception'] = 'Cargo incorrecto';
                 }elseif ($_POST['clave'] != $_POST['confirmar']) {

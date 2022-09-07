@@ -267,7 +267,7 @@ public function setDireccion($value)
     }
     public function personalcargo()
     {
-    $sql = 'SELECT c.id_cargo,p.nombre,p.telefono,p.usuario,c.nombre_cargo
+    $sql = 'SELECT c.id_cargo,p.nombre,p.telefono,p.direccion,c.nombre_cargo
     FROM personal p INNER JOIN cargo c USING (id_cargo)
     WHERE id_cargo = ?
     order by c.id_cargo';

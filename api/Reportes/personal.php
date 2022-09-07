@@ -17,8 +17,8 @@ if ($datacargos = $cargos->readAll()) {
     // Se establece la fuente para los encabezados.
     $pdf->setFont('Times', 'B', 11);
     // Se imprimen las celdas con los encabezados.
-    $pdf->cell(126, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-    $pdf->cell(30, 10, utf8_decode('Usuario'), 1, 0, 'C', 1);
+    $pdf->cell(50, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
+    $pdf->cell(106, 10, utf8_decode('Usuario'), 1, 0, 'C', 1);
     $pdf->cell(30, 10, utf8_decode('Teléfono'), 1, 1, 'C', 1);
 
     // Se establece un color de relleno para mostrar el nombre de la categoría.
@@ -39,8 +39,8 @@ if ($datacargos = $cargos->readAll()) {
                 // Se recorren los registros ($dataProductos) fila por fila ($rowProducto).
                 foreach ($datapersonal as $rowpersonal) {
                     // Se imprimen las celdas con los datos de los productos.
-                    $pdf->cell(126, 10, utf8_decode($rowpersonal['nombre']), 1, 0);
-                    $pdf->cell(30, 10, $rowpersonal['usuario'], 1, 0);
+                    $pdf->cell(50, 10, utf8_decode($rowpersonal['nombre']), 1, 0);
+                    $pdf->cell(106, 10, $rowpersonal['direccion'], 1, 0);
                     $pdf->cell(30, 10,$rowpersonal['telefono'], 1, 1);
                 }
             } else {
