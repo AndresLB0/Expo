@@ -14,7 +14,7 @@ function fillTable(dataset) {
         <td>${row.nombre}</td>
         <td>${row.usuario}</td>
         <td>${row.dui}</td>
-        <td>${row.telefono}</td>
+        <td>${row.email}</td>
         <td>${row.nombre_cargo}</td>
         <td>
             <a onclick="openUpdate(${row.id_personal})" class="btn-floating blue tooltipped" data-tooltip="Actualizar">
