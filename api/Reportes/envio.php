@@ -34,7 +34,7 @@ if ($dataenvio = $envio->readAll()) {
         // Se instancia el módelo pedido para procesar los datos.
         $pedido = new pedidos;
         // Se establece la categoría para obtener sus pedido, de lo contrario se imprime un mensaje de error.
-        if ($pedido->setIdEnvio($rowenvio['id_envio'])) {
+        if ($pedido->setEnvio($rowenvio['id_envio'])) {
             // Se verifica si existen registros (pedido) para mostrar, de lo contrario se imprime un mensaje.
             if ($datapedido = $pedido->pedidoenvio()) {
                 // Se recorren los registros ($datapedido) fila por fila ($rowpedido).

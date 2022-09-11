@@ -16,7 +16,7 @@ class Productos extends Validator
     private $presentacion = null;
     private $descuento = null;
     private $linea = null;
-    private $reg_sanitario = null;
+    private $registro = null;
     private $tamanio = null;
     private $estado = null;
     private $existencias=null;
@@ -204,9 +204,9 @@ class Productos extends Validator
     {
         return $this->descuento;
     }
-    public function getRegsan()
+    public function getRegistro()
     {
-        return $this->reg_sanitario;
+        return $this->registro;
     }
     public function getTamanio()
     {
@@ -233,9 +233,11 @@ class Productos extends Validator
 
     public function createRow()
     {
-        $sql = 'INSERT INTO producto(nombre_producto, descripcion, precio_fact,precio_iva, estado_producto, id_provee, id_usuario)
-                VALUES(?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->descripcion, $this->precio_fact, $this->precio_iva, $this->estado, $this->proveedor, $_SESSION['id_usuario']);
+        $iva=$this->precio_fact*0.13;
+        $this->precio_iva=$this->precio_fact+$iva;
+        $sql = 'INSERT INTO producto(nombre_producto, descripcion,reg_san,tamanio, precio_fact,precio_iva,max_descuento,existencias, id_provee,id_linea,id_presentacion, estado_producto)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?)';
+        $params = array($this->nombre, $this->descripcion,$this->registro,$this->tamanio, $this->precio_fact, $this->precio_iva,$this->descuento,$this->existencias, $this->proveedor,$this->linea,$this->presentacion,$this->estado);
         return Database::executeRow($sql, $params);
     }
 
@@ -257,7 +259,7 @@ class Productos extends Validator
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         // Se verifica si existe una nueva imagen para borrar la actual, de lo contrario se mantiene la actual.
 

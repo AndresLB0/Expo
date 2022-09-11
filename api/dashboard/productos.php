@@ -45,23 +45,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Descripción incorrecta';
                 } elseif (!$productos->setPrecioFactu($_POST['precio'])) {
                     $result['exception'] = 'Precio incorrecto';
-                } elseif (!isset($_POST['categoria'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$productos->setCategoria($_POST['categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$productos->setEstado(isset($_POST['estado']) ? 1 : 0)) {
+                } elseif (!$productos->setProvee($_POST['proveedor'])) {
+                    $result['exception'] = 'Precio incorrecto';
+                }elseif (!$productos->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                     $result['exception'] = 'Estado incorrecto';
-                } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!$productos->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $productos->getFileError();
                 } elseif ($productos->createRow()) {
                     $result['status'] = 1;
-                    if ($productos->saveFile($_FILES['archivo'], $productos->getRuta(), $productos->getImagen())) {
                         $result['message'] = 'productos creado correctamente';
-                    } else {
-                        $result['message'] = 'productos creado pero no se guardó la imagen';
-                    }
                 } else {
                     $result['exception'] = Database::getException();;
                 }

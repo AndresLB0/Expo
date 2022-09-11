@@ -3,16 +3,18 @@
 class pedidos extends validator
 {
     private $idpedidos=null;
-    private $fecha=null;
-    private $hora = null;
+    private $iddetalle=null;
+    private $precio=null;
+    private $cantidad=null;
+    private $producto=null;
     private $tiempocredi = null;
     private $totalpagar = null;
     private $fechapago = null;
-    private $idpersonal = null;
-    private $idtipofact = null;
-    private $idenvio = null;
-    private $idcliente = null;
-    private $idzona = null;
+    private $personal = null;
+    private $tipofact = null;
+    private $envio = null;
+    private $cliente = null;
+    private $zona = null;
     private $estadopedido = null;
 
 
@@ -28,23 +30,39 @@ class pedidos extends validator
         }
 
     }  
-
-    public function setFecha($value)
+    public function setPrecio($value)
     {
-        if ($this-> validateDate($value)) {
-            $this->fecha = $value;
+        if ($this->validateMoney($value)) {
+            $this->precio = $value;
             return true;
         } else {
             return false;
         }
     }
-
-    public function setHora($value)
+    public function setIdDetalle($value)
     {
-        if ($this->validateTime($value)) {
-            $this->hora = $value;
+        if($this->validateNaturalNumber($value)){
+            $this->iddetalle=$value;
             return true;
-        } else {
+        }else{
+            return false;
+        }
+
+    } public function setCantidad($value)
+    {
+        if($this->validateNaturalNumber($value)){
+            $this->cantidad=$value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function setProducto($value)
+    {
+        if($this->validateNaturalNumber($value)){
+            $this->producto=$value;
+            return true;
+        }else{
             return false;
         }
     }
@@ -82,10 +100,10 @@ class pedidos extends validator
     }
 
 
-    public function setIdPersonal($value)
+    public function setPersonal($value)
     {
         if($this->validateNaturalNumber($value)){
-            $this->idpersonal=$value;
+            $this->personal=$value;
             return true;
         }else{
             return false;
@@ -93,10 +111,10 @@ class pedidos extends validator
     }
 
 
-    public function setIdTipoFact($value)
+    public function setTipoFact($value)
     {
         if($this->validateNaturalNumber($value)){
-            $this->idtipofact =$value;
+            $this->tipofact =$value;
             return true;
         }else{
             return false;
@@ -104,10 +122,10 @@ class pedidos extends validator
     }
 
 
-    public function setIdEnvio($value)
+    public function setEnvio($value)
     {
         if($this->validateNaturalNumber($value)){
-            $this->idenvio =$value;
+            $this->envio =$value;
             return true;
         }else{
             return false;
@@ -116,10 +134,10 @@ class pedidos extends validator
 
 
 
-    public function setIdCliente($value)
+    public function setCliente($value)
     {
         if($this->validateNaturalNumber($value)){
-            $this->idcliente =$value;
+            $this->cliente =$value;
             return true;
         }else{
             return false;
@@ -127,10 +145,10 @@ class pedidos extends validator
     }
 
 
-    public function setIdZona($value)
+    public function setZona($value)
     {
         if($this->validateNaturalNumber($value)){
-            $this->idzona =$value;
+            $this->zona =$value;
             return true;
         }else{
             return false;
@@ -162,17 +180,22 @@ class pedidos extends validator
     {
         return $this->idpedidos;
     }
-
-    public function getFecha()
+    public function getIdDetalle()
     {
-        return $this->fecha;
+        return $this->iddetalle;
     }
-
-    public function getHora()
+    public function getPrecio()
     {
-        return $this->hora;
+        return $this->precio;
     }
-
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+    public function getProducto()
+    {
+        return $this->producto;
+    }
     public function getTiempocredi()
     {
         return $this->tiempocredi;
@@ -188,29 +211,29 @@ class pedidos extends validator
         return $this->fechapago;
     }
 
-    public function getIdPersonal()
+    public function getPersonal()
     {
-        return $this->idpersonal;
+        return $this->personal;
     }
 
-    public function getIdTipoFact()
+    public function getTipoFact()
     {
-        return $this->idtipofact;
+        return $this->tipofact;
     }
 
-    public function getIdEnvio()
+    public function getEnvio()
     {
-        return $this->idenvio;
+        return $this->envio;
     }
 
-    public function getIdCliente()
+    public function getCliente()
     {
-        return $this->idcliente;
+        return $this->cliente;
     }
 
-    public function getIdZona()
+    public function getZona()
     {
-        return $this->idzona;
+        return $this->zona;
     }
 
     public function EstadoPedido()
@@ -225,14 +248,14 @@ class pedidos extends validator
     inner join zona using(id_zona)
     where id_cliente=?
     ';
-      $params = array($this->idcliente);
+      $params = array($this->cliente);
       return Database::getRows($sql, $params);
     }
     public function pedidoenvio()
     {
     $sql = 'SELECT nombre,nombre_zona,total_pagar from pedidos inner join cliente using(id_cliente) inner join zona using(id_zona)
     where id_envio=?';
-      $params =array($this->idenvio);
+      $params =array($this->envio);
       return Database::getRows($sql, $params);
     }
 

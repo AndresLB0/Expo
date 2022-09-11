@@ -42,16 +42,16 @@ if (isset($_GET['id'])) {
                     $pdf->cell(0, 10, utf8_decode('No hay productos para esta categoría'), 1, 1);
                 }
                 // Se envía el documento al navegador y se llama al método footer()
-                $pdf->output('I', 'categoria.pdf');
+                $pdf->output('I', 'lineas.pdf');
             } else {
-                //header('location: ../../../views/dashboard/categorias.php');
+                header('location: ../../html/linea.html');
             }
         } else {
-            //header('location: ../../../views/dashboard/categorias.php');
+            header('location: ../../html/linea.html');
         }
     } else {
-        //header('location: ../../../views/dashboard/categorias.php');
+        header('location: ../../html/linea.html');
     }
 } else {
-    //header('location: ../../../views/dashboard/categorias.php');
+    header('location: ../../html/linea.html');
 }

@@ -21,20 +21,19 @@
         <div class="container">
             <div class="contenedor blanco" style="height:500px;">
                 <div class="row center">
-                    <div class="col m6 s12" style="margin-top:100px;">
-                        <h4 class="center">iniciar sesión</h4>
-                        <img class="hide-on-large-only" src="../imagenes/logo/fatyssa 2.jpg" alt="">
+                    <div class="col m1">
+                        <a href="index.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
+                      </div>
+                    <div class="col offset-m2 m6 s12" style="margin-top:100px;">
+                        <h4 class="center">recuperar contraseña</h4>
                         <div class="container">
-                            <form method="post" id="session-form">
-                            <input placeholder="usuario" name="usuario" id="usuario" type="text" autocomplete="off" class="validate text">
-                            <input placeholder="contraseña" id="clave" name="clave" type="password" class="validate text" autocomplete="off">
-                            <a href="pswdrecovery.html">¿olvido su contraseña?</a>
-                            <button class="boton" type="submit">iniciar</button>
+                            <form action="correos.php" method="post" id="recovery-pswd">
+                                <p>ingrese el correo asociado a su cuenta</p>
+                                <input placeholder="correo electronico" id="correo" name="correo" type="email" class="validate text">
+                                <button class="boton" type="submit">enviar correo</button>
                             </form>
                         </div>
-
                     </div>
-                    <div class="col m6" style="margin-top:100px;"></div><img class="hide-on-med-and-down" src="../imagenes/logo/fatyssa 2.jpg" alt=""></div>
                 </div>
             </div>
         </div>
@@ -42,10 +41,10 @@
     </main>
 
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="../resources/js/materialize.min.js"></script> 
+    <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
     <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="../controllers/components.js"></script>
-    <script type="text/javascript" src="../controllers/dashboard/index.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/pswdrec.js"></script>
 </body>
 
 </html>

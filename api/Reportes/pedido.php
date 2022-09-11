@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
             $pdf->startReport('pedido de  ' . $rowcliente['nombre']);
             // Se instancia el módelo pedidos para procesar los datos.
             $pedido = new pedidos;
-            if ($pedido->setIdcliente($rowcliente['id_cliente'])) {
+            if ($pedido->setCliente($rowcliente['id_cliente'])) {
                 // Se verifica si existen registros (pedidos) para mostrar, de lo contrario se imprime un mensaje.
                 if ($datapedidos = $pedido->pedidocliente()) {
                     // Se establece un color de relleno para los encabezados.
@@ -44,16 +44,16 @@ if (isset($_GET['id'])) {
                     $pdf->cell(0, 10, utf8_decode('No hay pedidos para esta categoría'), 1, 1);
                 }
                 // Se envía el documento al navegador y se llama al método footer()
-                $pdf->output('I', 'categoria.pdf');
+                $pdf->output('I', 'pedidos.pdf');
             } else {
-                //header('location: ../../../views/dashboard/categorias.php');
+                header('location: ../../html/m_pedido.html');
             }
         } else {
-            //header('location: ../../../views/dashboard/categorias.php');
+            header('location: ../../html/m_pedido.html');
         }
     } else {
-        //header('location: ../../../views/dashboard/categorias.php');
+        header('location: ../../html/m_pedido.html');
     }
 } else {
-    //header('location: ../../../views/dashboard/categorias.php');
+    header('location: ../../html/m_pedido.html');
 }

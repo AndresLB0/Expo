@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.status) {
                         const menu = `<div class="navbar-fixed">
     <nav>
-        <div class="nav-wrapper"><a href="dashboard.html" class="boticono hide-on-med-and-down"><span
-                    class="left material-icons md-38">arrow_back</span></a><a href="#" data-target="mobile-demo"
+        <div class="nav-wrapper"><a href="dashboard.html" class="boticono hide-on-med-and-down"><img src="../imagenes/logo/fatyssa 2.jpg" height="58px" width="64px" alt=""></a><a href="#" data-target="mobile-demo"
                 class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="m_personal.html">personal</a></li>

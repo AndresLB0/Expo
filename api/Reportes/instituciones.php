@@ -42,16 +42,16 @@ if (isset($_GET['id'])) {
                     $pdf->cell(0, 10, utf8_decode('No hay cliente para esta categoría'), 1, 1);
                 }
                 // Se envía el documento al navegador y se llama al método footer()
-                $pdf->output('I', 'categoria.pdf');
+                $pdf->output('I', 'clientes_insti.pdf');
             } else {
-                //header('location: ../../../views/dashboard/categorias.php');
+                header('location: ../../html/m_Cliente.html');
             }
         } else {
-            //header('location: ../../../views/dashboard/categorias.php');
+            header('location: ../../html/m_Cliente.html');
         }
     } else {
-        //header('location: ../../../views/dashboard/categorias.php');
+        header('location: ../../html/m_Cliente.html');
     }
 } else {
-    //header('location: ../../../views/dashboard/categorias.php');
+    header('location: ../../html/m_Cliente.html');
 }

@@ -242,6 +242,46 @@ function fillSelect(endpoint, select, selected) {
         }
     });
 }
+function fillTabs(endpoint,tabs,contenido) {
+    fetch(endpoint, {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje en la consola indicando el problema.
+        if (request.ok) {
+            // Se obtiene la respuesta en formato JSON.
+            request.json().then(function (response) {
+                let name = '';
+                let inside='';
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    // Si no existe un valor para seleccionar, se muestra una opción para indicarlo.
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se obtiene el dato del primer campo de la sentencia SQL (valor para cada opción).
+                        value = Object.values(row)[0];
+                        // Se obtiene el dato del segundo campo de la sentencia SQL (texto para cada opción).
+                        text = Object.values(row)[1];
+                        // Se verifica si el valor de la API es diferente al valor seleccionado para enlistar una opción, de lo contrario se establece la opción como seleccionada.
+                       name+=`<li class="tab col s3 m3 l2"><a href="#${value}">${text}</a></li>`
+                       inside+=`<div id="${value}" class="col s12 transparent"><div id="contenido"></div></div>`
+                    });
+                } else {
+                    name += '<li class="tab col s3 m3 l2"><a href="#">no disponible</a></li>';
+                    inside+=`<div id="#" class="col s12 transparent"><div id="contenido" class="center">(no hay datos)</div></div>`
+                }
+                // Se agregan las opciones a la etiqueta select mediante su id.
+                document.getElementById(tabs).innerHTML =name;
+                document.getElementById(contenido).innerHTML =inside;
+                // Se inicializa el componente Select del formulario para que muestre las opciones.
+                M.Tabs.init(document.querySelectorAll('.tabs', {
+                    swipeable: true
+                }));
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    });
+}
 
 /*
 *   Función para generar un gráfico de barras verticales. Requiere el archivo chart.js. Para más información https://www.chartjs.org/

@@ -2,6 +2,7 @@
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
 require_once('../modelos/personal.php');
+require_once('correos.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -232,6 +233,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario o Contraseña incorectos';
                 }
                 break;
+                case 'pswdreco':
+                    $_POST = $personal->validateForm($_POST);
+                    if (!$personal->checkEmail($_POST['correo'])) {
+                        $result['exception'] = 'correo incorrecto';
+                        $_SESSION['nombre'] = $personal->getNombre();
+                        $_SESSION['email'] = $personal->getEmail();
+                    }   
+                    else {
+                        $result['status'] = 1;
+                        $result['message'] = 'correo enviado';
+                    }
+                    break;
            // default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }

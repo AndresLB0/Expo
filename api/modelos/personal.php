@@ -212,6 +212,18 @@ public function setDireccion($value)
             return false;
         }
     }
+    public function checkEmail($correo)
+    {
+        $sql = 'SELECT nombre FROM personal WHERE email = ?';
+        $params = array($correo);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->nombre = $data['nombre'];
+            $this->correo = $correo;
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function checkPassword($password)
     {
         $sql = 'SELECT clave FROM personal WHERE id_personal = ?';

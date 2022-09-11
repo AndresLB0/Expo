@@ -1,8 +1,8 @@
-const API_LINEA = SERVER + 'dashboard/linea.php?action=';
+const API_ZONA = SERVER + 'dashboard/zonas.php?action=';
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    readRows(API_LINEA);
+    readRows(API_ZONA);
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
 });
 
@@ -14,23 +14,20 @@ function fillTable(dataset) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += `
             <tr>
-                <td>${row.nombre_linea}</td>
+                <td>${row.nombre_zona}</td>
                 <td>
-                    <a onclick="openUpdate(${row.id_linea})" class="btn-floating blue tooltipped" data-tooltip="Actualizar">
+                    <a onclick="openUpdate(${row.id_zona})" class="btn-floating blue tooltipped" data-tooltip="Actualizar">
                         <i class="material-icons">mode_edit</i>
                     </a>
-                    <a onclick="openDelete(${row.id_linea})" class="btn-floating red tooltipped" data-tooltip="Eliminar">
+                    <a onclick="openDelete(${row.id_zona})" class="btn-floating red tooltipped" data-tooltip="Eliminar">
                         <i class="material-icons">delete</i>
-                    </a>
-                    <a onclick="openReport(${row.id_linea})" class="btn-floating indigo tooltipped" data-tooltip="Reporte">
-                        <i class="material-icons">assignment</i>
                     </a>
                 </td>
             </tr>
         `;
     });
     // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
-    document.getElementById('linea').innerHTML = content;
+    document.getElementById('zona').innerHTML = content;
     // Se inicializa el componente Material Box para que funcione el efecto Lightbox.
     M.Materialbox.init(document.querySelectorAll('.materialboxed'));
     // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
@@ -44,20 +41,12 @@ document.getElementById('save-form').addEventListener('submit', function (event)
     // Se define una variable para establecer la acción a realizar en la API.
     let action = '';
     // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
-    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    (document.getElementById('id_zona').value) ? action = 'update' : action = 'create';
     // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
-    saveRow(API_LINEA, action, 'save-form');
+    saveRow(API_ZONA, action, 'save-form');
 });
 
 // Función para abrir el reporte de productos por categoría.
-function openReport(id) {
-    // Se define una variable para inicializar los parámetros del reporte.
-    let params = '?id=' + id;
-    // Se establece la ruta del reporte en el servidor.
-    let url = SERVER + 'Reportes/linea.php';
-    // Se abre el reporte en una nueva pestaña del navegador web.
-    window.open(url + params);
-}
 
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdate(id) {
@@ -102,5 +91,5 @@ function openDelete(id) {
     const data = new FormData();
     data.append('id', id);
     // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
-    confirmDelete(API_LINEA, data);
+    confirmDelete(API_ZONA, data);
 }
