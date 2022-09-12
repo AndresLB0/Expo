@@ -1,4 +1,5 @@
 <?php
+include('../dashboard/correos.php');
 class personal extends validator
 {
     private $id=null;
@@ -10,6 +11,7 @@ class personal extends validator
     private $clave=null;
     private $cargo=null;
     private $correo=null;
+    private $token=null;
 
     public function setID($value)
     {
@@ -62,6 +64,16 @@ public function setDireccion($value)
             return false;
         }
     }
+    
+    public function setToken($value)
+{
+    if ($this->validateToken($value)) {
+        $this->token = $value;
+        return true;
+    } else {
+        return false;
+    }
+}
 
 
     public function setUsuario($value)
@@ -147,6 +159,10 @@ public function setDireccion($value)
     {
         return $this->cargo;
     }
+    public function getToken()
+    {
+        return $this->token;
+    }
 
     public function searchRows($value)
     {
@@ -214,11 +230,31 @@ public function setDireccion($value)
     }
     public function checkEmail($correo)
     {
-        $sql = 'SELECT nombre FROM personal WHERE email = ?';
+        $sql = 'SELECT id_personal FROM personal WHERE email = ?';
         $params = array($correo);
         if ($data = Database::getRow($sql, $params)) {
-            $this->nombre = $data['nombre'];
+            $this->id = $data['id_personal'];
             $this->correo = $correo;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function saveToken()
+    {
+        global $codigo;
+        $sql = 'UPDATE personal SET token = ? WHERE id_personal = ?';
+        $params = array($codigo,$this->id);
+        return Database::executeRow($sql, $params);
+    }
+    public function checkToken($token)
+    {
+        global $codigo;
+        $sql = 'SELECT id_personal FROM personal WHERE token = ?';
+        $params = array($token);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['id_personal'];
+            $this->token=$codigo;
             return true;
         } else {
             return false;
@@ -242,7 +278,12 @@ public function setDireccion($value)
         $params = array($this->clave, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
     }
-
+    public function forgetPassword()
+    {
+        $sql = 'UPDATE personal SET clave = ? WHERE id_personal = ?';
+        $params = array($this->clave,$this->id);
+        return Database::executeRow($sql, $params);
+    }
     public function readProfile()
     {
         $sql = 'SELECT id_personal,nombre,dui,telefono,direccion,usuario,clave,nombre_cargo

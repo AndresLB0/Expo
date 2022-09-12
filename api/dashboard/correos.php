@@ -21,7 +21,7 @@ $mail = new PHPMailer(true);
 
 try {
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -54,14 +54,14 @@ try {
     //Content
     $codigo=generarCodigo(5);
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'recuperacion de contraseña';
+    $mail->Subject =utf8_decode('recuperacion de contraseña');
     $mail->Body    = 'usted ha solicitado un cambio de contraseña, para continuar ponga el siguiente codigo <h1>'.$codigo.'</h1>';
     
 
     $mail->send();
-    echo 'Message has been sent';
+     define('succesfull','El correo se ha enviado');
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    $error= "el mensage no se pudo enviar,error: {$mail->ErrorInfo}";
 }
 
 }

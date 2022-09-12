@@ -268,6 +268,16 @@ class Validator
         }
     }
 
+    public function validateToken($value)
+    {
+        // Se verifica que el número tenga el formato 00000.
+        if (preg_match('/^[0-9]{5}$/', $value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Método para validar un número telefónico.
     *

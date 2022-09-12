@@ -233,18 +233,40 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario o Contraseña incorectos';
                 }
                 break;
-                case 'pswdreco':
+                case 'pswdReco':
                     $_POST = $personal->validateForm($_POST);
                     if (!$personal->checkEmail($_POST['correo'])) {
                         $result['exception'] = 'correo incorrecto';
-                        $_SESSION['nombre'] = $personal->getNombre();
-                        $_SESSION['email'] = $personal->getEmail();
                     }   
                     else {
                         $result['status'] = 1;
-                        $result['message'] = 'correo enviado';
+                        $result['message'] =succesfull;
+                        $personal->saveToken();
                     }
                     break;
+                    case 'forgotPassword':
+                        $_POST = $personal->validateForm($_POST);
+                        if ($_POST['nueva'] != $_POST['confirmar']) {
+                            $result['exception'] = 'Claves nuevas diferentes';
+                        } elseif (!$personal->setClave($_POST['nueva'])) {
+                            $result['exception'] = $personal->getPasswordError();
+                        } elseif ($personal->forgetPassword()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Contraseña cambiada correctamente';
+                        } else {
+                            $result['exception'] = Database::getException();
+                        }
+                        break;
+                    case 'checkToken':
+                        $_POST = $personal->validateForm($_POST);
+                        if (!$personal->checkToken($_POST['token'])) {
+                            $result['exception'] = 'token incorrecto';
+                        }   
+                        else {
+                            $result['status'] = 1;
+                            $result['message'] ='token confirmado';
+                        }
+                        break;
            // default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }

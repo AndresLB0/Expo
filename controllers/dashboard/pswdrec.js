@@ -1,10 +1,48 @@
 const API_PERSO = SERVER + 'dashboard/usuarios.php?action=';
 const CORREO=SERVER+ 'dashboard/correos.php'
+
+    document.getElementById('recovery-pswd').addEventListener('submit', function (event) {
+        // Se evita recargar la página web después de enviar el formulario.
+        event.preventDefault();
+        // Petición para actualizar la contraseña.
+        fetch(API_PERSO + 'pswdReco', {
+            method: 'post',
+            body: new FormData(document.getElementById('recovery-pswd'))
+        }).then(function (request) {
+            // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje en la consola indicando el problema.
+            if (request.ok) {
+                // Se obtiene la respuesta en formato JSON.
+                request.json().then(function (response) {
+                    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                    if (response.status) {
+                        // Se muestra un mensaje de éxito.
+                        sweetAlert(1, response.message, null);
+                        token();
+                    } else {
+                        sweetAlert(2, response.exception, null);
+                    }
+                });
+            } else {
+                console.log(request.status + ' ' + request.statusText);
+            }
+        });
+    });
+
+function token() {
+document.getElementById('texto').innerHTML='ingresar token'
+document.getElementById('enviar').innerHTML='verificar token'
+document.getElementById('correo').setAttribute('placeholder','ingresar token')
+document.getElementById('correo').setAttribute('type','text')
+document.getElementById('correo').setAttribute('name','token')
+document.getElementById ('recovery-pswd').reset (); 
+document.getElementById ('recovery-pswd').removeAttribute('action')
+document.querySelector('p').classList.add('hide')
+document.querySelector('a').classList.add('hide')
 document.getElementById('recovery-pswd').addEventListener('submit', function (event) {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Petición para actualizar la contraseña.
-    fetch(API_PERSO + 'pswdreco', {
+    fetch(API_PERSO + 'checkToken', {
         method: 'post',
         body: new FormData(document.getElementById('recovery-pswd'))
     }).then(function (request) {
@@ -15,7 +53,8 @@ document.getElementById('recovery-pswd').addEventListener('submit', function (ev
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se muestra un mensaje de éxito.
-                    sweetAlert(1, response.message, null);
+                    sweetAlert(1, response.message);
+                    
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
@@ -25,3 +64,5 @@ document.getElementById('recovery-pswd').addEventListener('submit', function (ev
         }
     });
 });
+
+}
