@@ -260,6 +260,12 @@ public function setDireccion($value)
             return false;
         }
     }
+    public function forgetPassword()
+    {
+        $sql = 'UPDATE personal SET clave = ? WHERE id_personal = ?';
+        $params = array($this->clave,$this->id);
+        return Database::executeRow($sql, $params);
+    }
     public function checkPassword($password)
     {
         $sql = 'SELECT clave FROM personal WHERE id_personal = ?';
@@ -278,12 +284,7 @@ public function setDireccion($value)
         $params = array($this->clave, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
     }
-    public function forgetPassword()
-    {
-        $sql = 'UPDATE personal SET clave = ? WHERE id_personal = ?';
-        $params = array($this->clave,$this->id);
-        return Database::executeRow($sql, $params);
-    }
+   
     public function readProfile()
     {
         $sql = 'SELECT id_personal,nombre,dui,telefono,direccion,usuario,clave,nombre_cargo

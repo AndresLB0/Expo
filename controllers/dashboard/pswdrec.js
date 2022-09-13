@@ -16,8 +16,7 @@ const CORREO=SERVER+ 'dashboard/correos.php'
                     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                     if (response.status) {
                         // Se muestra un mensaje de éxito.
-                        sweetAlert(1, response.message, null);
-                        token();
+                        sweetAlert(1, response.message,'forget.html');
                     } else {
                         sweetAlert(2, response.exception, null);
                     }
@@ -29,18 +28,8 @@ const CORREO=SERVER+ 'dashboard/correos.php'
     });
 
 function token() {
-document.getElementById('texto').innerHTML='ingresar token'
-document.getElementById('enviar').innerHTML='verificar token'
-document.getElementById('correo').setAttribute('placeholder','ingresar token')
-document.getElementById('correo').setAttribute('type','text')
-document.getElementById('correo').setAttribute('name','token')
-document.getElementById ('recovery-pswd').reset (); 
-document.getElementById ('recovery-pswd').removeAttribute('action')
-document.querySelector('p').classList.add('hide')
-document.querySelector('a').classList.add('hide')
-document.getElementById('recovery-pswd').addEventListener('submit', function (event) {
     // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
+    preventDefault();
     // Petición para actualizar la contraseña.
     fetch(API_PERSO + 'checkToken', {
         method: 'post',
@@ -53,8 +42,7 @@ document.getElementById('recovery-pswd').addEventListener('submit', function (ev
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se muestra un mensaje de éxito.
-                    sweetAlert(1, response.message);
-                    
+                    sweetAlert(1, response.message,'dashboard.html');
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
@@ -63,6 +51,5 @@ document.getElementById('recovery-pswd').addEventListener('submit', function (ev
             console.log(request.status + ' ' + request.statusText);
         }
     });
-});
 
 }

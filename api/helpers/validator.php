@@ -234,7 +234,7 @@ class Validator
         }elseif(!preg_match('/[A-Z]/',$value)){
             $this->passwordError = 'Debe tener por lo menos una letra mayúscula';
             return false;
-        }elseif(!preg_match('/[!#*$%&@()?¿¡ñÑáäÁÄéëÉËíïÏÍóÓÖöÚÜúü]/',$value)){
+        }elseif(!preg_match('/[!#*_$%&@()?¿¡ñÑáäÁÄéëÉËíïÏÍóÓÖöÚÜúü]/',$value)){
             $this->passwordError = 'Debe tener por lo menos un caracter especial';
             return false;
         }else{

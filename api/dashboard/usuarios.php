@@ -238,15 +238,20 @@ if (isset($_GET['action'])) {
                     if (!$personal->checkEmail($_POST['correo'])) {
                         $result['exception'] = 'correo incorrecto';
                     }   
-                    else {
+                    elseif($personal->checkEmail($_POST['correo'])) {
                         $result['status'] = 1;
                         $result['message'] =succesfull;
                         $personal->saveToken();
+                    }else{
+                        global $error;
+                        $result['exception']=$error;
                     }
                     break;
                     case 'forgotPassword':
                         $_POST = $personal->validateForm($_POST);
-                        if ($_POST['nueva'] != $_POST['confirmar']) {
+                        if (!$personal->checkToken($_POST['token'])) {
+                            $result['exception'] = 'token incorrecto';
+                        }elseif ($_POST['nueva'] != $_POST['confirmar']) {
                             $result['exception'] = 'Claves nuevas diferentes';
                         } elseif (!$personal->setClave($_POST['nueva'])) {
                             $result['exception'] = $personal->getPasswordError();
@@ -261,8 +266,7 @@ if (isset($_GET['action'])) {
                         $_POST = $personal->validateForm($_POST);
                         if (!$personal->checkToken($_POST['token'])) {
                             $result['exception'] = 'token incorrecto';
-                        }   
-                        else {
+                        } else {
                             $result['status'] = 1;
                             $result['message'] ='token confirmado';
                         }

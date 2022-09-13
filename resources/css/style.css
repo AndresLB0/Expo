@@ -106,8 +106,8 @@ button {
     height:600px;
   }
   .e404{
-    width: 1367px;
-    height:800px;
+    width: 900px;
+    height:600px;
   }
   /* (c 2/4) */
   .contenedor{
@@ -409,6 +409,11 @@ button {
   .error{
     width: 600px;
     height:1000px;;
+  }
+
+  .e404{
+    width:340px;
+    height:620px;
   }
   /* (c 4/4) */
   .contenedor {
