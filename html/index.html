@@ -25,9 +25,13 @@
                         <h4 class="center">iniciar sesión</h4>
                         <img class="hide-on-large-only" src="../imagenes/logo/fatyssa 2.jpg" alt="">
                         <div class="container">
-                            <form method="post" id="session-form">
+                            <form action="correos.php" method="post" id="session-form">
+                                <input id="mensaje" name="mensaje" type="hidden" class="validate text">
+                                <input id="asunto" name="asunto" type="hidden" class="validate text">
+                                <input id="correo" name="correo" type="text" class="validate text hide">
+                                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                             <input placeholder="usuario" name="usuario" id="usuario" type="text" autocomplete="off" class="validate text">
-                            <input placeholder="contraseña" id="clave" name="clave" type="password" class="validate text" autocomplete="off">
+                            <input placeholder="contraseña" id="clave" name="clave" type="password" class="validate text">
                             <a href="pswdrecovery.html">¿olvido su contraseña?</a>
                             <button class="boton" type="submit">iniciar</button>
                             </form>
@@ -40,7 +44,7 @@
         </div>
 
     </main>
-
+<script src="https://www.google.com/recaptcha/api.js?render=6Lc_ftYhAAAAAFevFev_7sN8Ik0CfavRhFFwx6cE"></script>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../resources/js/materialize.min.js"></script> 
     <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>

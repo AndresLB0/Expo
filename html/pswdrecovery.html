@@ -29,6 +29,8 @@
                         <div class="container">
                             <form action="correos.php" method="post" id="recovery-pswd">
                                 <p>ingrese el correo asociado a su cuenta</p>
+                                <input id="mensaje" name="mensaje" type="hidden" class="validate text">
+                                <input id="asunto" name="asunto" type="hidden" class="validate text">
                                 <input placeholder="correo electronico" id="correo" name="correo" type="email" class="validate text">
                                 <button class="boton" id="enviar" type="submit">enviar correo</button>
                             </form>

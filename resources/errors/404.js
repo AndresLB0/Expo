@@ -10,8 +10,14 @@ window.onresize = function(){
     AutoRefresh()
    };
    if(anchoVentana > 1366 ){
-    document.querySelector('img').setAttribute('src','/expo/imagenes/error/error404.png')
-   
+    let image=document.querySelector('img');
+    image.setAttribute('src','/expo/imagenes/error/error404.png');
+    let map='';
+    map+=`<map name="frasco">
+    <area shape="circle" coords="430,540,35" href="/expo/html/dashboard.html" alt="hola">
+</map>`;
+document.getElementById('click').setAttribute('class','hide');
+document.getElementById('mapa').innerHTML=map;
   }else if(anchoVentana > 999 && anchoVentana < 1367){
     document.querySelector('img').setAttribute('src','/expo/imagenes/error/error404.gif')
   }else if(anchoVentana > 602 && anchoVentana< 1000) {

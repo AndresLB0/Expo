@@ -3,7 +3,6 @@ require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
 require_once('../modelos/personal.php');
 require_once('correos.php');
-
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
@@ -11,7 +10,7 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $personal = new Personal;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0,'recaptcha' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_personal'])) {
         $result['session'] = 1;
@@ -98,7 +97,7 @@ if (isset($_GET['action'])) {
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombres incorrectos';
-                }  elseif (!$personal->setEmail($_POST['correo'])) {
+                }  elseif (!$personal->setEmail($_POST['email'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$personal->setUsuario($_POST['usuario'])) {
                     $result['exception'] = 'Alias incorrecto';
@@ -186,6 +185,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
+                case 'checkToken':
+                    $_POST = $personal->validateForm($_POST);
+                    if (!$personal->setId($_SESSION['id_personal'])) {
+                        $result['exception'] = 'personal incorrecto';
+                    }elseif (!$personal->checkToken($_POST['token'])) {
+                        $result['exception'] = 'token incorrecto';
+                    } else {
+                        $result['status'] = 1;
+                        $result['message'] ='token confirmado';
+                        $personal->deleteToken();
+                    }
+                    break;
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
     } else {
@@ -211,7 +222,12 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($_POST['clave'] != $_POST['confirmar']) {
                     $result['exception'] = 'Claves diferentes';
-                } elseif (!$personal->setClave($_POST['clave'])) {
+                }elseif (stripos($_POST['clave'],$_POST['nombre']) or 
+                stripos($_POST['clave'],$_POST['correo']) or
+                stripos($_POST['clave'],$_POST['telefono'])or
+                stripos($_POST['clave'],$_POST['usuario'])) {
+                    $result['exception'] = 'su clave debe ser diferente de los datos';
+                }elseif (!$personal->setClave($_POST['clave'])) {
                     $result['exception'] = $personal->getPasswordError();
                 } elseif ($personal->registro()) {
                     $result['status'] = 1;
@@ -222,11 +238,35 @@ if (isset($_GET['action'])) {
                 break;
             case 'logIn':
                 $_POST = $personal->validateForm($_POST);
-                if (!$personal->checkUser($_POST['usuario'])) {
-                    $result['exception'] = 'Usuario o Contraseña incorrectos';
+                $secretKey = '6Lc_ftYhAAAAAFORbzcjcyWEWrsgXLT128JilQ0N';
+                $ip = $_SERVER['REMOTE_ADDR'];
+
+                $data = array('secret' => $secretKey, 'response' => $_POST['g-recaptcha-response'], 'remoteip' => $ip);
+
+                $options = array(
+                    'http' => array('header'  => "Content-type: application/x-www-form-urlencoded\r\n", 'method' => 'POST', 'content' => http_build_query($data)),
+                    'ssl' => array('verify_peer' => false, 'verify_peer_name' => false)
+                );
+
+                $url = 'https://www.google.com/recaptcha/api/siteverify';
+                $context  = stream_context_create($options);
+                $response = file_get_contents($url, false, $context);
+                $captcha = json_decode($response, true);
+
+                if (!$captcha['success']) {
+                    $result['recaptcha'] = 1;
+                    $result['exception'] = 'No eres un humano. Vuelva a intentar.';
+                }elseif (!$personal->checkUser($_POST['usuario'])) {
+                    $result['exception'] = 'Usuario o Contraseña incorrectos';   
+                }elseif (!$result['dataset'] = $personal->readEmail()) {
+                    $result['exception'] = 'correo no existente';   
+                }elseif (!$personal->setEmail($_POST['correo'])) {
+                    $result['exception'] = 'reenvíe nuevamente el formulario';   
                 } elseif ($personal->checkPassword($_POST['clave'])) {
                     $result['status'] = 1;
-                    $result['message'] = 'Autenticación correcta';
+                    global $succesfull;
+                    $result['message'] = $succesfull;
+                    $personal->saveToken2();
                     $_SESSION['id_personal'] = $personal->getId();
                     $_SESSION['usuario'] = $personal->getUsuario();
                 } else {
@@ -236,15 +276,12 @@ if (isset($_GET['action'])) {
                 case 'pswdReco':
                     $_POST = $personal->validateForm($_POST);
                     if (!$personal->checkEmail($_POST['correo'])) {
-                        $result['exception'] = 'correo incorrecto';
-                    }   
-                    elseif($personal->checkEmail($_POST['correo'])) {
-                        $result['status'] = 1;
-                        $result['message'] =succesfull;
-                        $personal->saveToken();
+                        $result['exception'] = 'correo incorrecto';   
                     }else{
-                        global $error;
-                        $result['exception']=$error;
+                        $result['status'] = 1;
+                        global $succesfull;
+                        $result['message'] =$succesfull;
+                        $personal->saveToken();
                     }
                     break;
                     case 'forgotPassword':
@@ -258,20 +295,13 @@ if (isset($_GET['action'])) {
                         } elseif ($personal->forgetPassword()) {
                             $result['status'] = 1;
                             $result['message'] = 'Contraseña cambiada correctamente';
+                            $personal->deleteToken();
                         } else {
                             $result['exception'] = Database::getException();
                         }
                         break;
-                    case 'checkToken':
-                        $_POST = $personal->validateForm($_POST);
-                        if (!$personal->checkToken($_POST['token'])) {
-                            $result['exception'] = 'token incorrecto';
-                        } else {
-                            $result['status'] = 1;
-                            $result['message'] ='token confirmado';
-                        }
-                        break;
-           // default:
+                    
+            default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
     }

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (response.session) {
                     location.href = 'dashboard.html';
                 } else if (response.status) {
-                    sweetAlert(3, response.message, 'index.html');
+                    location.href = 'index.html';
                 } else {
                     sweetAlert(4, 'Debe crear un usuario para comenzar', null);
                 }

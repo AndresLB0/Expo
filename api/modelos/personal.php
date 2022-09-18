@@ -215,7 +215,18 @@ public function setDireccion($value)
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-
+    public function readEmail()
+    {
+        $sql = 'SELECT email from personal WHERE id_personal = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+    public function readUser()
+    {
+        $sql = 'SELECT usuario from personal WHERE id_personal = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
     public function checkUser($usuario)
     {
         $sql = 'SELECT id_personal FROM personal WHERE usuario = ?';
@@ -245,6 +256,19 @@ public function setDireccion($value)
         global $codigo;
         $sql = 'UPDATE personal SET token = ? WHERE id_personal = ?';
         $params = array($codigo,$this->id);
+        return Database::executeRow($sql, $params);
+    }
+    public function saveToken2()
+    {
+        global $codigo;
+        $sql = 'UPDATE personal SET token = ? WHERE id_personal = ?';
+        $params = array($codigo,$this->id);
+        return Database::executeRow($sql, $params);
+    }
+    public function deleteToken()
+    {
+        $sql = 'UPDATE personal SET token = NULL WHERE id_personal = ?';
+        $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
     public function checkToken($token)
@@ -277,6 +301,13 @@ public function setDireccion($value)
         } else {
             return false;
         }
+    }
+    public function ReadPassword()
+    {
+        $sql = 'SELECT clave FROM personal WHERE id_personal = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params); // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
+
     }
     public function changePassword()
     {

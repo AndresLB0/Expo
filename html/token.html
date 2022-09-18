@@ -24,10 +24,10 @@
                     <div class="col offset-m2 m6 s12" style="margin-top:100px;">
                         <h4 class="center" id="texto" >ingresar token</h4>
                         <div class="container">
-                            <form action="correos.php" method="post" id="recovery-pswd">
+                            <form method="post" id="recovery-pswd">
                                 <p>ingrese el token que esta en su correo</p>
                                 <input placeholder="token" id="token" name="token" type="text" class="validate text">
-                                <button onclick="token()" class="boton" id="enviar" type="submit">confirmar token</button>
+                                <button class="boton" id="enviar" type="submit">confirmar token</button>
                             </form>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
     <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
     <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="../controllers/components.js"></script>
-    <script type="text/javascript" src="../controllers/dashboard/pswdrec.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/token.js"></script>
 </body>
 
 </html>

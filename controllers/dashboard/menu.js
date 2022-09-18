@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 <ul class="sidenav" id="mobile-demo" <li><img src="../imagenes/logo/fatyssa 2.jpg" width="100%" alt="logo de fatyssa">
     </li>
-    <li><a href="m_personal.html">personal</a></li>
-    <li><a href="m_proveedor.html">proveedores</a></li>
-    <li><a href="m_producto.html">productos</a></li>
-    <li><a href="m_pedido.html">pedidos</a></li>
-    <li><a href="m_cliente.html">clientes</a></li>
+    <li><a href="m_personal.html">Personal</a></li>
+    <li><a href="m_proveedor.html">Proveedores</a></li>
+    <li><a href="m_producto.html">Productos</a></li>
+    <li><a href="m_pedido.html">Pedidos</a></li>
+    <li><a href="m_cliente.html">Plientes</a></li>
     <li>
         <a class="dropdown-trigger" href="#" data-target="mobile-dropdown">
             <i class="material-icons">verified_user</i>Cuenta: <b>${response.username}</b>

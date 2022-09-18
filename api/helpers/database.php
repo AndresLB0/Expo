@@ -136,7 +136,7 @@ class Database
             case '7':
                 self::$error = 'Existe un problema al conectar con el servidor';
                 break;
-            case '42703':
+            //case '42703':
                 self::$error = 'Nombre de campo desconocido';
                 break;
             case '23505':

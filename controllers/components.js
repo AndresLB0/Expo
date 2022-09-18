@@ -90,7 +90,7 @@ function saveRow(api, action, form) {
                     // Se cierra la caja de dialogo (modal) del formulario.
                     // Se cargan nuevamente las filas en la tabla de la vista después de guardar un registro y se muestra un mensaje de éxito.
                     readRows(api);
-                    sweetAlert(1, response.message, null);
+                    sweetAlert(1, response.message,'JavaScript:history.back()');
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
