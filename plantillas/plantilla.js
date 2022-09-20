@@ -36,8 +36,12 @@ function reloj() {
   hora = tiempo.getHours();
   if (hora < 10) hora = "0" + hora
   min = tiempo.getMinutes();
+  sec=tiempo.getSeconds();
   if (min < 10) min = "0" + min;
-  horacompleta = hora + ":" + min;
+  horacompleta = hora + ":" + min+":" +sec;
+  if(sec==10){
+    document.getElementById('hora').classList.add('red');
+  }
   document.getElementById('hora').innerHTML = horacompleta;
   setTimeout('reloj()', 1000)
 }

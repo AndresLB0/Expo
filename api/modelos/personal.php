@@ -12,6 +12,8 @@ class personal extends validator
     private $cargo=null;
     private $correo=null;
     private $token=null;
+    private $intentos = null;
+    private $fecha_intentos = null;
 
     public function setID($value)
     {
@@ -116,6 +118,16 @@ public function setDireccion($value)
         }
 
     }  
+    public function setIntentos($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->intentos = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public function getId()
     {
@@ -162,6 +174,15 @@ public function setDireccion($value)
     public function getToken()
     {
         return $this->token;
+    }
+    public function getIntentos()
+    {
+        return $this->intentos;
+    }
+
+    public function getFechaIntentos()
+    {
+        return $this->fecha_intentos;
     }
 
     public function searchRows($value)
@@ -241,10 +262,11 @@ public function setDireccion($value)
     }
     public function checkEmail($correo)
     {
-        $sql = 'SELECT id_personal FROM personal WHERE email = ?';
+        $sql = 'SELECT id_personal,nombre FROM personal WHERE email = ?';
         $params = array($correo);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_personal'];
+            $this->nombre=$data['nombre'];
             $this->correo = $correo;
             return true;
         } else {
@@ -253,16 +275,8 @@ public function setDireccion($value)
     }
     public function saveToken()
     {
-        global $codigo;
         $sql = 'UPDATE personal SET token = ? WHERE id_personal = ?';
-        $params = array($codigo,$this->id);
-        return Database::executeRow($sql, $params);
-    }
-    public function saveToken2()
-    {
-        global $codigo;
-        $sql = 'UPDATE personal SET token = ? WHERE id_personal = ?';
-        $params = array($codigo,$this->id);
+        $params = array($_SESSION['codigo'],$this->id);
         return Database::executeRow($sql, $params);
     }
     public function deleteToken()
@@ -273,12 +287,11 @@ public function setDireccion($value)
     }
     public function checkToken($token)
     {
-        global $codigo;
         $sql = 'SELECT id_personal FROM personal WHERE token = ?';
         $params = array($token);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_personal'];
-            $this->token=$codigo;
+            $this->token=$_SESSION['codigo'];
             return true;
         } else {
             return false;
@@ -292,20 +305,23 @@ public function setDireccion($value)
     }
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave FROM personal WHERE id_personal = ?';
+        $sql = 'SELECT clave,email,nombre FROM personal WHERE id_personal = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
         // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
         if (password_verify($password, $data['clave'])) {
+            $this->correo=$data['email'];
+            $this->nombre=$data['nombre'];
             return true;
         } else {
             return false;
         }
     }
-    public function ReadPassword()
+    public function ReadId($clave)
     {
-        $sql = 'SELECT clave FROM personal WHERE id_personal = ?';
-        $params = array($this->id);
+        $sql = 'SELECT id_personal FROM personal WHERE clave = ?';
+        $params = array($clave);
+        $this->clave=$clave;
         return Database::getRow($sql, $params); // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
 
     }
@@ -386,5 +402,35 @@ public function cantidadPedidosZona()
      $params = null;
      return Database::getRows($sql, $params);
  }
+ //Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
+public function intentoFallido($usuario)
+{
+    $sql = 'UPDATE personal
+    set intentos = intentos + 1
+    WHERE usuario = ? ';
+    $params = array($this->usuario);
+    return Database::executeRow($sql, $params);
+}
+
+//Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
+public function bloqueoIntentos($usuario, $date)
+{
+    $future_date = date("Y-m-d H:i",strtotime($date."+ 1 days")); 
+    $sql = 'UPDATE personal
+    set intentos = 0, fecha_intentos = ?
+    WHERE usuario = ?;';
+    $params = array($future_date, $this->usuario);
+    return Database::executeRow($sql, $params);
+}
+
+//Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
+public function reinicioConteoIntentos($usuario)
+{
+    $sql = 'UPDATE personal
+    set intentos = 0
+    WHERE usuario = ?';
+    $params = array($this->usuario);
+    return Database::executeRow($sql, $params);
+}
 
 }

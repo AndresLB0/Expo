@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body class="azul">
+<body class="azul" onload="reloj()">
     <header>
     </header>
     <main>
@@ -25,11 +25,7 @@
                         <h4 class="center">iniciar sesión</h4>
                         <img class="hide-on-large-only" src="../imagenes/logo/fatyssa 2.jpg" alt="">
                         <div class="container">
-                            <form action="correos.php" method="post" id="session-form">
-                                <input id="mensaje" name="mensaje" type="hidden" class="validate text">
-                                <input id="asunto" name="asunto" type="hidden" class="validate text">
-                                <input id="correo" name="correo" type="text" class="validate text hide">
-                                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                            <form method="post" id="session-form">
                             <input placeholder="usuario" name="usuario" id="usuario" type="text" autocomplete="off" class="validate text">
                             <input placeholder="contraseña" id="clave" name="clave" type="password" class="validate text">
                             <a href="pswdrecovery.html">¿olvido su contraseña?</a>

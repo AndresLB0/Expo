@@ -9,8 +9,9 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $personal = new Personal;
+
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0,'recaptcha' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_personal'])) {
         $result['session'] = 1;
@@ -222,11 +223,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($_POST['clave'] != $_POST['confirmar']) {
                     $result['exception'] = 'Claves diferentes';
-                }elseif (stripos($_POST['clave'],$_POST['nombre']) or 
-                stripos($_POST['clave'],$_POST['correo']) or
-                stripos($_POST['clave'],$_POST['telefono'])or
-                stripos($_POST['clave'],$_POST['usuario'])) {
-                    $result['exception'] = 'su clave debe ser diferente de los datos';
                 }elseif (!$personal->setClave($_POST['clave'])) {
                     $result['exception'] = $personal->getPasswordError();
                 } elseif ($personal->registro()) {
@@ -238,35 +234,15 @@ if (isset($_GET['action'])) {
                 break;
             case 'logIn':
                 $_POST = $personal->validateForm($_POST);
-                $secretKey = '6Lc_ftYhAAAAAFORbzcjcyWEWrsgXLT128JilQ0N';
-                $ip = $_SERVER['REMOTE_ADDR'];
-
-                $data = array('secret' => $secretKey, 'response' => $_POST['g-recaptcha-response'], 'remoteip' => $ip);
-
-                $options = array(
-                    'http' => array('header'  => "Content-type: application/x-www-form-urlencoded\r\n", 'method' => 'POST', 'content' => http_build_query($data)),
-                    'ssl' => array('verify_peer' => false, 'verify_peer_name' => false)
-                );
-
-                $url = 'https://www.google.com/recaptcha/api/siteverify';
-                $context  = stream_context_create($options);
-                $response = file_get_contents($url, false, $context);
-                $captcha = json_decode($response, true);
-
-                if (!$captcha['success']) {
-                    $result['recaptcha'] = 1;
-                    $result['exception'] = 'No eres un humano. Vuelva a intentar.';
-                }elseif (!$personal->checkUser($_POST['usuario'])) {
+                if (!$personal->checkUser($_POST['usuario'])) {
                     $result['exception'] = 'Usuario o Contraseña incorrectos';   
-                }elseif (!$result['dataset'] = $personal->readEmail()) {
-                    $result['exception'] = 'correo no existente';   
-                }elseif (!$personal->setEmail($_POST['correo'])) {
-                    $result['exception'] = 'reenvíe nuevamente el formulario';   
-                } elseif ($personal->checkPassword($_POST['clave'])) {
+                }elseif ($personal->checkPassword($_POST['clave'])) {
+                    $_SESSION['nombre'] = $personal->getNombre();
+                    $_SESSION['correo'] = $personal->getEmail();
+                    sendemail($_SESSION['nombre'],$_SESSION['correo'],'auntentificacion de inicio de sesion', 'alguien ha intentado entrar a su cuenta,vaya al sitio e inserte el sigiente condigo para confirmar que es usted');
                     $result['status'] = 1;
-                    global $succesfull;
-                    $result['message'] = $succesfull;
-                    $personal->saveToken2();
+                    $result['message'] = 'correo eviado';
+                    $personal->saveToken();
                     $_SESSION['id_personal'] = $personal->getId();
                     $_SESSION['usuario'] = $personal->getUsuario();
                 } else {
@@ -278,9 +254,10 @@ if (isset($_GET['action'])) {
                     if (!$personal->checkEmail($_POST['correo'])) {
                         $result['exception'] = 'correo incorrecto';   
                     }else{
+                         $_SESSION['nombre'] = $personal->getNombre();
+                        sendemail($_SESSION['nombre'],$_POST['correo'],'recuperar contraseña',  'ha solicitado un cambio de contraseña, regrese a la pagina e inserte el sigiente condigo para continuar');
                         $result['status'] = 1;
-                        global $succesfull;
-                        $result['message'] =$succesfull;
+                        $result['message'] ='correo enviado';
                         $personal->saveToken();
                     }
                     break;
@@ -300,6 +277,23 @@ if (isset($_GET['action'])) {
                             $result['exception'] = Database::getException();
                         }
                         break;
+                        case 'changePswd':
+                            $_POST = $personal->validateForm($_POST);
+                           if (!$personal->ReadId($_POST['actual'])) {
+                                $result['exception'] = 'Clave actual incorrecta';
+                            }elseif ($_POST['actual'] == $_POST['nueva']) {
+                                $result['exception'] = 'la nueva clave no puede ser igual a la clave actual';
+                            } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                                $result['exception'] = 'Claves nuevas diferentes';
+                            } elseif (!$personal->setClave($_POST['nueva'])) {
+                                $result['exception'] = $personal->getPasswordError();
+                            } elseif ($personal->forgetPassword()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'Contraseña cambiada correctamente';
+                            } else {
+                                $result['exception'] = Database::getException();
+                            }
+                            break;
                     
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';

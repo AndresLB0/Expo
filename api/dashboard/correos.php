@@ -6,13 +6,15 @@ include('../library/phpmailer651/src/Exception.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-if (isset($_POST['correo'])) {
+
     require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
 require_once('../modelos/personal.php');
 require_once('usuarios.php');
+ function sendemail($nombre,$correo,$asunto,$mensaje){
+    if (isset($correo)) {
 $personal=new Personal;
-    if ($personal->setEmail($_POST['correo'])) {
+    if ($personal->setEmail($correo)) {
 
 
 
@@ -41,17 +43,13 @@ try {
                             }
                     
                           //Ejemplo de uso
-                          $canidad = 50;
-                          for($c=0; $c<=$canidad; $c++){
-                          }
-    $emailTo=$personal->getEmail($_POST['correo']);
-    $_POST['usuario'];
+    $emailTo=$personal->getEmail($correo);
     $mail->setFrom('andres.lborja@hotmail.com', 'dinypoladus');
     $mail->addAddress($emailTo);     //Add a recipient
-    $codigo=generarCodigo(5);
+    $_SESSION['codigo']=generarCodigo(5);
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject =utf8_decode($_POST['asunto']);
-    $mail->Body    ='<h3>'.'hola '.$_POST['usuario'].' le informamos que '.$_POST['mensaje'].'</h3>'.'<h1>'.$codigo.'</h1>';
+    $mail->Subject =utf8_decode($asunto);
+    $mail->Body    ='<h3>'.$nombre.', le informamos que '.$mensaje.'</h3>'.'<h1>'.$_SESSION['codigo'].'</h1>';
     
 
     //generador de cogigos
@@ -60,11 +58,13 @@ try {
     
 
     $mail->send();
-     $succesfull='El correo se ha enviado';
+     'El correo se ha enviado';
 } catch (Exception $e) {
-    $error= "el mensage no se pudo enviar,error: {$mail->ErrorInfo}";
+     "el mensage no se pudo enviar,error: {$mail->ErrorInfo}";
 }
 
 }
 }
+ }
+
 ?>

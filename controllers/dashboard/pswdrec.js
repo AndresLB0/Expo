@@ -2,8 +2,6 @@ const API_PERSO = SERVER + 'dashboard/usuarios.php?action=';
     document.getElementById('recovery-pswd').addEventListener('submit', function (event) {
         // Se evita recargar la página web después de enviar el formulario.
         event.preventDefault();
-        document.getElementById('asunto').value='recuperar contraseña';
-        document.getElementById('mensaje').value='ha solicitado un cambio de contraseña, regrese a la pagina e inserte el sigiente condigo para continuar';
         // Petición para actualizar la contraseña.
         fetch(API_PERSO + 'pswdReco', {
             method: 'post',

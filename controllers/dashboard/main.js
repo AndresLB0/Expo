@@ -2,7 +2,6 @@
 const API_USUARIOS = SERVER + 'dashboard/usuarios.php?action=';
 const API_CLIENTES = SERVER + 'dashboard/clientes.php?action=';
 const API_PRODUCTOS = SERVER + 'dashboard/productos.php?action=';
-
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     // Se llaman a la funciones que generan los gráficos en la página web.
@@ -14,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
     graficoLineaProductoProveedor();
     graficoPoductoLinea();
     graficoBarraPedidosPersonal();
+    reloj();
 });
-
 // Función para mostrar la cantidad de pedidos por zona en un gráfico de barras.
 function graficoBarrasPedidosZona() {
     // Petición para obtener los datos del gráfico.
