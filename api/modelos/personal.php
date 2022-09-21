@@ -14,6 +14,7 @@ class personal extends validator
     private $token=null;
     private $intentos = null;
     private $fecha_intentos = null;
+    private $dias_clave = null;
 
     public function setID($value)
     {
@@ -184,6 +185,10 @@ public function setDireccion($value)
     {
         return $this->fecha_intentos;
     }
+    public function getDiasClave()
+    {
+        return $this->dias_clave;
+    }
 
     public function searchRows($value)
     {
@@ -197,19 +202,23 @@ public function setDireccion($value)
 
     public function createRow()
     {
-        $sql = 'INSERT INTO personal(nombre,dui,telefono,email,direccion,usuario,clave,id_cargo)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre,$this->dui, $this->telefono,$this->correo,$this->direccion,$this->usuario,$this->clave,$this->cargo);
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('Y-m-d');
+        $sql = 'INSERT INTO personal(nombre,dui,telefono,email,direccion,usuario,clave,fecha_clave,id_cargo)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)';
+        $params = array($this->nombre,$this->dui, $this->telefono,$this->correo,$this->direccion,$this->usuario,$this->clave,$date,$this->cargo);
         return Database::executeRow($sql, $params);
     }
     public function registro()
     {
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('Y-m-d');
         $sql = "WITH auto_cargo as (
           INSERT INTO cargo (nombre_cargo) VALUES ('propietario') 
           RETURNING id_cargo)
-        INSERT INTO personal (nombre,email,telefono,usuario,clave,id_cargo)
-        VALUES (?,?,?,?,?,(SELECT id_cargo FROM auto_cargo))";
-        $params = array($this->nombre,$this->correo, $this->telefono,$this->usuario,$this->clave);
+        INSERT INTO personal (nombre,email,telefono,usuario,clave,fecha_clave,id_cargo)
+        VALUES (?,?,?,?,?,?,(SELECT id_cargo FROM auto_cargo))";
+        $params = array($this->nombre,$this->correo, $this->telefono,$this->usuario,$this->clave,$date);
         return Database::executeRow($sql, $params);
     }
     public function readAll()
@@ -305,25 +314,18 @@ public function setDireccion($value)
     }
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave,email,nombre FROM personal WHERE id_personal = ?';
+        $sql = 'SELECT clave,email,nombre, EXTRACT(days from (CURRENT_DATE - fecha_clave)) as dias FROM personal WHERE id_personal=?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
         // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
         if (password_verify($password, $data['clave'])) {
             $this->correo=$data['email'];
             $this->nombre=$data['nombre'];
+            $this->dias_clave=$data['dias'];
             return true;
         } else {
             return false;
         }
-    }
-    public function ReadId($clave)
-    {
-        $sql = 'SELECT id_personal FROM personal WHERE clave = ?';
-        $params = array($clave);
-        $this->clave=$clave;
-        return Database::getRow($sql, $params); // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
-
     }
     public function changePassword()
     {

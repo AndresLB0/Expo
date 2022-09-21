@@ -11,7 +11,7 @@ if (isset($_GET['action'])) {
     $personal = new Personal;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0,'noventa'=>0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_personal'])) {
         $result['session'] = 1;
@@ -198,6 +198,25 @@ if (isset($_GET['action'])) {
                         $personal->deleteToken();
                     }
                     break;
+                    case 'changePswd':
+                        $_POST = $personal->validateForm($_POST);
+                        if (!$personal->setId($_SESSION['id_personal'])) {
+                            $result['exception'] = 'personal incorrecto';
+                        }elseif (!$personal->changePassword($_POST['actual'])) {
+                            $result['exception'] = 'Clave actual incorrecta';
+                        }elseif ($_POST['actual'] == $_POST['nueva']) {
+                            $result['exception'] = 'la nueva clave no puede ser igual a la clave actual';
+                        } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                            $result['exception'] = 'Claves nuevas diferentes';
+                        } elseif (!$personal->setClave($_POST['nueva'])) {
+                            $result['exception'] = $personal->getPasswordError();
+                        } elseif ($personal->forgetPassword()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Contraseña cambiada correctamente';
+                        } else {
+                            $result['exception'] = Database::getException();
+                        }
+                        break;
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
     } else {
@@ -237,6 +256,10 @@ if (isset($_GET['action'])) {
                 if (!$personal->checkUser($_POST['usuario'])) {
                     $result['exception'] = 'Usuario o Contraseña incorrectos';   
                 }elseif ($personal->checkPassword($_POST['clave'])) {
+                    if ( $personal->getDiasClave()>90) {
+                        $result['exception'] = 'tiene que cambiar su contraseña';
+                        $result['noventa'] = 1;
+                    }else{
                     $_SESSION['nombre'] = $personal->getNombre();
                     $_SESSION['correo'] = $personal->getEmail();
                     sendemail($_SESSION['nombre'],$_SESSION['correo'],'auntentificacion de inicio de sesion', 'alguien ha intentado entrar a su cuenta,vaya al sitio e inserte el sigiente condigo para confirmar que es usted');
@@ -245,6 +268,7 @@ if (isset($_GET['action'])) {
                     $personal->saveToken();
                     $_SESSION['id_personal'] = $personal->getId();
                     $_SESSION['usuario'] = $personal->getUsuario();
+                    }
                 } else {
                     $result['exception'] = 'Usuario o Contraseña incorectos';
                 }
@@ -277,23 +301,6 @@ if (isset($_GET['action'])) {
                             $result['exception'] = Database::getException();
                         }
                         break;
-                        case 'changePswd':
-                            $_POST = $personal->validateForm($_POST);
-                           if (!$personal->ReadId($_POST['actual'])) {
-                                $result['exception'] = 'Clave actual incorrecta';
-                            }elseif ($_POST['actual'] == $_POST['nueva']) {
-                                $result['exception'] = 'la nueva clave no puede ser igual a la clave actual';
-                            } elseif ($_POST['nueva'] != $_POST['confirmar']) {
-                                $result['exception'] = 'Claves nuevas diferentes';
-                            } elseif (!$personal->setClave($_POST['nueva'])) {
-                                $result['exception'] = $personal->getPasswordError();
-                            } elseif ($personal->forgetPassword()) {
-                                $result['status'] = 1;
-                                $result['message'] = 'Contraseña cambiada correctamente';
-                            } else {
-                                $result['exception'] = Database::getException();
-                            }
-                            break;
                     
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';

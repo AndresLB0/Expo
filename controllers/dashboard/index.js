@@ -56,8 +56,11 @@ document.getElementById('session-form').addEventListener('submit', function (eve
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje en la consola indicando el problema.
         if (request.ok) {
-            request.json().then(function (response) {                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                if (response.status) {
+            request.json().then(function (response) { 
+                if (response.noventa) {
+                    sweetAlert(4, response.exception, 'changepswd.html');
+                }               // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                else if (response.status) {
                     sweetAlert(1, response.message, 'token.html');
                 } else {
                     sweetAlert(2, response.exception, null);
@@ -68,15 +71,3 @@ document.getElementById('session-form').addEventListener('submit', function (eve
         }
     });
 });
-function reloj() {
-    fecha = new Date();
-    anno = fecha.getFullYear();
-    mes = fecha.getMonth() + 1;
-    dia = fecha.getDate();
-    diasem = fecha.getDay();
-    sec=fecha.getSeconds();
-    if (sec==10) {
-        location.href='changepswd.html'
-    }
-    setTimeout('reloj()', 1000)
-  }

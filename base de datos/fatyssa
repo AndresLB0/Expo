@@ -5,7 +5,8 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.2
 
--- Started on 2022-09-07 09:35:25
+-- Started on 2022-09-20 20:21:44
+
 
 --
 -- TOC entry 209 (class 1259 OID 49424)
@@ -393,7 +394,10 @@ CREATE TABLE public.personal (
     id_cargo integer NOT NULL,
     telefono character varying,
     email character varying,
-    token character varying
+    token character varying,
+    intentos integer,
+    fecha_intentos timestamp without time zone,
+    fecha_clave timestamp without time zone
 );
 
 
@@ -753,9 +757,13 @@ ALTER TABLE ONLY public.zona ALTER COLUMN id_zona SET DEFAULT nextval('public.zo
 -- Data for Name: cargo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
- 
 
-SELECT pg_catalog.setval('public.cargo_id_cargo_seq', 1, true);
+-- TOC entry 3484 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: cargo_id_cargo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.cargo_id_cargo_seq', 8, true);
 
 
 --
@@ -809,7 +817,7 @@ SELECT pg_catalog.setval('public.institucion_id_insti_seq', 1, false);
 -- Name: linea_id_linea_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.linea_id_linea_seq', 1, false);
+SELECT pg_catalog.setval('public.linea_id_linea_seq', 1, true);
 
 
 --
@@ -818,7 +826,7 @@ SELECT pg_catalog.setval('public.linea_id_linea_seq', 1, false);
 -- Name: lote_id_lote_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.lote_id_lote_seq', 1, false);
+SELECT pg_catalog.setval('public.lote_id_lote_seq', 12, true);
 
 
 --
@@ -836,7 +844,7 @@ SELECT pg_catalog.setval('public.pedidos_id_pedidos_seq', 1, true);
 -- Name: personal_id_personal_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.personal_id_personal_seq',1, true);
+SELECT pg_catalog.setval('public.personal_id_personal_seq', 27, true);
 
 
 --
@@ -845,7 +853,7 @@ SELECT pg_catalog.setval('public.personal_id_personal_seq',1, true);
 -- Name: presentacion_id_presentacion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.presentacion_id_presentacion_seq',1, true);
+SELECT pg_catalog.setval('public.presentacion_id_presentacion_seq', 8, true);
 
 
 --
@@ -854,7 +862,7 @@ SELECT pg_catalog.setval('public.presentacion_id_presentacion_seq',1, true);
 -- Name: producto_id_producto_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.producto_id_producto_seq', 1, false);
+SELECT pg_catalog.setval('public.producto_id_producto_seq', 1, true);
 
 
 --
@@ -863,7 +871,7 @@ SELECT pg_catalog.setval('public.producto_id_producto_seq', 1, false);
 -- Name: proveedor_id_provee_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.proveedor_id_provee_seq', 1, true);
+SELECT pg_catalog.setval('public.proveedor_id_provee_seq', 2, true);
 
 
 --
@@ -881,7 +889,7 @@ SELECT pg_catalog.setval('public.tipo_fact_id_tipofact_seq', 1, false);
 -- Name: zona_id_zona_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.zona_id_zona_seq', 1, false);
+SELECT pg_catalog.setval('public.zona_id_zona_seq', 2, true);
 
 
 --
@@ -1145,7 +1153,7 @@ ALTER TABLE ONLY public.producto
     ADD CONSTRAINT producto_id_provee_proveedor_id_provee FOREIGN KEY (id_provee) REFERENCES public.proveedor(id_provee);
 
 
--- Completed on 2022-09-07 09:35:25
+-- Completed on 2022-09-20 20:21:44
 
 --
 -- PostgreSQL database dump complete
