@@ -6,8 +6,7 @@
 class Productos extends Validator
 {
     // Declaración de atributos (propiedades).
-    private $id_producto = null;
-    private $id_lote = null;
+    private $id = null;
     private $nombre = null;
     private $descripcion = null;
     private $precio_fact = null;
@@ -18,25 +17,17 @@ class Productos extends Validator
     private $linea = null;
     private $registro = null;
     private $tamanio = null;
-    private $estado = null;
     private $existencias=null;
+    private $precio_farmacia=null;
+    private $precioiva_farmacia=null;
 
     /*
     *   Métodos para validar y asignar valores de los atributos.
     */
-    public function setIdProducto($value)
+    public function setId($value)
     {
         if ($this->validateNaturalNumber($value)) {
-            $this->id_producto = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public function setIdLote($value)
-    {
-        if ($this->validateNaturalNumber($value)) {
-            $this->id_lote = $value;
+            $this->id = $value;
             return true;
         } else {
             return false;
@@ -81,28 +72,10 @@ class Productos extends Validator
             return false;
         }
     }
-    public function setPresentacion($value)
-    {
-        if ($this->validateNaturalNumber($value)) {
-            $this->presentacion = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
     public function setProvee($value)
     {
         if ($this->validateNaturalNumber($value)) {
             $this->proveedor = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public function setEstado($value)
-    {
-        if ($this->validateBoolean($value)) {
-            $this->estado = $value;
             return true;
         } else {
             return false;
@@ -119,7 +92,7 @@ class Productos extends Validator
     }
     public function setDesc($value)
     {
-        if ($this->validateDesc($value)) {
+        if ($this->validateNaturalNumber($value)) {
             $this->descuento = $value;
             return true;
         } else {
@@ -153,17 +126,40 @@ class Productos extends Validator
             return false;
         }
     }
+    public function setPresentacion($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->presentacion = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function setPrecioFarmacia($value)
+    {
+        if ($this->validateMoney($value)) {
+            $this->precio_farmacia = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function setPrecioIvaFarmacia($value)
+    {
+        if ($this->validateMoney($value)) {
+            $this->precioiva_farmacia = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /*
     *   Métodos para obtener valores de los atributos.
     */
-    public function getIdProducto()
+    public function getId()
     {
-        return $this->id_producto;
-    }
-    public function getIdLote()
-    {
-        return $this->id_lote;
+        return $this->id;
     }
 
     public function getNombre()
@@ -175,7 +171,6 @@ class Productos extends Validator
     {
         return $this->descripcion;
     }
-
     public function getPrecio_factu()
     {
         return $this->precio_fact;
@@ -188,17 +183,9 @@ class Productos extends Validator
     {
         return $this->proveedor;
     }
-    public function getEstado()
-    {
-        return $this->estado;
-    }
     public function getExistencias()
     {
         return $this->existencias;
-    }
-    public function getPresentacion()
-    {
-        return $this->presentacion;
     }
     public function getDescuento()
     {
@@ -215,6 +202,18 @@ class Productos extends Validator
     public function getLinea()
     {
         return $this->linea;
+    }
+    public function getPresentacion()
+    {
+        return $this->presentacion;
+    }
+    public function getPrecioFarmacia()
+    {
+        return $this->precio_farmacia;
+    }
+    public function getPrecioIvaFarmacia()
+    {
+        return $this->precioiva_farmacia;
     }
 
     /*
@@ -233,11 +232,9 @@ class Productos extends Validator
 
     public function createRow()
     {
-        $iva=$this->precio_fact*0.13;
-        $this->precio_iva=$this->precio_fact+$iva;
-        $sql = 'INSERT INTO producto(nombre_producto, descripcion,reg_san,tamanio, precio_fact,precio_iva,max_descuento,existencias, id_provee,id_linea,id_presentacion, estado_producto)
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?)';
-        $params = array($this->nombre, $this->descripcion,$this->registro,$this->tamanio, $this->precio_fact, $this->precio_iva,$this->descuento,$this->existencias, $this->proveedor,$this->linea,$this->presentacion,$this->estado);
+        $sql = 'INSERT INTO producto(nombre_producto, descripcion,reg_san,tamanio, precio_fact,precio_iva,descuento,existencias, id_provee,id_linea,id_presentacion,precio_farmacia,precicioiva_farmacia)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        $params = array($this->nombre,$this->descripcion,$this->registro,$this->tamanio,$this->precio_fact,$this->precio_iva,$this->descuento,$this->existencias,$this->proveedor,$this->linea,$this->presentacion,$this->precio_farmacia,$this->precioiva_farmacia);
         return Database::executeRow($sql, $params);
     }
 

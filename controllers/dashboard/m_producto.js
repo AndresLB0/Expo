@@ -29,6 +29,7 @@ function fillTable(dataset) {
                 <td>${row.nombre_producto}</td>
                 <td>${row.descripcion}</td>
                 <td>${row.reg_san}</td>
+                <td>${row.nombre}</td>
                 <td>${row.precio_iva}</td>
                 <td>${row.presentacio}</td>
                 <td>
@@ -37,9 +38,6 @@ function fillTable(dataset) {
                     </a>
                     <a onclick="openDelete(${row.id_producto})" class="btn-floating red tooltipped" data-tooltip="Eliminar">
                         <i class="material-icons">delete</i>
-                    </a>
-                    <a onclick="openReport(${row.id_producto})" class="btn-floating indigo tooltipped" data-tooltip="Reporte">
-                        <i class="material-icons">assignment</i>
                     </a>
                 </td>
             </tr>

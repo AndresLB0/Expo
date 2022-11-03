@@ -11,24 +11,29 @@ if (isset($_GET['action'])) {
     $personal = new Personal;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0,'noventa'=>0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
+    $result = array('status' => 0,'permiso'=>0, 'session' => 0,'noventa'=>0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_personal'])) {
         $result['session'] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'getUser':
-                if (isset($_SESSION['usuario'])) {
+                if (!isset($_SESSION['usuario'])) {
+                    $result['exception'] = 'Usuario de personal indefinido';
+                }elseif (!$personal->checkToken($_SESSION['token'])) {
+                    $result['exception'] = 'esta sesion ya estaba iniciada en otro dispositivo';
+                } else{
+                    # code...
+                    $result['permiso'] = 1;
                     $result['status'] = 1;
                     $result['username'] = $_SESSION['usuario'];
-                } else {
-                    $result['exception'] = 'Usuario de personal indefinido';
                 }
                 break;
             case 'logOut':
                 if (session_destroy()) {
                     $result['status'] = 1;
                     $result['message'] = 'Sesión eliminada correctamente';
+                    $personal->deleteToken(); 
                 } else {
                     $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
                 }
@@ -39,7 +44,7 @@ if (isset($_GET['action'])) {
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'personal inexistente';
+                    $result['exception'] = 'Personal inexistente';
                 }
                 break;
                 case 'readAll':
@@ -53,11 +58,17 @@ if (isset($_GET['action'])) {
                     break;
             case 'editProfile':
                 $_POST = $personal->validateForm($_POST);
-                if (!$personal->setNombre($_POST['nombre'])) {
+                if (!$personal->setNombre($_POST['nombres'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$personal->setEmail($_POST['correo'])) {
+                } elseif (!$personal->setDUI($_POST['dui'])) {
+                    $result['exception'] = 'dui incorrecto';
+                }elseif (!$personal->setTelefono($_POST['telefono'])) {
+                    $result['exception'] = 'Telefono incorrecto';
+                }elseif (!$personal->setEmail($_POST['correo'])) {
                     $result['exception'] = 'correo incorrecto';
-                } elseif ($personal->editProfile()) {
+                } elseif (!$personal->setDireccion($_POST['direccion'])) {
+                    $result['exception'] = 'direccion incorrecta';
+                }elseif ($personal->editProfile()) {
                     $result['status'] = 1;
                     $result['message'] = 'Perfil modificado correctamente';
                 } else {
@@ -67,7 +78,7 @@ if (isset($_GET['action'])) {
             case 'changePassword':
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->setId($_SESSION['id_personal'])) {
-                    $result['exception'] = 'personal incorrecto';
+                    $result['exception'] = 'Personal incorrecto';
                 } elseif (!$personal->checkPassword($_POST['actual'])) {
                     $result['exception'] = 'Clave actual incorrecta';
                 } elseif ($_POST['nueva'] != $_POST['confirmar']) {
@@ -83,9 +94,9 @@ if (isset($_GET['action'])) {
                 break;
             case 'search':
                 $_POST = $personal->validateForm($_POST);
-                if ($_POST['search'] == '') {
+                if ($_POST['searchbar'] == '') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $personal->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $personal->searchRows($_POST['searchbar'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Valor encontrado';
                 } elseif (Database::getException()) {
@@ -96,7 +107,20 @@ if (isset($_GET['action'])) {
                 break;
             case 'create':
                 $_POST = $personal->validateForm($_POST);
-                if (!$personal->setNombre($_POST['nombre'])) {
+                $data = array(
+                    'secret' => "0xA9B2cff5d4CA715FF4Bf9A1945b927695198fabB",
+                    'response' => $_POST['h-captcha-response']
+                );
+        $verify = curl_init();
+        curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");
+        curl_setopt($verify, CURLOPT_POST, true);
+        curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($verify);
+        // var_dump($response);
+        $responseData = json_decode($response);
+   
+               if (!$personal->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombres incorrectos';
                 }  elseif (!$personal->setEmail($_POST['email'])) {
                     $result['exception'] = 'Correo incorrecto';
@@ -114,37 +138,47 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Claves diferentes';
                 } elseif (!$personal->setClave($_POST['clave'])) {
                     $result['exception'] = $personal->getPasswordError();
+                } elseif(!$responseData->success) {
+                    $result['exception'] = 'Usted no es humano';
                 } elseif ($personal->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'personal creado correctamente';
+                    $result['message'] = 'Usuario creado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
                 break;
             case 'readOne':
                 if (!$personal->setId($_POST['id'])) {
-                    $result['exception'] = 'personal incorrecto';
+                    $result['exception'] = 'Personal incorrecto';
                 } elseif ($result['dataset'] = $personal->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'personal inexistente';
+                    $result['exception'] = 'Personal inexistente';
                 }
                 break;
             case 'update':
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->setId($_POST['id'])) {
-                    $result['exception'] = 'personal incorrecto';
+                    $result['exception'] = 'Personal incorrecto';
                 } elseif (!$personal->readOne()) {
-                    $result['exception'] = 'personal inexistente';
+                    $result['exception'] = 'Personal inexistente';
                 } elseif (!$personal->setNombre($_POST['nombre'])) {
-                    $result['exception'] = 'Nombres incorrectos';
-                }  elseif (!$personal->setEmail($_POST['correo'])) {
-                    $result['exception'] = 'Correo incorrecto';
-                } elseif ($personal->updateRow()) {
+                    $result['exception'] = 'Nombre incorrecto';
+                } elseif (!$personal->setDUI($_POST['dui'])) {
+                    $result['exception'] = 'dui incorrecto';
+                }elseif (!$personal->setTelefono($_POST['telefono'])) {
+                    $result['exception'] = 'Telefono incorrecto';
+                }elseif (!$personal->setEmail($_POST['email'])) {
+                    $result['exception'] = 'correo incorrecto';
+                }elseif (!$personal->setDireccion($_POST['direccion'])) {
+                    $result['exception'] = 'direccion incorrecta';
+                }elseif (!$personal->setCargo($_POST['cargo'])) {
+                    $result['exception'] = 'Cargo incorrecto';
+                }  elseif ($personal->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'personal modificado correctamente';
+                    $result['message'] = 'Personal modificado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -153,12 +187,12 @@ if (isset($_GET['action'])) {
                 if ($_POST['id'] == $_SESSION['id_personal']) {
                     $result['exception'] = 'No se puede eliminar a sí mismo';
                 } elseif (!$personal->setId($_POST['id'])) {
-                    $result['exception'] = 'personal incorrecto';
+                    $result['exception'] = 'Personal incorrecto';
                 } elseif (!$personal->readOne()) {
-                    $result['exception'] = 'personal inexistente';
+                    $result['exception'] = 'Personal inexistente';
                 } elseif ($personal->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'personal eliminado correctamente';
+                    $result['message'] = 'Personal eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -189,30 +223,35 @@ if (isset($_GET['action'])) {
                 case 'checkToken':
                     $_POST = $personal->validateForm($_POST);
                     if (!$personal->setId($_SESSION['id_personal'])) {
-                        $result['exception'] = 'personal incorrecto';
+                        $result['exception'] = 'Personal incorrecto';
                     }elseif (!$personal->checkToken($_POST['token'])) {
-                        $result['exception'] = 'token incorrecto';
-                    } else {
+                        $result['exception'] = 'Token incorrecto';
+                    }else {
                         $result['status'] = 1;
-                        $result['message'] ='token confirmado';
-                        $personal->deleteToken();
+                        $result['message'] ='Token confirmado';
+                        $_SESSION['token']=$personal->getToken();
                     }
                     break;
                     case 'changePswd':
                         $_POST = $personal->validateForm($_POST);
                         if (!$personal->setId($_SESSION['id_personal'])) {
-                            $result['exception'] = 'personal incorrecto';
-                        }elseif (!$personal->changePassword($_POST['actual'])) {
+                            $result['exception'] = 'Personal incorrecto';
+                        }elseif (!$personal->checkPassword($_POST['actual'])) {
                             $result['exception'] = 'Clave actual incorrecta';
                         }elseif ($_POST['actual'] == $_POST['nueva']) {
-                            $result['exception'] = 'la nueva clave no puede ser igual a la clave actual';
+                            $result['exception'] = 'La nueva clave no puede ser igual a la anterior';
                         } elseif ($_POST['nueva'] != $_POST['confirmar']) {
                             $result['exception'] = 'Claves nuevas diferentes';
                         } elseif (!$personal->setClave($_POST['nueva'])) {
                             $result['exception'] = $personal->getPasswordError();
-                        } elseif ($personal->forgetPassword()) {
+                        } elseif ($personal->changePassword()) {
                             $result['status'] = 1;
                             $result['message'] = 'Contraseña cambiada correctamente';
+                            $_SESSION['nombre'] = $personal->getNombre();
+                            $_SESSION['correo'] = $personal->getEmail();
+                            sendemail($_SESSION['nombre'],$_SESSION['correo'],'Auntentificacion de inicio de sesion', 'no comparta este codigo con nadie, su codigo SGVM es:');
+                            $result['message'] = 'Correo eviado';
+                            $personal->saveToken();
                         } else {
                             $result['exception'] = Database::getException();
                         }
@@ -232,21 +271,35 @@ if (isset($_GET['action'])) {
                 break;
             case 'register':
                 $_POST = $personal->validateForm($_POST);
+                $data = array(
+                    'secret' => "0xA9B2cff5d4CA715FF4Bf9A1945b927695198fabB",
+                    'response' => $_POST['h-captcha-response']
+                );
+        $verify = curl_init();
+        curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");
+        curl_setopt($verify, CURLOPT_POST, true);
+        curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($verify);
+        // var_dump($response);
+        $responseData = json_decode($response);
                 if (!$personal->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombres incorrectos';
                 } elseif (!$personal->setEmail($_POST['correo'])) {
-                    $result['exception'] = 'correo incorrecto';
+                    $result['exception'] = 'Correo incorrecto';
                 } elseif (!$personal->setTelefono($_POST['telefono'])) {
-                    $result['exception'] = 'correo incorrecto';
+                    $result['exception'] = 'Telefono incorrecto';
                 }elseif (!$personal->setUsuario($_POST['usuario'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($_POST['clave'] != $_POST['confirmar']) {
                     $result['exception'] = 'Claves diferentes';
                 }elseif (!$personal->setClave($_POST['clave'])) {
                     $result['exception'] = $personal->getPasswordError();
-                } elseif ($personal->registro()) {
+                }elseif(!$responseData->success) {
+                    $result['exception'] = 'Eres un robot';
+                }elseif ($personal->registro()) {
                     $result['status'] = 1;
-                    $result['message'] = 'usuario registrado correctamente';
+                    $result['message'] = 'Usuario registrado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -254,41 +307,57 @@ if (isset($_GET['action'])) {
             case 'logIn':
                 $_POST = $personal->validateForm($_POST);
                 if (!$personal->checkUser($_POST['usuario'])) {
-                    $result['exception'] = 'Usuario o Contraseña incorrectos';   
-                }elseif ($personal->checkPassword($_POST['clave'])) {
+                    $result['exception'] = 'Usuario o Contraseña incorrectosl';   
+                }elseif ($personal->getIntentos() >3) {
+                        $result['exception'] = 'Limite de intentos alcanzado, tu cuenta ha sido bloqueda temporalmente';
+                        $_SESSION['session']=0;
+                        $personal->bloqueoIntentos($_POST['usuario']);
+                    }elseif($personal->getFechaIntentos()>=1 or $personal->getFechaIntentos()==null ){
+                        if ($personal->checkPassword($_POST['clave'])) {
                     if ( $personal->getDiasClave()>90) {
-                        $result['exception'] = 'tiene que cambiar su contraseña';
+                        $_SESSION['id_personal'] = $personal->getId();
+                        $_SESSION['usuario'] = $personal->getUsuario();
+                        $result['exception'] = 'Tiene que cambiar su contraseña de inmdediato';
                         $result['noventa'] = 1;
                     }else{
                     $_SESSION['nombre'] = $personal->getNombre();
                     $_SESSION['correo'] = $personal->getEmail();
-                    sendemail($_SESSION['nombre'],$_SESSION['correo'],'auntentificacion de inicio de sesion', 'alguien ha intentado entrar a su cuenta,vaya al sitio e inserte el sigiente condigo para confirmar que es usted');
+                    $personal->reinicioConteoIntentos($_POST['usuario']);
+                    if(sendemail($_SESSION['nombre'],$_SESSION['correo'],'Auntentificacion de inicio de sesion', 'alguien ha intentado entrar a su cuenta,vaya al sitio e inserte el sigiente codigo para confirmar que es usted')){
                     $result['status'] = 1;
-                    $result['message'] = 'correo eviado';
+                    $result['message'] = 'Correo eviado';
                     $personal->saveToken();
                     $_SESSION['id_personal'] = $personal->getId();
                     $_SESSION['usuario'] = $personal->getUsuario();
+                    $_SESSION['id_cargo'] = $personal->getCargo();
+                    }else {
+                     $result['exception']=$mail->getFileError;
+                    }
                     }
                 } else {
                     $result['exception'] = 'Usuario o Contraseña incorectos';
+                    $personal->intentoFallido($_POST['usuario']);
+                    
+                }}else{
+                    $result['exception'] = 'No puede acceder';  
                 }
                 break;
                 case 'pswdReco':
                     $_POST = $personal->validateForm($_POST);
                     if (!$personal->checkEmail($_POST['correo'])) {
-                        $result['exception'] = 'correo incorrecto';   
+                        $result['exception'] = 'Correo incorrecto';   
                     }else{
                          $_SESSION['nombre'] = $personal->getNombre();
-                        sendemail($_SESSION['nombre'],$_POST['correo'],'recuperar contraseña',  'ha solicitado un cambio de contraseña, regrese a la pagina e inserte el sigiente condigo para continuar');
+                        sendemail($_SESSION['nombre'],$_POST['correo'],'Recuperar contraseña',  'ha solicitado un cambio de contraseña, regrese a la pagina e inserte el sigiente condigo para continuar');
                         $result['status'] = 1;
-                        $result['message'] ='correo enviado';
+                        $result['message'] ='Correo enviado';
                         $personal->saveToken();
                     }
                     break;
                     case 'forgotPassword':
                         $_POST = $personal->validateForm($_POST);
                         if (!$personal->checkToken($_POST['token'])) {
-                            $result['exception'] = 'token incorrecto';
+                            $result['exception'] = 'Token incorrecto';
                         }elseif ($_POST['nueva'] != $_POST['confirmar']) {
                             $result['exception'] = 'Claves nuevas diferentes';
                         } elseif (!$personal->setClave($_POST['nueva'])) {

@@ -10,10 +10,9 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $clientes = new Clientes;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array('status' => 0, 'session' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null, 'username' => null);
+    $result = array('status' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como clientes para realizar las acciones correspondientes.
     if (isset($_SESSION['id_personal'])) {
-        $result['session'] = 1;
         // Se compara la acción a realizar cuando un clientes ha iniciado sesión.
         switch ($_GET['action']) {
             case 'readAllInsti':
@@ -34,22 +33,39 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos registrados';
                     }
                     break;
-            case 'getUser':
-                if (isset($_SESSION['correo_clientes'])) {
-                    $result['status'] = 1;
-                    $result['username'] = $_SESSION['correo_clientes'];
-                } else {
-                    $result['exception'] = 'Correo de usuario indefinido';
-                }
-                break;
-            case 'logOut':
-                if (session_destroy()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Sesión eliminada correctamente';
-                } else {
-                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
-                }
-                break;
+                    case 'createMedi':
+                        $_POST = $clientes->validateForm($_POST);
+                        if (!$clientes->setNombreCl($_POST['nombre_cliente'])) {
+                            $result['exception'] = 'Nombre incorrecto';
+                        } elseif (!$clientes->setAutodnm($_POST['DNM'])) {
+                            $result['exception'] = 'Aurizacion DNM incorrecta';
+                        }elseif (!$clientes->setNac($_POST['cumple'])) {
+                            $result['exception'] = 'Fecha incorrecta';
+                        }elseif (!$clientes->setCont($_POST['N'])) {
+                            $result['exception'] = 'Nombre de contacto incorrecto';
+                        }elseif (!$clientes->setHorario($_POST['horario'])) { 
+                            $result['exception'] = 'Horario incorrecto';
+                        }elseif (!$clientes->setDireccion($_POST['direccion'])) {
+                            $result['exception'] = 'Direccion incorrecta';
+                        }elseif (!$clientes->setDui($_POST['DN'])) {
+                            $result['exception'] = 'DUI incorrecto';
+                        }elseif (!$clientes->setNrc($_POST['NRC'])) {
+                            $result['exception'] = 'NRC incorrecto';
+                        }elseif (!$clientes->setMontMaxVent($_POST['monto'])) {
+                            $result['exception'] = 'Monto Maximo de ventas incorrecto';
+                        }elseif (!$clientes->setDescuento($_POST['desc'])) {
+                            $result['exception'] = 'Descuento incorrecto';
+                        }elseif (!$clientes->setNumerojunta($_POST['Ndj']) and !null) {
+                            $result['exception'] = 'Numero de junta incorrecto';
+                        }elseif (!$clientes->setEspeci($_POST['especi'])) {
+                            $result['exception'] = 'Especialidad incorrecta';
+                        }elseif ($clientes->createRowMedi()) {
+                            $result['status'] = 1;
+                                $result['message'] = 'Cliente creado correctamente';
+                        } else {
+                            $result['exception'] = Database::getException();
+                        }
+                        break;
                 case 'ClientesPedidos':
                     if ($result['dataset']= $clientes->ClientesPedidos()){
                         $result['status'] = 1;
@@ -60,10 +76,6 @@ if (isset($_GET['action'])) {
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
-    } else {
-        // Se compara la acción a realizar cuando el clientes no ha iniciado sesión.
-       
-                $result['exception'] = 'Acción no disponible fuera de la sesión';
     }
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('content-type: application/json; charset=utf-8');

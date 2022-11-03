@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Agregar Medico</title>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
+    <link rel="icon" href="../imagenes/icono/sgvm.png" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="azul">
+    <header>
+    </header>
+    <main>
+        <div class="container">
+            <div class="contenedor blanco">
+                <div class="row">
+                    <div class=" col s11 m11">
+                        <h4 class='center'>Nuevo medico</h4>
+                    </div>
+                    <div class="col s1 m1">
+                        <a href="m_cliente.html#medicos" class="cerrar"><span
+                                class="material-icons md-38">cancel</span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m6">
+                        <input placeholder="Nombre" name="nombre" id="nombre" type="text" class="validate text">
+                        <input placeholder="Nombre del contacto" name="N" id="N" type="text" class="validate text">
+                        <input placeholder="Horario de atencion" name="Hr" id="Hr" type="text" class="validate text">
+                        <div class="col s6 m6">
+                            <input placeholder="Monto Maximo" name="monto" id="monto" type="text" class="validate text">
+                        </div>
+                        <div class="col s6 m6">
+                            <input placeholder="Descuento" name="desc" id="desc" type="text" class="validate text">
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="col s6 m6">
+                            <input placeholder="DNM" name="DNM" id="DNM" type="text" class="validate text">
+                            <div class="program">
+                                <select name="especi" id="especi">
+                                </select>
+                                <input placeholder="DUI o NIT" name="DN" id="DN" type="text" class="validate text">
+                            </div>
+                        </div> 
+                        <div class="col s6 m6">
+                                <input placeholder="NRC" name="NRC" id="NRC" type="text" class="validate text">
+                                <input placeholder="N# De junta" name="Ndj" id="Ndj" type="text" class="validate text">
+                                <input id="cumple" name="cumple" type="text" class="datepicker fecha">
+                            </div>
+                    </div>
+       <div class="container">
+        <button type="submit" class="validate boton">Agregar Medico </button>
+      </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../controllers/components.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/subpages.js"></script>
+    <script type="text/javascript" src="../js/CrearMed.js"></script>
+</body>
+
+</html>

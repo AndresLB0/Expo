@@ -43,23 +43,40 @@ body.azul {
   margin: 2px 3px;
   width: 90%;
 }
-
+.disabled{
+    background-color: #b7b9bf !important;
+}
 /* haciendo que los botones cambien de color al poscicionarse sobre ellos */
 .boton:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover 
 button {
-  text-decoration: none;
+  text-decoration:groove border;
   background-color: #3ecce9;
 }
 
 /*adaptable para pantallas medianas osea laptops y pcs normales*/
 @media only screen and (min-width: 1000px) and (max-width:1366px) {
-
+    .preloader{
+        /*
+        Making the preloader floating over other elements.
+        The preloader is visible by default. 
+        */
+        position: fixed;
+        top:78%;
+        left:40%;
+        width: 20vw;
+        height: 20vh;
+        z-index: 100000;
+      }
+.mediana{
+    width:250px;
+    height:200px;
+}
   .contenedor {
     border-radius: 32px;
-    max-height: 550px;
+    max-height: 650px; 
   }
   .error{
     width: 640px;
@@ -76,7 +93,7 @@ button {
   }
 
   #personal {
-    height: 400px;
+    height: 600px;
     width: 50%;
     margin-top: 10%;
     margin-left: 25%;
@@ -86,7 +103,6 @@ button {
   .jonh{
     margin-left:552px;
   }
-
   /* disenio de los botones de button,reset y submit (brs 1/4) */
   input[type="button"],
   input[type="reset"],
@@ -99,8 +115,20 @@ button {
   }
 }
 
-/* adaptable para compus grandes no testiado */
+/* adaptable para compus grandes */
 @media only screen and (min-width: 1367px) {
+  .preloader{
+    /*
+    Making the preloader floating over other elements.
+    The preloader is visible by default. 
+    */
+    position: fixed;
+    top:78%;
+    left:40%;
+    width: 20vw;
+    height: 20vh;
+    z-index: 100000;
+  }
   .error{
     width: 600px;
     height:600px;
@@ -144,6 +172,10 @@ button {
   }
   .e404{
     width: 900px;
+  }
+  .mediana{
+    width:250px;
+    height:300px;
   }
   /* (c 3/4) */
   .contenedor {
@@ -402,10 +434,41 @@ button {
   .row .col.push-s12 {
     left: 100%;
   }
+  table.pata{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display:flex;
+    position: relative;
+  }
+  .preloader{
+    /*
+    Making the preloader floating over other elements.
+    The preloader is visible by default. 
+    */
+    position: fixed;
+    top:350px;
+    left: 300px;
+    width: 25vw;
+    height: 25vh;
+    z-index: 10000;
+  }
 }
 
 /*adaptable para pantallas pequeñas celulares*/
 @media only screen and (max-width: 600px) {
+  .preloader{
+    /*
+    Making the preloader floating over other elements.
+    The preloader is visible by default. 
+    */
+    position: fixed;
+    top:350px;
+    left: 150px;;
+    width: 20vw;
+    height: 10vh;
+    z-index: 10000;
+  }
   .error{
     width: 600px;
     height:1000px;;
@@ -442,8 +505,13 @@ button {
     height: 50px;
     width: 75%;
   }
-
-
+table.pata{
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display:flex;
+  position: relative;
+}
 }
 
 /*plantilla de 11 tipos de input */
@@ -475,7 +543,6 @@ input[type=number]:not(.browser-default) {
   transition: box-shadow .3s, border .3s;
   transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
 }
-
 input[type=search]:not(.browser-default) {
   background-color: #a5acbf;
   border: none;
@@ -746,14 +813,20 @@ a:active.boticono {
 .contenedor.gris {
   border-radius: 12px;
   width: 75%;
-  height: 200px;
+  height: 43vh;
   margin-top: 5%;
   margin-left: 4%;
   margin-left: 10%;
   background-color: rgb(151, 151, 151);
   min-height:0px;
 }
-
+.pequeño{
+  width:150px;
+}
+.hide-on-me-and-down{
+  width:250px;
+  height:200px;
+}
 .lista {
   overflow: auto;
   height: 300px;
@@ -764,7 +837,8 @@ a:active.boticono {
   overflow: auto;
 }
 
-.input-field>label {
+.input-field>label,
+label.checkbox {
   color: #000;
 }
 .sidenav{

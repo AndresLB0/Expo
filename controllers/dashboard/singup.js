@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (response.session) {
                     location.href = 'dashboard.html';
                 } else if (response.status) {
-                    location.href = 'index.html';
+                    location.href = '../index.html';
                 } else {
                     sweetAlert(4, 'Debe crear un usuario para comenzar', null);
                 }
@@ -41,7 +41,7 @@ document.getElementById('register-form').addEventListener('submit', function (ev
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    sweetAlert(1, response.message, 'index.html');
+                    sweetAlert(1, response.message, '../index.html');
                 } else {
                     sweetAlert(2, response.exception, null);
                 }

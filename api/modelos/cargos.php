@@ -70,8 +70,20 @@ class cargos extends validator
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
+    public function checkID($id)
+    {
+        $sql = 'SELECT nombre_cargo FROM cargo WHERE id_cargo = ?';
+        $params = array($id);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->nombre = $data['nombre_cargo'];
+            $this->id=$id;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         $sql = 'UPDATE cargo
                 SET nombre_cargo = ?

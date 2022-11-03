@@ -1,0 +1,1089 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE public.cargo (
+    id_cargo integer NOT NULL,
+    nombre_cargo character varying(30)
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.cargo_id_cargo_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.cargo_id_cargo_seq OWNED BY public.cargo.id_cargo;
+
+
+
+
+
+
+
+CREATE TABLE public.cliente (
+    id_cliente integer NOT NULL,
+    nombre character varying(50),
+    autoridnm character varying(17),
+    nacimiento date,
+    nombre_cont character varying(50),
+    horario character varying(50),
+    direccion character varying(200),
+    dui character varying(9),
+    nit character varying(14),
+    nrc character varying(40),
+    mont_maxvent integer,
+    desc_auto integer,
+    nojunta character varying(17),
+    id_especi integer,
+    id_insti integer
+);
+
+
+
+
+
+
+
+CREATE SEQUENCE public.cliente_id_cliente_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.cliente_id_cliente_seq OWNED BY public.cliente.id_cliente;
+
+
+
+
+
+
+
+CREATE TABLE public.detalle_pedido (
+    id_detapedi integer NOT NULL,
+    precio numeric(4,0),
+    cantidad integer,
+    id_producto integer NOT NULL,
+    id_pedidos integer NOT NULL
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.detalle_pedido_id_detapedi_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.detalle_pedido_id_detapedi_seq OWNED BY public.detalle_pedido.id_detapedi;
+
+
+
+
+
+
+
+CREATE TABLE public.envio (
+    id_envio integer NOT NULL,
+    tipo character varying(30)
+);
+
+
+
+
+
+
+
+
+CREATE SEQUENCE public.envio_id_envio_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.envio_id_envio_seq OWNED BY public.envio.id_envio;
+
+
+
+
+
+
+
+CREATE TABLE public.especialidad (
+    id_especi integer NOT NULL,
+    nombre_especi character varying(50)
+);
+
+
+
+
+
+
+
+CREATE SEQUENCE public.especialidad_id_especi_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.especialidad_id_especi_seq OWNED BY public.especialidad.id_especi;
+
+
+
+
+
+
+
+CREATE TABLE public.institucion (
+    id_insti integer NOT NULL,
+    tipo_insti character varying(50) NOT NULL
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.institucion_id_insti_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+ALTER SEQUENCE public.institucion_id_insti_seq OWNED BY public.institucion.id_insti;
+
+
+
+
+
+
+
+CREATE TABLE public.linea (
+    id_linea integer NOT NULL,
+    nombre_linea character varying(50)
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.linea_id_linea_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.linea_id_linea_seq OWNED BY public.linea.id_linea;
+
+
+
+
+
+
+
+CREATE TABLE public.lote (
+    id_lote integer NOT NULL,
+    lote character varying(7),
+    vence date,
+    cantidad integer,
+    id_producto integer NOT NULL
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.lote_id_lote_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+ALTER SEQUENCE public.lote_id_lote_seq OWNED BY public.lote.id_lote;
+
+
+
+
+
+
+
+CREATE TABLE public.pedidos (
+    id_pedidos integer NOT NULL,
+    fecha date,
+    hora time without time zone,
+    tiempo_credi character varying(30),
+    total_pagar numeric(6,0),
+    fecha_pago date,
+    id_personal integer NOT NULL,
+    id_tipofact integer NOT NULL,
+    id_envio integer NOT NULL,
+    id_cliente integer NOT NULL,
+    id_zona integer NOT NULL,
+    estado_pedido smallint DEFAULT 0 NOT NULL
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.pedidos_id_pedidos_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+ALTER SEQUENCE public.pedidos_id_pedidos_seq OWNED BY public.pedidos.id_pedidos;
+
+
+
+
+
+
+
+CREATE TABLE public.personal (
+    id_personal integer NOT NULL,
+    nombre character varying(50),
+    dui character varying(20),
+    direccion character varying(200),
+    usuario character varying(50) NOT NULL,
+    clave character varying(100) NOT NULL,
+    id_cargo integer NOT NULL,
+    telefono character varying,
+    email character varying,
+    token character varying,
+    intentos integer,
+    fecha_intentos timestamp without time zone,
+    fecha_clave timestamp without time zone
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.personal_id_personal_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+ALTER SEQUENCE public.personal_id_personal_seq OWNED BY public.personal.id_personal;
+
+
+
+
+
+
+
+CREATE TABLE public.presentacion (
+    id_presentacion integer NOT NULL,
+    presentacio character varying(100)
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.presentacion_id_presentacion_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.presentacion_id_presentacion_seq OWNED BY public.presentacion.id_presentacion;
+
+
+
+
+
+
+
+CREATE TABLE public.producto (
+    id_producto integer NOT NULL,
+    nombre_producto character varying(50),
+    descripcion character varying(150),
+    reg_san character varying(14),
+    tamanio character varying(30) NOT NULL,
+    precio_fact numeric(4,2),
+    precio_iva numeric(4,2),
+    max_descuento integer,
+    existencias integer,
+    id_provee integer NOT NULL,
+    id_linea integer NOT NULL,
+    id_presentacion integer NOT NULL,
+    estado_producto smallint DEFAULT 0 NOT NULL
+);
+
+
+
+
+
+
+
+CREATE SEQUENCE public.producto_id_producto_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+ALTER SEQUENCE public.producto_id_producto_seq OWNED BY public.producto.id_producto;
+
+
+
+
+
+
+
+CREATE TABLE public.proveedor (
+    id_provee integer NOT NULL,
+    nombre character varying(50),
+    nombre_contacto character varying(25),
+    telefono character varying
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.proveedor_id_provee_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+ALTER SEQUENCE public.proveedor_id_provee_seq OWNED BY public.proveedor.id_provee;
+
+
+
+
+
+
+
+CREATE TABLE public.tipo_fact (
+    id_tipofact integer NOT NULL,
+    nombre character varying(30)
+);
+
+
+
+
+
+
+CREATE SEQUENCE public.tipo_fact_id_tipofact_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.tipo_fact_id_tipofact_seq OWNED BY public.tipo_fact.id_tipofact;
+
+
+
+
+
+
+
+CREATE TABLE public.zona (
+    id_zona integer NOT NULL,
+    nombre_zona character varying(30)
+);
+
+
+
+
+
+
+
+CREATE SEQUENCE public.zona_id_zona_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+
+
+
+
+
+ALTER SEQUENCE public.zona_id_zona_seq OWNED BY public.zona.id_zona;
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.cargo ALTER COLUMN id_cargo SET DEFAULT nextval('public.cargo_id_cargo_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.cliente ALTER COLUMN id_cliente SET DEFAULT nextval('public.cliente_id_cliente_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.detalle_pedido ALTER COLUMN id_detapedi SET DEFAULT nextval('public.detalle_pedido_id_detapedi_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.envio ALTER COLUMN id_envio SET DEFAULT nextval('public.envio_id_envio_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.especialidad ALTER COLUMN id_especi SET DEFAULT nextval('public.especialidad_id_especi_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.institucion ALTER COLUMN id_insti SET DEFAULT nextval('public.institucion_id_insti_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.linea ALTER COLUMN id_linea SET DEFAULT nextval('public.linea_id_linea_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.lote ALTER COLUMN id_lote SET DEFAULT nextval('public.lote_id_lote_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.pedidos ALTER COLUMN id_pedidos SET DEFAULT nextval('public.pedidos_id_pedidos_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.personal ALTER COLUMN id_personal SET DEFAULT nextval('public.personal_id_personal_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.presentacion ALTER COLUMN id_presentacion SET DEFAULT nextval('public.presentacion_id_presentacion_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.producto ALTER COLUMN id_producto SET DEFAULT nextval('public.producto_id_producto_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.proveedor ALTER COLUMN id_provee SET DEFAULT nextval('public.proveedor_id_provee_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.tipo_fact ALTER COLUMN id_tipofact SET DEFAULT nextval('public.tipo_fact_id_tipofact_seq'::regclass);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.zona ALTER COLUMN id_zona SET DEFAULT nextval('public.zona_id_zona_seq'::regclass);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.cargo_id_cargo_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.cliente_id_cliente_seq', 1, false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.detalle_pedido_id_detapedi_seq', 1, false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.envio_id_envio_seq', 1, false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.especialidad_id_especi_seq', 1, false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.institucion_id_insti_seq', 1, false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.linea_id_linea_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.lote_id_lote_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.pedidos_id_pedidos_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.personal_id_personal_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.presentacion_id_presentacion_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.producto_id_producto_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.proveedor_id_provee_seq', 1,false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.tipo_fact_id_tipofact_seq', 1, false);
+
+
+
+
+
+
+
+
+SELECT pg_catalog.setval('public.zona_id_zona_seq', 1,false);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.cargo
+    ADD CONSTRAINT cargo_pkey PRIMARY KEY (id_cargo);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_pkey PRIMARY KEY (id_cliente);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.detalle_pedido
+    ADD CONSTRAINT detalle_pedido_pkey PRIMARY KEY (id_detapedi);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.envio
+    ADD CONSTRAINT envio_pkey PRIMARY KEY (id_envio);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.especialidad
+    ADD CONSTRAINT especialidad_pkey PRIMARY KEY (id_especi);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.institucion
+    ADD CONSTRAINT institucion_pkey PRIMARY KEY (id_insti);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.linea
+    ADD CONSTRAINT linea_pkey PRIMARY KEY (id_linea);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.lote
+    ADD CONSTRAINT lote_pkey PRIMARY KEY (id_lote);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT pedidos_pkey PRIMARY KEY (id_pedidos);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.personal
+    ADD CONSTRAINT personal_pkey PRIMARY KEY (id_personal);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.presentacion
+    ADD CONSTRAINT presentacion_pkey PRIMARY KEY (id_presentacion);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.producto
+    ADD CONSTRAINT producto_pkey PRIMARY KEY (id_producto);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.proveedor
+    ADD CONSTRAINT proveedor_pkey PRIMARY KEY (id_provee);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.tipo_fact
+    ADD CONSTRAINT tipo_fact_pkey PRIMARY KEY (id_tipofact);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.zona
+    ADD CONSTRAINT zona_pkey PRIMARY KEY (id_zona);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_id_especi_especialidad_id_especi FOREIGN KEY (id_especi) REFERENCES public.especialidad(id_especi);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_id_insti_institucion_id_insti FOREIGN KEY (id_insti) REFERENCES public.institucion(id_insti);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.detalle_pedido
+    ADD CONSTRAINT detalle_pedido_id_pedidos_pedidos_id_pedidos FOREIGN KEY (id_pedidos) REFERENCES public.pedidos(id_pedidos);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.detalle_pedido
+    ADD CONSTRAINT detalle_pedido_id_producto_producto_id_producto FOREIGN KEY (id_producto) REFERENCES public.producto(id_producto);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.lote
+    ADD CONSTRAINT lote_id_producto_producto_id_producto FOREIGN KEY (id_producto) REFERENCES public.producto(id_producto);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT pedidos_id_cliente_cliente_id_cliente FOREIGN KEY (id_cliente) REFERENCES public.cliente(id_cliente);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT pedidos_id_envio_envio_id_envio FOREIGN KEY (id_envio) REFERENCES public.envio(id_envio);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT pedidos_id_personal_personal_id_personal FOREIGN KEY (id_personal) REFERENCES public.personal(id_personal);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT pedidos_id_tipofact_tipo_fact_id_tipofact FOREIGN KEY (id_tipofact) REFERENCES public.tipo_fact(id_tipofact);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.pedidos
+    ADD CONSTRAINT pedidos_id_zona_zona_id_zona FOREIGN KEY (id_zona) REFERENCES public.zona(id_zona);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.personal
+    ADD CONSTRAINT personal_id_cargo_cargo_id_cargo FOREIGN KEY (id_cargo) REFERENCES public.cargo(id_cargo);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.producto
+    ADD CONSTRAINT producto_id_linea_linea_id_linea FOREIGN KEY (id_linea) REFERENCES public.linea(id_linea);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.producto
+    ADD CONSTRAINT producto_id_presentacion_presentacion_id_presentacion FOREIGN KEY (id_presentacion) REFERENCES public.presentacion(id_presentacion);
+
+
+
+
+
+
+
+ALTER TABLE ONLY public.producto
+    ADD CONSTRAINT producto_id_provee_proveedor_id_provee FOREIGN KEY (id_provee) REFERENCES public.proveedor(id_provee);
+
+
+
+
+
+
+
+

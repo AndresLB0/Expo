@@ -39,29 +39,11 @@ if (isset($_GET['action'])) {
                 break;
             case 'create':
                 $_POST = $envio->validateForm($_POST);
-                if (!$envio->setNombre($_POST['nombre'])) {
+                if (!$envio->setTipo($_POST['envio'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$envio->setDescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$envio->setPrecio($_POST['precio'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!isset($_POST['categoria'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$envio->setCategoria($_POST['categoria'])) {
-                    $result['exception'] = 'Categoría incorrecta';
-                } elseif (!$envio->setEstado(isset($_POST['estado']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!$envio->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $envio->getFileError();
                 } elseif ($envio->createRow()) {
                     $result['status'] = 1;
-                    if ($envio->saveFile($_FILES['archivo'], $envio->getRuta(), $envio->getImagen())) {
-                        $result['message'] = 'envio creado correctamente';
-                    } else {
-                        $result['message'] = 'envio creado pero no se guardó la imagen';
-                    }
+                        $result['message'] = 'tipo de envio creado correctamente';
                 } else {
                     $result['exception'] = Database::getException();;
                 }

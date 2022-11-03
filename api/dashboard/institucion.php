@@ -58,9 +58,9 @@ if (isset($_GET['action'])) {
                 } elseif ($institucion->createRow()) {
                     $result['status'] = 1;
                     if ($institucion->saveFile($_FILES['archivo'], $institucion->getRuta(), $institucion->getImagen())) {
-                        $result['message'] = 'institucion creado correctamente';
+                        $result['message'] = 'Institucion creada correctamente';
                     } else {
-                        $result['message'] = 'institucion creado pero no se guardó la imagen';
+                        $result['message'] = 'Institucion creada pero no se guardó la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();;
@@ -68,21 +68,21 @@ if (isset($_GET['action'])) {
                 break;
             case 'readOne':
                 if (!$institucion->setID($_POST['id'])) {
-                    $result['exception'] = 'institucion incorrecto';
+                    $result['exception'] = 'Institucion incorrecta';
                 } elseif ($result['dataset'] = $institucion->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'institucion inexistente';
+                    $result['exception'] = 'Institucion inexistente';
                 }
                 break;
             case 'update':
                 $_POST = $institucion->validateForm($_POST);
                 if (!$institucion->setID($_POST['id'])) {
-                    $result['exception'] = 'institucion incorrecto';
+                    $result['exception'] = 'Institucion incorrecto';
                 } elseif (!$data = $institucion->readOne()) {
-                    $result['exception'] = 'institucion inexistente';
+                    $result['exception'] = 'Institucion inexistente';
                 } elseif (!$institucion->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$institucion->setDescripcion($_POST['descripcion'])) {
@@ -96,7 +96,7 @@ if (isset($_GET['action'])) {
                 } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
                     if ($institucion->updateRow($data['imagen_institucion'])) {
                         $result['status'] = 1;
-                        $result['message'] = 'institucion modificado correctamente';
+                        $result['message'] = 'Institucion modificada correctamente';
                     } else {
                         $result['exception'] = Database::getException();
                     }
@@ -105,9 +105,9 @@ if (isset($_GET['action'])) {
                 } elseif ($institucion->updateRow($data['imagen_institucion'])) {
                     $result['status'] = 1;
                     if ($institucion->saveFile($_FILES['archivo'], $institucion->getRuta(), $institucion->getImagen())) {
-                        $result['message'] = 'institucion modificado correctamente';
+                        $result['message'] = 'Institucion modificada correctamente';
                     } else {
-                        $result['message'] = 'institucion modificado pero no se guardó la imagen';
+                        $result['message'] = 'Institucion modificada pero no se guardó la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();
@@ -115,15 +115,15 @@ if (isset($_GET['action'])) {
                 break;
             case 'delete':
                 if (!$institucion->setID($_POST['id'])) {
-                    $result['exception'] = 'institucion incorrecto';
+                    $result['exception'] = 'Institucion incorrecto';
                 } elseif (!$data = $institucion->readOne()) {
-                    $result['exception'] = 'institucion inexistente';
+                    $result['exception'] = 'Institucion inexistente';
                 } elseif ($institucion->deleteRow()) {
                     $result['status'] = 1;
                     if ($institucion->deleteFile($institucion->getRuta(), $data['imagen_institucion'])) {
-                        $result['message'] = 'institucion eliminado correctamente';
+                        $result['message'] = 'Institucion eliminada correctamente';
                     } else {
-                        $result['message'] = 'institucion eliminado pero no se borró la imagen';
+                        $result['message'] = 'Institucion eliminada pero no se borró la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();

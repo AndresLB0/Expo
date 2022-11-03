@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
+    <link rel="icon" href="../imagenes/icono/sgvm.png" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="azul">
+    <img src="../imagenes/preloader/preloader.gif" class="preloader" alt="">
+    <header>
+    </header>
+    <main>
+        <div class="contenedor gris">
+            <h4 class='center'>Nuevo Lote</h4>
+            <form method="post" id="save-form" class="row">
+              <input class="hide" type="number" id="id" name="id">
+              <div class="input-field col s6 m3">
+                <input name="lote" id="lote" type="text" class="validate text">
+                <label for="lote">lote</label>
+              </div>
+              <div class="input-field col s6 m3">
+                <!-- plantilla para fechas -->
+                <input id="fecha" type="text" class="datepicker fecha">
+                <label for="fecha">vence</label>
+                <!-- fin de plantilla -->
+              </div>
+              <div class="input-field col s6 m3">
+                <!-- plantilla para fechas -->
+                <input id="cantidad" type="number">
+                <label for="cantidad">cantidad</label>
+                <!-- fin de plantilla --> 
+              </div>
+              <div class="input-field col s6 m3">
+                <div class="program">
+                    <select id="productos" name="productos"></select>
+                    <label>Productos</label>
+                </div>
+            </div>
+              <div class="container center">
+              <button type="submit" class="validate boton">Agregar Lote</button>
+              </form>
+            </div>
+          
+          </div>
+          <div class="container">
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+            <div class="container">
+              <!-- ejemplo de registro -->
+              <div class="card white">
+                <table class="highlight responsive-table pata">
+                  <!-- Cabeza de la tabla para mostrar los títulos de las columnas -->
+                  <thead>
+                      <tr>
+                          <th>Lote</th>
+                          <th>Vence</th>
+                          <th>Cantidad</th>
+                          <th>Productos</th>
+                          <th>acciones</th>
+                      </tr>
+                  </thead>
+                  <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+                  <tbody id="dato"></tbody>
+              </table>
+              </div>
+            </div>
+      
+          </div>
+    </main>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../controllers/components.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/menu.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/lote.js"></script>
+</body>
+
+</html>

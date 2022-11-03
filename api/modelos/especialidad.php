@@ -16,7 +16,7 @@ class especialidad extends validator
 
     } 
 
-    public function setTipo($value)
+    public function setNombre($value)
     {
         if ($this->validateAlphanumeric($value, 1, 50)) {
             $this->nombre = $value;
@@ -38,17 +38,17 @@ class especialidad extends validator
 
     public function searchRows($value)
     {
-        $sql = 'SELECT id_especi, nombre
+        $sql = 'SELECT id_especi, nombre_especi
                 FROM especialidad
-                WHERE nombre ILIKE ?
-                ORDER BY nombre';
+                WHERE nombre_especi ILIKE ?
+                ORDER BY nombre_especi';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO especialidad(nombre)
+        $sql = 'INSERT INTO especialidad(nombre_especi)
                 VALUES(?)';
         $params = array($this->nombre);
         return Database::executeRow($sql, $params);
@@ -56,28 +56,28 @@ class especialidad extends validator
 
     public function readAll()
     {
-        $sql = 'SELECT id_especi, nombre
+        $sql = 'SELECT id_especi, nombre_especi
                 FROM especialidad
-                ORDER BY nombre';
+                ORDER BY nombre_especi';
         $params = null;
         return Database::getRows($sql, $params);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_especi, nombre
+        $sql = 'SELECT id_especi, nombre_especi
                 FROM especialidad
                 WHERE id_especi = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         $sql = 'UPDATE especialidad
-                SET nombre = ?
-                WHERE id_especialidad = ?';
-        $params = array($this->nombre, $this->id);
+                SET nombre_especi = ?
+                WHERE id_especi = ?';
+        $params = array($this->nombre_especi, $this->id);
         return Database::executeRow($sql, $params);
     }
 

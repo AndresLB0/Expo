@@ -2,34 +2,34 @@
 include('../dashboard/correos.php');
 class personal extends validator
 {
-    private $id=null;
-    private $nombre=null;
-    private $dui=null;
-    private $telefono=null;
-    private $direccion=null;
-    private $usuario=null;
-    private $clave=null;
-    private $cargo=null;
-    private $correo=null;
-    private $token=null;
+    private $id = null;
+    private $nombre = null;
+    private $dui = null;
+    private $telefono = null;
+    private $direccion = null;
+    private $usuario = null;
+    private $clave = null;
+    private $cargo = null;
+    private $correo = null;
+    private $token = null;
     private $intentos = null;
     private $fecha_intentos = null;
     private $dias_clave = null;
+    private $nombre_cargo = null;
 
     public function setID($value)
     {
-        if($this->validateNaturalNumber($value)){
-            $this->id=$value;
+        if ($this->validateNaturalNumber($value)) {
+            $this->id = $value;
             return true;
-        }else{
+        } else {
             return false;
         }
-
-    }  
+    }
 
     public function setNombre($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
+        if ($this->validateAlphabetic($value, 1, 50)) {
             $this->nombre = $value;
             return true;
         } else {
@@ -44,21 +44,20 @@ class personal extends validator
             return true;
         } else {
             return false;
-        
-    } 
-}
-
-public function setTelefono($value)
-{
-    if ($this->validatePhone($value)) {
-        $this->telefono = $value;
-        return true;
-    } else {
-        return false;
+        }
     }
-}
 
-public function setDireccion($value)
+    public function setTelefono($value)
+    {
+        if ($this->validatePhone($value)) {
+            $this->telefono = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setDireccion($value)
     {
         if ($this->validateString($value, 1, 200)) {
             $this->direccion = $value;
@@ -67,21 +66,21 @@ public function setDireccion($value)
             return false;
         }
     }
-    
+
     public function setToken($value)
-{
-    if ($this->validateToken($value)) {
-        $this->token = $value;
-        return true;
-    } else {
-        return false;
+    {
+        if ($this->validateToken($value)) {
+            $this->token = $value;
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 
 
     public function setUsuario($value)
     {
-        if ($this->validateAlphanumeric($value,1,50)) {
+        if ($this->validateAlphanumeric($value, 1, 50)) {
             $this->usuario = $value;
             return true;
         } else {
@@ -102,7 +101,7 @@ public function setDireccion($value)
     public function setClave($value)
     {
         if ($this->validatePassword($value)) {
-            $this->clave = password_hash ($value, PASSWORD_DEFAULT);
+            $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
             return false;
@@ -111,14 +110,13 @@ public function setDireccion($value)
 
     public function setCargo($value)
     {
-        if($this->validateNaturalNumber($value)){
-            $this->cargo=$value;
+        if ($this->validateNaturalNumber($value)) {
+            $this->cargo = $value;
             return true;
-        }else{
+        } else {
             return false;
         }
-
-    }  
+    }
     public function setIntentos($value)
     {
         if ($this->validateNaturalNumber($value)) {
@@ -189,6 +187,11 @@ public function setDireccion($value)
     {
         return $this->dias_clave;
     }
+    public function getNombre_cargo()
+    {
+        return $this->nombre_cargo;
+    }
+
 
     public function searchRows($value)
     {
@@ -199,14 +202,25 @@ public function setDireccion($value)
         $params = array("%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
-
+    public function checkID()
+    {
+        $sql = 'SELECT nombre_cargo FROM cargo inner join personal using(id_personal) WHERE id_personal = ?';
+        $params = array($this->id);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->nombre_cargo = $data['nombre_cargo'];
+            $this->id = $_SESSION['id_personal'];
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function createRow()
     {
         date_default_timezone_set('America/El_Salvador');
         $date = date('Y-m-d');
         $sql = 'INSERT INTO personal(nombre,dui,telefono,email,direccion,usuario,clave,fecha_clave,id_cargo)
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)';
-        $params = array($this->nombre,$this->dui, $this->telefono,$this->correo,$this->direccion,$this->usuario,$this->clave,$date,$this->cargo);
+        $params = array($this->nombre, $this->dui, $this->telefono, $this->correo, $this->direccion, $this->usuario, $this->clave, $date, $this->cargo);
         return Database::executeRow($sql, $params);
     }
     public function registro()
@@ -218,7 +232,7 @@ public function setDireccion($value)
           RETURNING id_cargo)
         INSERT INTO personal (nombre,email,telefono,usuario,clave,fecha_clave,id_cargo)
         VALUES (?,?,?,?,?,?,(SELECT id_cargo FROM auto_cargo))";
-        $params = array($this->nombre,$this->correo, $this->telefono,$this->usuario,$this->clave,$date);
+        $params = array($this->nombre, $this->correo, $this->telefono, $this->usuario, $this->clave, $date);
         return Database::executeRow($sql, $params);
     }
     public function readAll()
@@ -226,15 +240,15 @@ public function setDireccion($value)
         $sql = 'SELECT id_personal, nombre,dui,email,telefono,direccion,usuario,clave,nombre_cargo
                 FROM personal inner join cargo using(id_cargo)
                 ORDER BY nombre';
-         $params = null;
+        $params = null;
         return Database::getRows($sql, $params);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_personal, nombre,dui,email,telefono,direccion,usuario,clave,nombre_cargo
-        FROM personal INNER JOIN cargo USING (id_cargo)
-                WHERE id_personal = ?';
+        $sql = 'SELECT id_personal,nombre,telefono,dui,email,direccion,usuario,id_cargo
+        FROM personal
+        WHERE id_personal = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
@@ -245,24 +259,21 @@ public function setDireccion($value)
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-    public function readEmail()
+    public function readFechaIntentos()
     {
-        $sql = 'SELECT email from personal WHERE id_personal = ?';
-        $params = array($this->id);
-        return Database::getRow($sql, $params);
-    }
-    public function readUser()
-    {
-        $sql = 'SELECT usuario from personal WHERE id_personal = ?';
+        $sql = 'SELECT  FROM personal WHERE usuario=?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
     public function checkUser($usuario)
     {
-        $sql = 'SELECT id_personal FROM personal WHERE usuario = ?';
+        $sql = 'SELECT id_personal,id_cargo,intentos,EXTRACT(days from (CURRENT_DATE - fecha_intentos)) as intent FROM personal WHERE usuario = ?';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_personal'];
+            $this->cargo = $data['id_cargo'];
+            $this->intentos = $data['intentos'];
+            $this->fecha_intentos = $data['intent'];
             $this->usuario = $usuario;
             return true;
         } else {
@@ -275,7 +286,7 @@ public function setDireccion($value)
         $params = array($correo);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_personal'];
-            $this->nombre=$data['nombre'];
+            $this->nombre = $data['nombre'];
             $this->correo = $correo;
             return true;
         } else {
@@ -285,7 +296,7 @@ public function setDireccion($value)
     public function saveToken()
     {
         $sql = 'UPDATE personal SET token = ? WHERE id_personal = ?';
-        $params = array($_SESSION['codigo'],$this->id);
+        $params = array($_SESSION['codigo'], $this->id);
         return Database::executeRow($sql, $params);
     }
     public function deleteToken()
@@ -300,7 +311,7 @@ public function setDireccion($value)
         $params = array($token);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_personal'];
-            $this->token=$_SESSION['codigo'];
+            $this->token = $_SESSION['codigo'];
             return true;
         } else {
             return false;
@@ -309,7 +320,7 @@ public function setDireccion($value)
     public function forgetPassword()
     {
         $sql = 'UPDATE personal SET clave = ? WHERE id_personal = ?';
-        $params = array($this->clave,$this->id);
+        $params = array($this->clave, $this->id);
         return Database::executeRow($sql, $params);
     }
     public function checkPassword($password)
@@ -319,9 +330,9 @@ public function setDireccion($value)
         $data = Database::getRow($sql, $params);
         // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
         if (password_verify($password, $data['clave'])) {
-            $this->correo=$data['email'];
-            $this->nombre=$data['nombre'];
-            $this->dias_clave=$data['dias'];
+            $this->correo = $data['email'];
+            $this->nombre = $data['nombre'];
+            $this->dias_clave = $data['dias'];
             return true;
         } else {
             return false;
@@ -329,15 +340,17 @@ public function setDireccion($value)
     }
     public function changePassword()
     {
-        $sql = 'UPDATE personal SET clave = ? WHERE id_personal = ?';
-        $params = array($this->clave, $_SESSION['id_personal']);
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('Y-m-d');
+        $sql = 'UPDATE personal SET clave = ?,fecha_clave=? WHERE id_personal = ?';
+        $params = array($this->clave, $date, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
     }
-   
+
     public function readProfile()
     {
-        $sql = 'SELECT id_personal,nombre,dui,telefono,direccion,usuario,clave,nombre_cargo
-                FROM personal
+        $sql = 'SELECT id_personal,nombre,telefono,dui,email,direccion,usuario,clave,nombre_cargo
+                FROM personal INNER JOIN cargo using(id_cargo)
                 WHERE id_personal = ?';
         $params = array($_SESSION['id_personal']);
         return Database::getRow($sql, $params);
@@ -345,9 +358,9 @@ public function setDireccion($value)
     public function updateRow()
     {
         $sql = 'UPDATE personal
-                SET nombres = ?,telefono = ?,email=?
+                SET nombre =? ,dui=?,telefono=?,email=?,direccion=?,id_cargo=?
                 WHERE id_personal = ?';
-        $params = array($this->nombre,$this->telefono,$this->correo, $this->id);
+        $params = array($this->nombre,$this->dui,$this->telefono, $this->correo,$this->direccion,$this->cargo,$this->id);
         return Database::executeRow($sql, $params);
     }
     public function editProfile()
@@ -355,7 +368,7 @@ public function setDireccion($value)
         $sql = 'UPDATE personal
                 SET nombre =? ,dui=?,telefono=?,email=?,direccion=?
                 WHERE id_personal = ?';
-        $params = array($this->nombre, $this->dui, $this->telefono,$this->correo, $_SESSION['id_personal']);
+        $params = array($this->nombre, $this->dui, $this->telefono, $this->correo, $this->direccion, $_SESSION['id_personal']);
         return Database::executeRow($sql, $params);
     }
     //REPORTE
@@ -370,69 +383,71 @@ public function setDireccion($value)
     }
     public function personalcargo()
     {
-    $sql = 'SELECT c.id_cargo,p.nombre,p.telefono,p.direccion,c.nombre_cargo
+        $sql = 'SELECT c.id_cargo,p.nombre,p.telefono,p.direccion,c.nombre_cargo
     FROM personal p INNER JOIN cargo c USING (id_cargo)
     WHERE id_cargo = ?
     order by c.id_cargo';
-      $params = array($this->cargo);
-      return Database::getRows($sql, $params);
-}
-//graficos 
-//Grafica para mostrar la cantidad de pedidos de cada zona
-public function cantidadPedidosZona()
-{
-    $sql = 'SELECT COUNT(*) AS pedidos, nombre_zona
+        $params = array($this->cargo);
+        return Database::getRows($sql, $params);
+    }
+    //graficos 
+    //Grafica para mostrar la cantidad de pedidos de cada zona
+    public function cantidadPedidosZona()
+    {
+        $sql = 'SELECT COUNT(*) AS pedidos, nombre_zona
     FROM pedidos INNER JOIN zona USING(id_zona) 
     GROUP BY nombre_zona';
-    $params = null;
-    return Database::getRows($sql, $params);
-}
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 
- public function cantidadPersonalCargo()
- {
-     $sql = 'SELECT count(*) as personal, nombre_cargo
+    public function cantidadPersonalCargo()
+    {
+        $sql = 'SELECT count(*) as personal, nombre_cargo
      from personal inner join cargo using (id_cargo)
      group by nombre_cargo order by personal ';
-     $params = null;
-     return Database::getRows($sql, $params);
- }
- public function cantidadPedidosPersonal()
- {
-     $sql = 'SELECT count(*) as pedidos, nombre
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+    public function cantidadPedidosPersonal()
+    {
+        $sql = 'SELECT count(*) as pedidos, nombre
      from pedidos inner join personal using (id_personal)
      group by nombre limit 5';
-     $params = null;
-     return Database::getRows($sql, $params);
- }
- //Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
-public function intentoFallido($usuario)
-{
-    $sql = 'UPDATE personal
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+    //Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
+    public function intentoFallido($usuario)
+    {
+        $sql = 'UPDATE personal
     set intentos = intentos + 1
     WHERE usuario = ? ';
-    $params = array($this->usuario);
-    return Database::executeRow($sql, $params);
-}
-
-//Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
-public function bloqueoIntentos($usuario, $date)
-{
-    $future_date = date("Y-m-d H:i",strtotime($date."+ 1 days")); 
-    $sql = 'UPDATE personal
+        $params = array($usuario);
+        $this->usuario = $usuario;
+        Database::executeRow($sql, $params);
+    }
+    //Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
+    public function bloqueoIntentos($usuario)
+    {
+        date_default_timezone_set('America/El_Salvador');
+        $future_date = date("Y-m-d H:i");
+        $sql = 'UPDATE personal
     set intentos = 0, fecha_intentos = ?
     WHERE usuario = ?;';
-    $params = array($future_date, $this->usuario);
-    return Database::executeRow($sql, $params);
-}
+        $params = array($future_date, $usuario);
+        $this->usuario = $usuario;
+        return Database::executeRow($sql, $params);
+    }
 
-//Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
-public function reinicioConteoIntentos($usuario)
-{
-    $sql = 'UPDATE personal
+    //Método para agregar una unidad a los intentos fallidos e ingresar la fehca y hora del ultimo intento fallido
+    public function reinicioConteoIntentos($usuario)
+    {
+        $sql = 'UPDATE personal
     set intentos = 0
     WHERE usuario = ?';
-    $params = array($this->usuario);
-    return Database::executeRow($sql, $params);
-}
-
+        $params = array($usuario);
+        $this->usuario = $usuario;
+        return Database::executeRow($sql, $params);
+    }
 }

@@ -4,9 +4,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     readRows(API_CARGO);
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
+    let options = {
+        dismissible: false,
+    }
+    M.Modal.init(document.querySelectorAll('.modal'), options);
 });
-
+document.getElementById('search-form').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+    searchRows(API_CARGO,'search-form');
+});
     function fillTable(dataset) {
+        document.querySelector(".preloader").style.display = "none";
         let content = '';
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         dataset.map(function (row) {
@@ -43,16 +53,15 @@ document.addEventListener('DOMContentLoaded', function () {
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdate(id) {
     // Se abre la caja de diálogo (modal) que contiene el formulario.
-    M.Modal.getInstance(document.getElementById('save-modal')).open();
+    M.Modal.getInstance(document.getElementById('update-modal')).open();
     // Se asigna el título para la caja de diálogo (modal).
     document.getElementById('modal-title').textContent = 'Actualizar categoría';
     // Se establece el campo de archivo como opcional.
-    document.getElementById('archivo').required = false;
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
-    data.append('id', id);
+    data.append('idup', id);
     // Petición para obtener los datos del registro solicitado.
-    fetch(API_MARCAS + 'readOne', {
+    fetch(API_CARGO + 'readOne', {
         method: 'post',
         body: data
     }).then(function (request) {
@@ -63,8 +72,8 @@ function openUpdate(id) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-                    document.getElementById('id').value = response.dataset.id_marca;
-                    document.getElementById('nombre').value = response.dataset.nombre_marca;
+                    document.getElementById('idup').value = response.dataset.id_cargo;
+                    document.getElementById('nombreup').value = response.dataset.nombre_cargo;
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
                     M.updateTextFields();
                 } else {
@@ -80,11 +89,10 @@ document.getElementById('save-form').addEventListener('submit', function (event)
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se define una variable para establecer la acción a realizar en la API.
-    let action = '';
     // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
-    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    (document.getElementById('id').value)
     // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
-    saveRow(API_CARGO, action, 'save-form');
+    saveRow(API_CARGO,'create', 'save-form',null);
 });
 
 // Función para establecer el registro a eliminar y abrir una caja de diálogo de confirmación.
@@ -94,4 +102,14 @@ function openDelete(id) {
     data.append('id', id);
     // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
     confirmDelete(API_CARGO, data);
+    
 }
+document.getElementById('update-form').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
+    (document.getElementById('idup').value);
+    // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
+    saveRow(API_CARGO,'update', 'update-form',null);
+    M.Modal.getInstance(document.getElementById('update-modal')).close();
+  });

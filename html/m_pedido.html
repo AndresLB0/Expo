@@ -2,13 +2,14 @@
 <html>
 
 <head>
+  <title>Pedidos</title>
   <meta charset="utf-8">
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
-  <link rel="icon" href="../imagenes/icono/fatyssa.png" />
+  <link rel="icon" href="../imagenes/icono/sgvm.png" />
 
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,14 +19,13 @@
   <header>
   </header>
   <main>
-
+<div id="menu"></div>
 
     <div class="row">
-      <a class="btn-floating red hide-on-med-and-down" href="a_pedido.html"><i class="material-icons">add_shopping_cart</i></a>
-      <a class="btn-floating blue hide-on-med-and-down" href="envio.html"><i class="material-icons">local_shipping</i></a>
-      <a class="btn-floating blue hide-on-med-and-down" href="zona.html"><i class="material-icons">pin_drop</i></a>
+      <a class="btn-floating green hide-on-med-and-down" href="a_pedido.html"><i class="material-icons">add_shopping_cart</i></a>
+      <a class="btn-floating amber hide-on-med-and-down" href="envio.html"><i class="material-icons">local_shipping</i></a>
+      <a class="btn-floating purple hide-on-med-and-down" href="zona.html"><i class="material-icons">pin_drop</i></a>
       <h3 class="center">Pedidos</h3>
-      <form class="col s12 m12 l12">
 
         <div class="jonh">
           <div class="row">
@@ -38,14 +38,19 @@
             </ul>
           </div>
         </div>
+        <form class="col s12 m12 l12">
         <div class="input-field container">
           <input id="search" type="search" required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
-        <a class=" hide-on-large-only btn-floating red" href="a_pedido.html"> <i class="material-icons">add_shopping_cart</i></a>
-          <a class="hide-on-large-only"href="envio.html"><i class="material-icons">local_shipping</i></a>
-        <!-- ejemplo de registro -->
+        </form>
+<div class="center">
+        <a class=" hide-on-large-only btn-floating green" href="a_pedido.html"> <i class="material-icons">add_shopping_cart</i></a>
+          <a class="hide-on-large-only btn-floating amber"href="envio.html"><i class="material-icons">local_shipping</i></a>
+          <a class="btn-floating purple hide-on-large-only" href="zona.html"><i class="material-icons">pin_drop</i></a>
+        </div>
+          <!-- ejemplo de registro -->
         <div class="row" id="ancla">
           
         </div>

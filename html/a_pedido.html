@@ -2,169 +2,176 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
-  <link rel="icon" href="../imagenes/icono/fatyssa.png" />
+    <title>crear pedido</title>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
+    <link rel="icon" href="../imagenes/icono/sgvm.png" />
 
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body class="azul">
-  <header>
-  </header>
-  <main>
-    <div id="pestania1" class="col s12 transparent">
-      <div class="center">
-      <div class="contenedor blanco">
-          <div class="row">
-            <div class="col s11">
-              <h3 class="center">Nuevo pedido </h3>
-            </div>
-            <div class="col s1">
-              <a href="m_pedido.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
-            </div>
+    <header>
+    </header>
+    <main>
+        <div id="menu"></div>
+        <div id="pestania1" class="col s12 transparent">
+            <div class="center">
+                <div class="contenedor blanco">
+                    <div class="row">
+                        <div class="col s11">
+                            <h3 class="center">Nuevo pedido </h3>
+                        </div>
+                        <div class="col s1">
+                            <a href="m_pedido.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
+                        </div>
 
-            <div class="input-field col s6 l4 m10">
-              <!-- plantilla para input -->
-              <input placeholder="Nombre" id="" type="text" class="validate text">
-              <!-- plantilla de caja de texto -->
+                        <div class="input-field col s6 l4 m10">
+                            <!-- plantilla para input -->
+                            <input placeholder="Nombre" id="" type="text" class="validate text">
+                            <!-- plantilla de caja de texto -->
 
-            </div>
-            <div class="input-field col s6  l4 m10">
-              <!-- plantilla para input -->
-              <input placeholder="Telefono" id="" type="text" class="validate text">
-              <!-- plantilla de caja de texto -->
+                        </div>
+                        <div class="input-field col s6  l4 m10">
+                            <!-- plantilla para input -->
+                            <input placeholder="Telefono" id="" type="text" class="validate text">
+                            <!-- plantilla de caja de texto -->
 
-            </div>
+                        </div>
 
-            <div class="input-field col s12 l4 m6">
-              <div class="program">
-                <select>
-                  <!-- Zona en la que vive el cliente -->
-                  <option value="" disabled selected>Zona</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
-                </select>
-              </div>
-            </div>
+                        <div class="input-field col s12 l4 m6">
+                            <div class="program">
+                                <select>
+                                    <!-- Zona en la que vive el cliente -->
+                                    <option value="" disabled selected>Zona</option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                </select>
+                            </div>
+                        </div>
 
-          </div>
-          <form class="col s12 m12 l12">
-            <div class="row">
-              <div class="input-field col s12 l4 m12 ">
-                <!-- plantilla de caja de texto -->
-                <div class="program">
-                  <select>
-                    <!-- Empleado asignado a tomar el pedido -->
-                    <option value="" disabled selected>Nombre del personal</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                  </select>
-                </div>
-                <!-- fin de plantilla -->
-              </div>
-              <div class="input-field col s6 l4">
-                <!-- plantilla de caja de texto -->
-                <div class="program">
-                  <select>
-                    <!-- Especificar el tipo de factura -->
-                    <option value="" disabled selected>Tipo factura</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                  </select>
-                </div>
-                <!-- fin de plantilla -->
-              </div>
-              <div class="input-field col s6 l4 m4">
-                <!-- plantilla de caja de texto -->
-                <div class="program">
-                  <select>
-                    <!-- Especificar el tipo de envio -->
-                    <option value="" disabled selected>Tipo de envio</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                  </select>
-                </div>
-                <!-- fin de plantilla -->
-
-              </div>
-                <div class="input-field col s12 m8 l12">
-                  <!-- Residencia del cliente para el cual se hace el pedido -->
-                  <textarea id="textarea1"></textarea>
-                  <label for="textarea1 text-black">Direccion</label>
-                  <input id="enviar" type="submit" class="validate">
-                </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-    <!-- contenido pestaña 2 -->
-    <div id="pestania2" class="col s12 transparent">
-      <div class="contenedor blanco">
-        <div class="row">
-<div class="col s11 m11">
-          <div class="detalle">
-            <table class="responsive-table">
-              <thead>
-                <tr>
-                  <th>codigo</th>
-                  <th>nombre del producto</th>
-                  <th>cantidad</th>
-                  <th>precio c/u</th>
-                  <th>precio total</th>
-                  <th> <a href="#" class="boticono"><span class="material-icons">add</span></a></th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td> </td>
-                  <td>
-                    <div class="program">
-                      <select>
-                        <option value="" disabled selected>escoje tu opcion</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                      </select>
                     </div>
-                  </td>
-                  <td><input placeholder="canidad" id="" type="number" class="validate text"></td>
-                  <td>
-                  </td>
-                  <td>
-      
-                  </td>
-                  <td> <a href="#" class="cerrar"><span class="material-icons">delete</span></a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <h6>total de compra:$</h6>
-        </div>
-        <div class="col s1 m1 ">
-          <a href="m_pedido.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
-        </div>
-        </div>
-        
-      </div>
-    </div>
+                    <form class="col s12 m12 l12">
+                        <div class="row">
+                            <div class="input-field col s12 l4 m12 ">
+                                <!-- plantilla de caja de texto -->
+                                <div class="program">
+                                    <select>
+                                        <!-- Empleado asignado a tomar el pedido -->
+                                        <option value="" disabled selected>Nombre del personal</option>
+                                        <option value="1">Option 1</option>
+                                        <option value="2">Option 2</option>
+                                        <option value="3">Option 3</option>
+                                    </select>
+                                </div>
+                                <!-- fin de plantilla -->
+                            </div>
+                            <div class="input-field col s6 l4">
+                                <!-- plantilla de caja de texto -->
+                                <div class="program">
+                                    <select>
+                                        <!-- Especificar el tipo de factura -->
+                                        <option value="" disabled selected>Tipo factura</option>
+                                        <option value="1">Option 1</option>
+                                        <option value="2">Option 2</option>
+                                        <option value="3">Option 3</option>
+                                    </select>
+                                </div>
+                                <!-- fin de plantilla -->
+                            </div>
+                            <div class="input-field col s6 l4 m4">
+                                <!-- plantilla de caja de texto -->
+                                <div class="program">
+                                    <select>
+                                        <!-- Especificar el tipo de envio -->
+                                        <option value="" disabled selected>Tipo de envio</option>
+                                        <option value="1">Option 1</option>
+                                        <option value="2">Option 2</option>
+                                        <option value="3">Option 3</option>
+                                    </select>
+                                </div>
+                                <!-- fin de plantilla -->
 
-  </main>
+                            </div>
+                            <div class="input-field col s12 m8 l12">
+                                <!-- Residencia del cliente para el cual se hace el pedido -->
+                                <textarea id="textarea1"></textarea>
+                                <label for="textarea1 text-black">Direccion</label>
+                                <div class="container">
+                                    <button type="submit" class="validate boton">Agregar pedido </button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- contenido pestaña 2 -->
+        <div id="pestania2" class="col s12 transparent">
+            <div class="contenedor blanco">
+                <div class="row">
+                    <div class="col s11 m11 l11">
+                        <div class="detalle">
+                            <table class="responsive-table">
+                                <thead>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Nombre del producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio c/u</th>
+                                        <th>Precio total</th>
+                                        <th> <a href="#" class="boticono"><span class="material-icons">add</span></a>
+                                        </th>
+                                    </tr>
+                                </thead>
 
-  <!--JavaScript at end of body for optimized loading-->
-  <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
-  <script type="text/javascript" src="../js/a_pedido.js"></script>
+                                <tbody>
+                                    <tr>
+                                        <td> </td>
+                                        <td>
+                                            <div class="program">
+                                                <select>
+                                                    <option value="" disabled selected>Selecciona tu opcion</option>
+                                                    <option value="1">Option 1</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td><input placeholder="Cantidad" id="" type="number" class="validate text">
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                        <td> <a href="#" class="cerrar"><span class="material-icons">delete</span></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="center boton">guardar</button>
+                        </div>
+                    </div>
+                        <div class="col s1 m1 l1 ">
+                            <a href="m_pedido.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../controllers/components.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/subpages.js"></script>
+    <script type="text/javascript" src="../js/a_pedido.js"></script>
 </body>
 
 </html>

@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
     graficoLineaProductoProveedor();
     graficoPoductoLinea();
     graficoBarraPedidosPersonal();
-    reloj();
 });
+  
 // Función para mostrar la cantidad de pedidos por zona en un gráfico de barras.
 function graficoBarrasPedidosZona() {
     // Petición para obtener los datos del gráfico.
@@ -158,6 +158,7 @@ function graficoPersonalCargo() {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
                 if (response.status) {
+                    document.querySelector(".preloader").style.display = "none";
                     // Se declaran los arreglos para guardar los datos a graficar.
                     let cargo = [];
                     let personal = [];

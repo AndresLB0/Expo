@@ -1,6 +1,4 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_PERSO = SERVER + 'dashboard/usuarios.php?action=';
-
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.

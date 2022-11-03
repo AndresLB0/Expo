@@ -50,13 +50,13 @@ if (isset($_GET['action'])) {
                     break;
             case 'readOne':
                 if (!$presentacion->setID($_POST['id'])) {
-                    $result['exception'] = 'presentacion incorrecto';
+                    $result['exception'] = 'Presentacion incorrecta';
                 } elseif ($result['dataset'] = $presentacion->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'presentacion inexistente';
+                    $result['exception'] = 'Presentacion inexistente';
                 }
                 break;
             case 'update':
@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
                 } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
                     if ($presentacion->updateRow($data['imagen_presentacion'])) {
                         $result['status'] = 1;
-                        $result['message'] = 'presentacion modificado correctamente';
+                        $result['message'] = 'Presentacion modificada correctamente';
                     } else {
                         $result['exception'] = Database::getException();
                     }
@@ -87,9 +87,9 @@ if (isset($_GET['action'])) {
                 } elseif ($presentacion->updateRow($data['imagen_presentacion'])) {
                     $result['status'] = 1;
                     if ($presentacion->saveFile($_FILES['archivo'], $presentacion->getRuta(), $presentacion->getImagen())) {
-                        $result['message'] = 'presentacion modificado correctamente';
+                        $result['message'] = 'Presentacion modificada correctamente';
                     } else {
-                        $result['message'] = 'presentacion modificado pero no se guardó la imagen';
+                        $result['message'] = 'Presentacion modificada pero no se guardó la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();

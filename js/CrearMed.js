@@ -1,10 +1,10 @@
+const API_CLIENTE = SERVER + 'dashboard/clientes.php?action=';
+const ENDPOINT_ESPECI=SERVER +'dashboard/especialidad.php?action=readAll';
 
 document.addEventListener('DOMContentLoaded', function () {
-    //   script para el combobox
-    var instances = M.FormSelect.init(document.querySelectorAll('select'));
-    // script para elejir fecha
+  fillSelect(ENDPOINT_ESPECI, 'especi', null);
     var instances = M.Datepicker.init(document.querySelectorAll('.datepicker'), {
-      format: 'dd/mm/yyyy',
+      format: 'yyyy-mm-dd',
       defaultDate: new Date(),
       setDefaultDate: true,
       i18n: {
@@ -15,32 +15,15 @@ document.addEventListener('DOMContentLoaded', function () {
         monthsShort: ['ene', 'Feb', 'Mar', 'Abr', 'Mayo', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
       }
     });
-    // script para pestañas
-    var instances = M.Tabs.init(document.querySelector('.tabs', {
-      swipeable: true,
-    }));
     // menu parte 1
     var instances = M.Sidenav.init(document.querySelectorAll('.sidenav'));
   });
-  
-  //feacha y hora
-  function reloj() {
-    fecha = new Date();
-    anno = fecha.getFullYear();
-    mes = fecha.getMonth() + 1;
-    dia = fecha.getDate();
-    diasem = fecha.getDay();
-    document.getElementById("hoy").innerHTML = dia + "/" + mes + '/' + anno;
-    //hora actual
-    tiempo = new Date();
-    hora = tiempo.getHours();
-    if (hora < 10) hora = "0" + hora
-    min = tiempo.getMinutes();
-    if (min < 10) min = "0" + min;
-    horacompleta = hora + ":" + min;
-    document.getElementById('hora').innerHTML = horacompleta;
-    setTimeout('reloj()', 1000)
-  }
-  
-  document.getElementById('menu').innerHTML = '<div class="nav-wrapper"><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a><ul class="right hide-on-med-and-down"><li><a href="m_personal.html">personal</a></li><li><a href="m_proveedor.html">proveedores</a></li><li><a href="m_producto.html">productos</a></li><li><a href="m_pedido.html">pedidos</a></li><li><a href="m_cliente.html">clientes</a></li></ul></div>';
-  document.getElementById('mobile-demo').innerHTML='<li><img src="../imagenes/logo/fatyssa 2.jpg" width="100%" alt="logo de fatyssa"></li><li><a href="m_personal.html">personal</a></li><li><a href="m_proveedor.html">proveedores</a></li><li><a href="m_producto.html">productos</a></li><li><a href="m_pedido.html">pedidos</a></li><li><a href="m_cliente.html">clientes</a></li>'
+  document.getElementById('save-form').addEventListener('submit', function (event) {
+
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
+    (document.getElementById('id').value);
+    // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
+    saveRow(API_CLIENTE,'createMedi', 'save-form','JavaScript:history.back()');
+  });

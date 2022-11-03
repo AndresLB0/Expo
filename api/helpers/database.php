@@ -14,11 +14,29 @@ class Database
     */
     private static function connect()
     {
-        // Credenciales para establecer la conexión con la base de datos.
+    
+        //base con pocos datos(pruebas de llenado)
+/*
+        $server = 'kesavan.db.elephantsql.com';
+        $database = 'prinesyj';
+        $username = 'prinesyj';
+        $password = 'AnmVAmOr87rrvD7SojzqqYqDBPJVgIHp';
+*/
+
+//base con datos (pruebas de mostreo)
+
         $server = 'localhost';
-        $database = 'fatyssanul';
+        $database = 'sgvm';
         $username = 'postgres';
-        $password = '123';//poner aqui la pswd de postgress
+        $password = '123';
+
+        //base vacia (posible base permanente)
+        /*
+        $server = '	185.31.40.31';
+        $database = 'fatyssa_sgvm';
+        $username = 'fatyssa';
+        $password = 'España7';
+        */
 
         // Se crea la conexión mediante la extensión PDO y el controlador para PostgreSQL.
         self::$connection = new PDO('pgsql:host=' . $server . ';dbname=' . $database . ';port=5432', $username, $password);
@@ -136,7 +154,7 @@ class Database
             case '7':
                 self::$error = 'Existe un problema al conectar con el servidor';
                 break;
-            //case '42703':
+            case '42703':
                 self::$error = 'Nombre de campo desconocido';
                 break;
             case '23505':
@@ -148,7 +166,7 @@ class Database
             case '23503':
                 self::$error = 'Registro ocupado, no se puede eliminar';
                 break;
-        //default:
+        default:
                 self::$error = 'Ocurrió un problema en la base de datos';
         }
     }

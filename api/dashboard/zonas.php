@@ -43,28 +43,28 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Nombre incorrecto';
                     } elseif ($zona->createRow()) {
                         $result['status'] = 1;
-                            $result['message'] = 'zona creado correctamente';
+                            $result['message'] = 'Zona creada correctamente';
                     } else {
                         $result['exception'] = Database::getException();;
                     }
                     break;
             case 'readOne':
                 if (!$zona->setID($_POST['id'])) {
-                    $result['exception'] = 'zona incorrecto';
+                    $result['exception'] = 'Zona incorrecta';
                 } elseif ($result['dataset'] = $zona->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'zona inexistente';
+                    $result['exception'] = 'Zona inexistente';
                 }
                 break;
             case 'update':
                 $_POST = $zona->validateForm($_POST);
                 if (!$zona->setID($_POST['id'])) {
-                    $result['exception'] = 'zona incorrecto';
+                    $result['exception'] = 'Zona incorrecta';
                 } elseif (!$data = $zona->readOne()) {
-                    $result['exception'] = 'zona inexistente';
+                    $result['exception'] = 'Zona inexistente';
                 } elseif (!$zona->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombre incorrecto';
                 } elseif (!$zona->setDescripcion($_POST['descripcion'])) {
@@ -87,9 +87,9 @@ if (isset($_GET['action'])) {
                 } elseif ($zona->updateRow($data['imagen_zona'])) {
                     $result['status'] = 1;
                     if ($zona->saveFile($_FILES['archivo'], $zona->getRuta(), $zona->getImagen())) {
-                        $result['message'] = 'zona modificado correctamente';
+                        $result['message'] = 'Zona modificada correctamente';
                     } else {
-                        $result['message'] = 'zona modificado pero no se guardó la imagen';
+                        $result['message'] = 'Zona modificada pero no se guardó la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();
@@ -97,15 +97,15 @@ if (isset($_GET['action'])) {
                 break;
             case 'delete':
                 if (!$zona->setID($_POST['id'])) {
-                    $result['exception'] = 'zona incorrecto';
+                    $result['exception'] = 'Zona incorrecta';
                 } elseif (!$data = $zona->readOne()) {
-                    $result['exception'] = 'zona inexistente';
+                    $result['exception'] = 'Zona inexistente';
                 } elseif ($zona->deleteRow()) {
                     $result['status'] = 1;
                     if ($zona->deleteFile($zona->getRuta(), $data['imagen_zona'])) {
-                        $result['message'] = 'zona eliminado correctamente';
+                        $result['message'] = 'Zona eliminada correctamente';
                     } else {
-                        $result['message'] = 'zona eliminado pero no se borró la imagen';
+                        $result['message'] = 'Zona eliminada pero no se borró la imagen';
                     }
                 } else {
                     $result['exception'] = Database::getException();

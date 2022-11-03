@@ -1,6 +1,6 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_PERSO = SERVER + 'dashboard/usuarios.php?action=';
-
+    //hide the preloader
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     // Petición para consultar si existen usuarios registrados.
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             request.json().then(function (response) {
                                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                                 if (response.status) {
-                                 location.href='index.html'
+                                 location.href='../index.html'
                                 } else {
                                     sweetAlert(2, response.exception, null);
                                 }
@@ -31,9 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
                 } else if (response.status) {
+                    document.querySelector(".preloader").style.display = "none";
                     sweetAlert(4, 'Debe autenticarse para ingresar', null);
                 } else {
-                    sweetAlert(3, response.exception, 'singup.html');
+                    document.querySelector(".preloader").style.display = "none";
+                    sweetAlert(3, response.exception, 'html/singup.html');
                     
                 }
             });
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de iniciar sesión.
 document.getElementById('session-form').addEventListener('submit', function (event) {
+    document.querySelector(".preloader").style.display = "block";
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Petición para revisar si el administrador se encuentra registrado.
@@ -58,11 +61,14 @@ document.getElementById('session-form').addEventListener('submit', function (eve
         if (request.ok) {
             request.json().then(function (response) { 
                 if (response.noventa) {
-                    sweetAlert(4, response.exception, 'changepswd.html');
+                    document.querySelector(".preloader").style.display = "none";
+                    sweetAlert(4, response.exception, 'html/changepswd.html');
                 }               // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                else if (response.status) {
-                    sweetAlert(1, response.message, 'token.html');
-                } else {
+                  else if (response.status) {
+                    document.querySelector(".preloader").style.display = "none";
+                    sweetAlert(1, response.message, 'html/token.html');
+                } else { 
+                     document.querySelector(".preloader").style.display = "none";
                     sweetAlert(2, response.exception, null);
                 }
             });
@@ -71,3 +77,6 @@ document.getElementById('session-form').addEventListener('submit', function (eve
         }
     });
 });
+document.getElementById("show").onclick=function(){
+    mostrarContrasena("clave","icono","show")
+ }

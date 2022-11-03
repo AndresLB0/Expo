@@ -14,13 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.status) {
                         const menu = `<div class="navbar-fixed">
     <nav>
-        <div class="nav-wrapper"><a href="dashboard.html" class="boticono hide-on-med-and-down"><img src="../imagenes/logo/fatyssa 2.jpg" height="58px" width="64px" alt=""></a><a href="#" data-target="mobile-demo"
+        <div class="nav-wrapper"><a href="dashboard.html" class="boticono hide-on-med-and-down"><img src="../imagenes/icono/sgvm.png" height="58px" width="64px" alt=""></a><a href="#" data-target="mobile-demo"
                 class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a class="dropdown-trigger" href="#" data-target="desktop-dropdown">
                         <i class="material-icons">verified_user</i>Cuenta: <b>${response.username}</b>
                     </a>
                 </li>
+                <div id="menu"></div>
             </ul>
         </div>
     </nav>
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <li><a onclick="logOut()"><i class="material-icons">clear</i>Salir</a></li>
     </ul>
   </div>
-  <ul class="sidenav" id="mobile-demo" <li><img src="../imagenes/logo/fatyssa 2.jpg" width="100%" alt="logo de fatyssa">
+  <ul class="sidenav" id="mobile-demo" <li><img src="../imagenes/icono/sgvm.png" width="100%" alt="logo de fatyssa">
     </li>
     <li>
         <a class="dropdown-trigger" href="#" data-target="mobile-dropdown">
@@ -46,12 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelector('header').innerHTML = menu;
                         M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
                         M.Sidenav.init(document.querySelectorAll('.sidenav'));
-  
                     } else {
-                        sweetAlert(3, response.exception, 'index.html');
+                        sweetAlert(3, response.exception, '../index.html');
                     }
                 } else {
-                    location.href = 'index.html';
+                    location.href = '../index.html';
                 }
             });
         } else {
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   request.json().then(function (response) {
                       // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                       if (response.status) {
-                          sweetAlert(1, response.message, 'index.html');
+                          sweetAlert(1, response.message, '../index.html');
                       } else {
                           sweetAlert(2, response.exception, null);
                       }

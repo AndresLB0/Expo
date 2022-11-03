@@ -14,4 +14,4 @@ document.addEventListener('DOMContentLoaded', function () {
     <li class="tab col s3">
       <a href="#pestania2">detallar pedido</a>
       </li>
-      </ul>;`
+      </ul>`

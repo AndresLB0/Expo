@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css"  media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
+  <link rel="icon" href="../imagenes/icono/fatyssa.png" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="azul">
+  <header>
+  </header>
+  <main>
+    <h3 class="center-align">Registrar primer usuario</h3>
+    <!-- Formulario para registrar el primer usuario del dashboard -->
+    <div class="contenedor blanco">
+    <form class="row" method="post" id="register-form">
+        <div class="input-field col s12 m6">
+            <i class="material-icons prefix">person</i>
+            <input id="nombre" type="text" name="nombre" class="validate text" required>
+            <label for="nombre">Nombre</label>
+        </div>
+        <div class="input-field col s12 m6">
+            <i class="material-icons prefix">call</i>
+            <input id="telefono" type="tel" name="telefono" class="validate" required>
+            <label for="telefono">Telefono</label>
+        </div>
+        <div class="input-field col s12 m6">
+            <i class="material-icons prefix">email</i>
+            <input id="correo" type="email" name="correo" class="validate" required>
+            <label for="email">Correo</label>
+        </div>
+        <div class="input-field col s12 m6">
+            <i class="material-icons prefix">person_pin</i>
+            <input id="usuario" type="text" name="usuario" class="validate text" required>
+            <label for="usuario">Usuario</label>
+        </div>
+        <div class="input-field col s12 m6">
+            <i class="material-icons prefix">security</i>
+            <input id="clave" type="password" name="clave" class="validate" required>
+            <label for="clave">Clave</label>
+        </div>
+        <div class="input-field col s12 m6">
+            <i class="material-icons prefix">security</i>
+            <input id="confirmar" type="password" name="confirmar" class="validate" required>
+            <label for="confirmar">Confirmar clave</label>
+        </div>
+        <div id="h-captcha-response" class="h-captcha" data-sitekey="76fe6866-880f-48d1-814f-9d0d258f3a97"></div>
+            </div>
+        <div class="col s12 center-align">
+            <button type="reset" class="btn-floating waves-effect grey tooltipped" data-tooltip="Reiniciar">
+                <i class="material-icons">autorenew</i>
+            </button>
+            <button type="submit" class="btn-floating waves-effect blue tooltipped" data-tooltip="Registrar">
+                <i class="material-icons">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+  </main>
+  <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
+  <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+  <script type="text/javascript" src="../controllers/components.js"></script>
+  <script type="text/javascript" src="../controllers/dashboard/singup.js"></script>
+</body>
+
+</html>

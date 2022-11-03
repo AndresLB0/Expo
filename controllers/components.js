@@ -75,7 +75,7 @@ function searchRows(api, form) {
 *
 *   Retorno: ninguno.
 */
-function saveRow(api, action, form) {
+function saveRow(api, action, form, link) {
     fetch(api + action, {
         method: 'post',
         body: new FormData(document.getElementById(form))
@@ -89,9 +89,10 @@ function saveRow(api, action, form) {
                     // Se cierra la caja de dialogo (modal) del formulario.
                     // Se cargan nuevamente las filas en la tabla de la vista después de guardar un registro y se muestra un mensaje de éxito.
                     readRows(api);
-                    sweetAlert(1, response.message,'JavaScript:history.back()');
+                    sweetAlert(1, response.message,link);
                 } else {
                     sweetAlert(2, response.exception, null);
+
                 }
             });
         } else {
@@ -224,12 +225,15 @@ function fillSelect(endpoint, select, selected) {
                         // Se verifica si el valor de la API es diferente al valor seleccionado para enlistar una opción, de lo contrario se establece la opción como seleccionada.
                         if (value != selected) {
                             content += `<option value="${value}">${text}</option>`;
+                            document.querySelector(".preloader").style.display = "none";
                         } else {
                             content += `<option value="${value}" selected>${text}</option>`;
+                            document.querySelector(".preloader").style.display = "none";
                         }
                     });
                 } else {
                     content += '<option>No hay opciones disponibles</option>';
+                    document.querySelector(".preloader").style.display = "none";
                 }
                 // Se agregan las opciones a la etiqueta select mediante su id.
                 document.getElementById(select).innerHTML = content;
@@ -468,7 +472,7 @@ function logOut() {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
-                            sweetAlert(1, response.message, 'index.html');
+                            sweetAlert(1, response.message, '../index.html');
                         } else {
                             sweetAlert(2, response.exception, null);
                         }
@@ -482,6 +486,19 @@ function logOut() {
         }
     });
 }
-
+function mostrarContrasena(campo,icono,boton){
+    var tipo = document.getElementById(campo);
+    var icon= document.getElementById(icono);
+    var button= document.getElementById(boton);
+    if(tipo.type == "password"){
+        tipo.type = "text";
+        icon.innerHTML="visibility_off"
+        button.setAttribute("data-tooltip","ocultar contraseña")
+    }else{
+        tipo.type = "password";
+        icon.innerHTML="visibility"
+        button.setAttribute("data-tooltip","ver contraseña")
+    }
+}
 
 

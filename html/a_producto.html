@@ -3,78 +3,107 @@
 
 <head>
     <meta charset="utf-8">
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
-  <link rel="icon" href="../imagenes/icono/fatyssa.png" />
+    <title>agregar productos</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../resources/css/style.css" media="screen,projection" />
+    <link rel="icon" href="../imagenes/icono/sgvm.png" />
 
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body class="azul">
-  <header>
-  </header>
-  <main>
-    <div class="row contenedor blanco">
-        <h4>Agregar producto</h4>
-        <a href="m_producto.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
-        <div class="col s12 m6">
-          <input placeholder="nombre" id="nombre" type="text" class="validate text">
-          <input placeholder="registro sanitario" id="reg" type="text" class="validate text">
-          <div class="col s6 m6">
-            <input placeholder="precio sin iva" id="precio" type="text" class="validate text">
-          </div>
-          <div class="col s6 m6">
-            <input placeholder="precio con iva" id="iva" type="text" class="validate text">
+    <img src="../imagenes/preloader/preloader.gif" class="preloader" alt="">
+    <header>
+    </header>
+    <main>
+        <div class="row contenedor blanco">
+            <h4 class='center'>Agregar producto</h4>
+            <a href="m_producto.html" class="cerrar"><span class="material-icons md-38">cancel</span></a>
+            <form id="save-form" method="post">
+                <input class="hide" type="number" id="id" name="id">
+                <div class="col s12 m6">
+                    <div class="input-field">  
+                        <input id="nombre" name="nombre" type="text" class="validate text">
+                        <label for="nombre">Nombre</label>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                            <input id="dsto" name="dsto" type="number" class="validate text">
+                            <label for="dsto">Descuento</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="precio" name="precio" type="text" class="validate text">
+                            <label for="precio">PVF</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="preciopublico" name="preciopublico" type="text" class="validate text disabled" readonly>
+                            <label for="preciopublico">PVP</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                        <div class="program">
+                            <select id="presentacion" name="presentacion"></select>
+                            <label>forma farmaceutica</label>
+                        </div>
+                        </div>
+                        <div class="input-field">
+                        <input id="precioiva" name="precioiva" type="text"
+                            class="validate text disabled" readonly>
+                            <label for="precioiva">PVF con iva</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="preciopublicoiva" name="preciopublicoiva" type="text"
+                                class="validate text disabled" readonly>
+                                <label for="preciopublicoiva">PVP con iva</label>
+                            </div>
+                    </div>
+                </div>
+                <div class="col m5 s12">
+                    <input placeholder="Registro sanitario" name="reg" id="reg" type="text" class="validate text">
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                        <div class="program">
+                            <select id="linea" name="linea"></select>
+                            <label>Linea</label>
+                        </div>
+                        </div>
+                        <div class="input-field">
+                        <input placeholder="Existencias" name="existencias" id="existencias" type="number" class="validate text">
+                   </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                            <input id="tamano" name="tamano" type="text" class="validate text">
+                            <label for="tamano">presentacion</label>
+                        </div>
+                       <div class="input-field">
+                        <div class="program">
+                            <select id="provee" name="provee"></select>
+                            <label>Proveedor</label>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <textarea placeholder="Descripcion" name="descripcion" id="descripcion" cols="30"
+                        rows="10"></textarea>
+                    <button type="submit" class="boton">Agregar producto </button>
+                </div>
+            </form>
         </div>
-        <textarea placeholder="descripcion" name="descripcion" id="descripcion" cols="30" rows="10"></textarea>
-        </div>
-        <div class="col m5 s12">
-            <div class="col m6 s6">
-                <input placeholder="existencias" id="existencias" type="text" class="validate text">
-                <input placeholder="vence" id="vence" type="text" class="validate text"> 
-                <div class="program">
-                    <select>
-                      <option value="" disabled selected>linea</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
-                    </select>
-                  </div>   
-                  <input placeholder="tamaño" id="tamano" type="text" class="validate text"> 
-            </div>
-            <div class="col m6 s6">
-                <input placeholder="Lote" id="lote" type="text" class="validate text">
-                <div class="program">
-                    <select>
-                      <option value="" disabled selected>proveedor</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
-                    </select>
-                  </div>   
-                  <div class="program">
-                    <select>
-                      <option value="" disabled selected>presentacion</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
-                    </select>
-                  </div>   
-            </div>
-        </div>
-        <div class="container">
-        <input id="enviar" type="submit" class="validate">
-      </div>
-    </div>
-  </main>
+    </main>
 
-  <!--JavaScript at end of body for optimized loading-->
-  <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
-  <script type="text/javascript" src="../js/a_producto.js"></script>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../controllers/components.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/a_producto.js"></script>
+    <script type="text/javascript" src="../controllers/dashboard/subpages.js"></script>
 </body>
 
 </html>

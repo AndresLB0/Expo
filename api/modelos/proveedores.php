@@ -109,7 +109,7 @@ class proveedor extends validator
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         $sql = 'UPDATE proveedor
                 SET nombre = ?, nombre_contacto = ?, telefono= ?

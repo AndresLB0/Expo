@@ -44,8 +44,10 @@ class Validator
     public function validateForm($fields)
     {
         foreach ($fields as $index => $value) {
-            $value = trim($value);
-            $fields[$index] = $value;
+            if (!is_array($value)) {
+                $value = trim($value);
+                $fields[$index] = $value;
+            }
         }
         return $fields;
     }
@@ -185,7 +187,7 @@ class Validator
     public function validateAlphanumeric($value, $minimum, $maximum)
     {
         // Se verifica el contenido y la longitud de acuerdo con la base de datos.
-        if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s]{' . $minimum . ',' . $maximum . '}$/', $value)) {
+        if (preg_match('/^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ\s\-]{' . $minimum . ',' . $maximum . '}$/', $value)) {
             return true;
         } else {
             return false;
@@ -208,7 +210,20 @@ class Validator
             return false;
         }
     }
-
+ //funcion para comprobar que la clave sea diferente a los demas valores
+ function multihaystacks_stripos($haystack, $needles) {
+    foreach($needles as $needle) {
+        $found[$needle." en ".$haystack] = stristr($haystack,$needle);
+        foreach ($found as $field) {
+            if ($field==false) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+    return $found;
+}
     /*
     *   Método para validar una contraseña.
     *
@@ -222,24 +237,24 @@ class Validator
         if (strlen($value) < 8) {
             $this->passwordError = 'Clave menor a 8 caracteres';
             return false;
-        }elseif (strlen($value) > 72) {
+        } elseif (strlen($value) > 72) {
             $this->passwordError = 'Clave mayor a 72 caracteres';
             return false;
-        }elseif(!preg_match('/[0-9]/',$value)){
+        } elseif (!preg_match('/[0-9]/', $value)) {
             $this->passwordError = 'Debe tener por lo menos un digito';
             return false;
-        }elseif(!preg_match('/[a-z]/',$value)){
+        } elseif (!preg_match('/[a-z]/', $value)) {
             $this->passwordError = 'Debe tener por lo menos una letra minúscula';
             return false;
-        }elseif(!preg_match('/[A-Z]/',$value)){
+        } elseif (!preg_match('/[A-ZÑ]/', $value)) {
             $this->passwordError = 'Debe tener por lo menos una letra mayúscula';
             return false;
-        }elseif(!preg_match('/[!#*_$%&@()?¿¡ñÑáäÁÄéëÉËíïÏÍóÓÖöÚÜúü]/',$value)){
+        } elseif (!preg_match('/[!#*_$%&@()?¿¡ñáäÁÄéëÉËíïÏÍóÓÖöÚÜúü]/', $value)) {
             $this->passwordError = 'Debe tener por lo menos un caracter especial';
             return false;
-        }else{
+        } else {
             return true;
-        }           
+        }
     }
 
     /*
@@ -249,7 +264,7 @@ class Validator
     *   
     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
     */
-    public function validateDUI($value)
+    public function validateNIT($value)
     {
         // Se verifica que el número tenga el formato 0000-000000-000-0.
         if (preg_match('/^[0-9]{4}[-][0-9]{6}[-][0-9]{3}[-][0-9]{1}$/', $value)) {
@@ -258,7 +273,7 @@ class Validator
             return false;
         }
     }
-    public function validateNIT($value)
+    public function validateDUI($value)
     {
         // Se verifica que el número tenga el formato 00000000-0.
         if (preg_match('/^[0-9]{8}[-][0-9]{1}$/', $value)) {
@@ -272,6 +287,17 @@ class Validator
     {
         // Se verifica que el número tenga el formato 00000.
         if (preg_match('/^[0-9]{5}$/', $value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+
+    public function validateHorario($value)
+    {
+        // Se verifica que el número tenga el formato 00:00-00:00
+        if (preg_match('/^[0-9]{2}[\:][0-9]{2}[-][0-9]{2}[\:][0-9]{2}$/', $value)) { 
             return true;
         } else {
             return false;
@@ -314,12 +340,12 @@ class Validator
     }
 
     public function validateTime($value)
-{
-    $pattern="/^([0-1][0-9]|[2][0-3])[\:]([0-5][0-9])[\:]([0-5][0-9])$/";
-    if(preg_match($pattern,$value))
-        return true;
-    return false;
-}
+    {
+        $pattern = "/^([0-1][0-9]|[2][0-3])[\:]([0-5][0-9])[\:]([0-5][0-9])$/";
+        if (preg_match($pattern, $value))
+            return true;
+        return false;
+    }
 
     /*
     *   Método para validar la ubicación de un archivo antes de subirlo al servidor.
@@ -401,11 +427,10 @@ class Validator
     public function validateDesc($value)
     {
         // Se verifica que el valor sea un número entero menor o igual a diez.
-        if (filter_var($value, FILTER_VALIDATE_INT, array('max_range' <= 10))) {
+        if (filter_var($value, FILTER_VALIDATE_INT, array('max_range' <= 10)) or null) {
             return true;
         } else {
             return false;
         }
     }
-    
 }

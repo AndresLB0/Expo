@@ -7,10 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     readRows(API_PROVEE);
     M.Sidenav.init(document.querySelectorAll('.sidenav'));
+    let options = {
+        dismissible: false,
+    }
+    M.Modal.init(document.querySelectorAll('.modal'), options);
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 function fillTable(dataset) {
+    document.querySelector(".preloader").style.display = "none";
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
     dataset.map(function (row) {
@@ -47,11 +52,10 @@ document.getElementById('save-form').addEventListener('submit', function (event)
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se define una variable para establecer la acción a realizar en la API.
-    let action = '';
     // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
-    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    (document.getElementById('id').value) 
     // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
-    saveRow(API_PROVEE, action, 'save-form');
+    saveRow(API_PROVEE, 'create', 'save-form');
 });
 // Función para abrir el reporte de productos por categoría.
 function openReport(id) {
@@ -65,17 +69,18 @@ function openReport(id) {
 
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdate(id) {
+    document.querySelector(".preloader").style.display = "block";
+
     // Se abre la caja de diálogo (modal) que contiene el formulario.
-    M.Modal.getInstance(document.getElementById('save-modal')).open();
+    M.Modal.getInstance(document.getElementById('update-modal')).open();
     // Se asigna el título para la caja de diálogo (modal).
-    document.getElementById('modal-title').textContent = 'Actualizar categoría';
+    document.getElementById('modal-title').textContent = 'Actualizar Proveedor';
     // Se establece el campo de archivo como opcional.
-    document.getElementById('archivo').required = false;
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
-    data.append('id', id);
+    data.append('idup', id);
     // Petición para obtener los datos del registro solicitado.
-    fetch(API_MARCAS + 'readOne', {
+    fetch(API_PROVEE + 'readOne', {
         method: 'post',
         body: data
     }).then(function (request) {
@@ -86,8 +91,11 @@ function openUpdate(id) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-                    document.getElementById('id').value = response.dataset.id_marca;
-                    document.getElementById('nombre').value = response.dataset.nombre_marca;
+                    document.getElementById('idup').value = response.dataset.id_provee;
+                    document.getElementById('nombreup').value = response.dataset.nombre;
+                    document.getElementById('contactoup').value = response.dataset.nombre_contacto;
+                    document.getElementById('telefono').value = response.dataset.telefono;
+                    document.querySelector(".preloader").style.display = "none";
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
                     M.updateTextFields();
                 } else {
@@ -108,3 +116,14 @@ function openDelete(id) {
     // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
     confirmDelete(API_PROVEE, data);
 }
+document.getElementById('update-form').addEventListener('submit', function (event) {
+    document.querySelector(".preloader").style.display = "block";
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
+    (document.getElementById('idup').value);
+    // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
+    saveRow(API_PROVEE,'update', 'update-form',null);
+    M.Modal.getInstance(document.getElementById('update-modal')).close();
+    document.querySelector(".preloader").style.display = "none";
+  });

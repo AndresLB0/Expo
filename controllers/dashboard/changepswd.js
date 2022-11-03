@@ -23,7 +23,7 @@ document.getElementById('password-form').addEventListener('submit', function (ev
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se muestra un mensaje de éxito.
-                    sweetAlert(1, response.message, 'dashboard.html');
+                    sweetAlert(1, response.message, 'token.html');
                 } else {
                     sweetAlert(2, response.exception, null);
                 }

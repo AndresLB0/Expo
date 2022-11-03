@@ -3,7 +3,7 @@ class clientes extends validator
 {
     private $idcliente=null;
     private $nombre=null;
-    private $autoridbnm = null;
+    private $autoridnm = null;
     private $nacimiento = null;
     private $nombrecont = null;
     private $horario = null;
@@ -33,9 +33,9 @@ class clientes extends validator
 
     }  
 
-    public function setNombre($value)
+    public function setNombreCl($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
+        if ($this->validateAlphabetic($value, 1, 50)) {
             $this->nombre = $value;
             return true;
         } else {
@@ -53,7 +53,7 @@ class clientes extends validator
         }
     }
 
-    public function setINac($value)
+    public function setNac($value)
     {
         if ($this->validateDate($value)) {
             $this->nacimiento = $value;
@@ -63,7 +63,7 @@ class clientes extends validator
         }
     }
 
-    public function setICont($value)
+    public function setCont($value)
     {
         if ($this->validateAlphabetic($value,1,50)) {
             $this->nombrecont= $value;
@@ -73,9 +73,9 @@ class clientes extends validator
         }
     }
 
-    public function setIHorario($value)
+    public function setHorario($value)  
     {
-        if ($this->validateString($value,1,50)) {
+        if ($this->validateAlphanumeric($value,1,200)) {
             $this->horario = $value;
             return true;
         } else {
@@ -205,7 +205,7 @@ class clientes extends validator
 
     public function getAutodnm()
     {
-        return $this->cantidad;
+        return $this->autoridnm;
     }
 
     public function getNac()
@@ -225,7 +225,7 @@ class clientes extends validator
 
     public function getDireccion()
     {
-        return $this->direccion0;
+        return $this->direccion;
     }
 
     public function getDUl()
@@ -286,13 +286,13 @@ class clientes extends validator
         return Database::getRows($sql, $params);
     }
 
-    public function createRow()
+    public function createRowMedi()
     {
-        $sql = 'INSERT INTO cliente (id_cliente, nombre , autoridnm , nacimiento , horario , direccion , dui, nit , nrc,
-		mont_maxvent,desc_auto , nojunta,id_especi,id_insti)
-	values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-        $params = array($this->idcliente,$this->nombre,$this->autoridnm,$this->nacimiento,$this->horario,$this->direccion,$this->dui,
-        $this->nit,$this->nrc,$this->montmaxvent,$this->nojunta,$this->idespeci,$this->idinsti);
+        $sql = 'INSERT INTO cliente (nombre,autoridnm,nacimiento,nombre_cont,horario,direccion,dui,nit,nrc,
+		mont_maxvent,desc_auto,nojunta,id_especi,id_insti)
+	values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        $params = array($this->nombre,$this->autoridnm,$this->nacimiento,$this->nombrecont,$this->horario,$this->direccion,$this->dui,
+        $this->nit,$this->nrc,$this->montmaxvent,$this->descauto,$this->nojunta,$this->idespeci,null);
         return Database::executeRow($sql, $params);
     }
 
@@ -322,7 +322,7 @@ class clientes extends validator
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         $sql = 'UPDATE cliente
                 SET nombre = ?

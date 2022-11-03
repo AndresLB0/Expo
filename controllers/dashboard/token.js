@@ -1,5 +1,10 @@
 const API_PERSO = SERVER + 'dashboard/usuarios.php?action=';
+window.onload = function(){
+    //hide the preloader
+    document.querySelector(".preloader").style.display = "none";
+}
 document.getElementById('recovery-pswd').addEventListener('submit', function (event) {
+    document.querySelector(".preloader").style.display = "block";
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Petición para actualizar la contraseña.
@@ -14,12 +19,15 @@ document.getElementById('recovery-pswd').addEventListener('submit', function (ev
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se muestra un mensaje de éxito.
+                    document.querySelector(".preloader").style.display = "none";
                     sweetAlert(1, response.message,'dashboard.html');
                 } else {
+                    document.querySelector(".preloader").style.display = "none";
                     sweetAlert(2, response.exception, null);
                 }
             });
         } else {
+            document.querySelector(".preloader").style.display = "none";
             console.log(request.status + ' ' + request.statusText);
         }
     });

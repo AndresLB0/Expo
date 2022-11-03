@@ -26,9 +26,10 @@ if (isset($_GET['action'])) {
                 break;
             case 'search':
                 $_POST = $cargo->validateForm($_POST);
-                if ($_POST['search'] == '') {
-                    $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $cargo->searchRows($_POST['search'])) {
+                if ($_POST['searchbar'] == '') {
+                    $result['dataset'] = $cargo->readAll();
+                    $result['status'] = 1;
+                } elseif ($result['dataset'] = $cargo->searchRows($_POST['searchbar'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Valor encontrado';
                 } elseif (Database::getException()) {
@@ -37,78 +38,60 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-                case 'create':
-                    $_POST = $cargo->validateForm($_POST);
-                    if (!$cargo->setNombre($_POST['nombre'])) {
-                        $result['exception'] = 'Nombre incorrecto';
-                    } elseif ($cargo->createRow()) {
-                        $result['status'] = 1;
-                            $result['message'] = 'cargo creado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();;
-                    }
-                    break;
+            case 'create':
+                $_POST = $cargo->validateForm($_POST);
+                if (!$cargo->setNombre($_POST['nombre'])) {
+                    $result['exception'] = 'Nombre incorrecto';
+                }elseif (!isset($_POST['paginas'])) {
+                    $result['exception'] = 'no pude asignar 0 permisos';
+                } elseif ($cargo->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cargo creado correctamente';
+                    $GLOBALS['paginas'] = $_POST['paginas'];
+                } else {
+                    $result['exception'] = Database::getException();;
+                }
+                break;
             case 'readOne':
-                if (!$cargo->setID($_POST['id'])) {
-                    $result['exception'] = 'cargo incorrecto';
+                if (!$cargo->setID($_POST['idup'])) {
+                    $result['exception'] = 'Cargo incorrecto';
                 } elseif ($result['dataset'] = $cargo->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'cargo inexistente';
+                    $result['exception'] = 'Cargo inexistente';
                 }
                 break;
             case 'update':
                 $_POST = $cargo->validateForm($_POST);
-                if (!$cargo->setID($_POST['id'])) {
+                if (!$cargo->setId($_POST['idup'])) {
                     $result['exception'] = 'cargo incorrecto';
-                } elseif (!$data = $cargo->readOne()) {
+                } elseif (!$cargo->readOne()) {
                     $result['exception'] = 'cargo inexistente';
-                } elseif (!$cargo->setNombre($_POST['nombre'])) {
+                } elseif (!$cargo->setNombre($_POST['nombreup'])) {
                     $result['exception'] = 'Nombre incorrecto';
-                } elseif (!$cargo->setDescripcion($_POST['descripcion'])) {
-                    $result['exception'] = 'Descripción incorrecta';
-                } elseif (!$cargo->setPrecio($_POST['precio'])) {
-                    $result['exception'] = 'Precio incorrecto';
-                } elseif (!$cargo->setCategoria($_POST['categoria'])) {
-                    $result['exception'] = 'Seleccione una categoría';
-                } elseif (!$cargo->setEstado(isset($_POST['estado']) ? 1 : 0)) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                    if ($cargo->updateRow($data['imagen_cargo'])) {
-                        $result['status'] = 1;
-                        $result['message'] = 'cargo modificado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                } elseif (!$cargo->setImagen($_FILES['archivo'])) {
-                    $result['exception'] = $cargo->getFileError();
-                } elseif ($cargo->updateRow($data['imagen_cargo'])) {
+                }elseif ($cargo->updateRow()) {
                     $result['status'] = 1;
-                    if ($cargo->saveFile($_FILES['archivo'], $cargo->getRuta(), $cargo->getImagen())) {
-                        $result['message'] = 'cargo modificado correctamente';
-                    } else {
-                        $result['message'] = 'cargo modificado pero no se guardó la imagen';
-                    }
+                    $result['message'] = 'cargo modificado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
                 break;
-                case 'delete':
-                    if (!$cargo->setId($_POST['id'])) {
-                        $result['exception'] = 'cargo incorrecto';
-                    } elseif (!$data = $cargo->readOne()) {
-                        $result['exception'] = 'cargo inexistente';
-                    } elseif ($cargo->deleteRow()) {
-                        $result['status'] = 1;
-                            $result['message'] = 'cargo eliminado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
-            
-        
+            case 'delete':
+                if (!$cargo->setId($_POST['id'])) {
+                    $result['exception'] = 'Cargo incorrecto';
+                } elseif (!$data = $cargo->readOne()) {
+                    $result['exception'] = 'Cargo inexistente';
+                } elseif ($cargo->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Cargo eliminado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+
+
 
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';

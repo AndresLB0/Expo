@@ -26,13 +26,22 @@ function fillTable(dataset) {
         `;
     });
     // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
-    document.getElementById('envio').innerHTML = content;
+    document.getElementById('mostrar').innerHTML = content;
     // Se inicializa el componente Material Box para que funcione el efecto Lightbox.
     M.Materialbox.init(document.querySelectorAll('.materialboxed'));
     // Se inicializa el componente Tooltip para que funcionen las sugerencias textuales.
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }
-
+document.getElementById('save-form').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se define una variable para establecer la acción a realizar en la API.
+    let action = '';
+    // Se comprueba si el campo oculto del formulario esta seteado para actualizar, de lo contrario será para crear.
+    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    // Se llama a la función para guardar el registro. Se encuentra en el archivo components.js
+    saveRow(API_ENVIO, action, 'save-form',null);
+});
 // Función para preparar el formulario al momento de insertar un registro.
 function openCreate() {
     // Se abre la caja de diálogo (modal) que contiene el formulario.

@@ -2,8 +2,8 @@
 # | Custom error messages/pages                                        |
 # ----------------------------------------------------------------------
 
-ErrorDocument 403 /expo/resources/errors/403.html
-ErrorDocument 404 /expo/resources/errors/404.html
+ErrorDocument 403 /resources/errors/403.html
+ErrorDocument 404 /resources/errors/404.html
 
 # ----------------------------------------------------------------------
 # | Character encodings                                                |
