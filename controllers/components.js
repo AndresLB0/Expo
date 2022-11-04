@@ -5,7 +5,7 @@
 /*
 *   Constante para establecer la ruta del servidor.
 */
-const SERVER = 'http://localhost/expo/api/';
+const SERVER = 'http://127.0.0.1/expo/api/';
 /*
 *   Función para obtener todos los registros disponibles en los mantenimientos de tablas (operación read).
 *

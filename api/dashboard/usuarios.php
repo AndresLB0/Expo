@@ -9,6 +9,7 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $personal = new Personal;
+    $vali = new Validator;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0,'permiso'=>0, 'session' => 0,'noventa'=>0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
@@ -81,6 +82,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Personal incorrecto';
                 } elseif (!$personal->checkPassword($_POST['actual'])) {
                     $result['exception'] = 'Clave actual incorrecta';
+                }elseif ($_POST['actual'] == $_POST['nueva']) {
+                    $result['exception'] = 'La nueva clave no puede ser igual a la anterior';
                 } elseif ($_POST['nueva'] != $_POST['confirmar']) {
                     $result['exception'] = 'Claves nuevas diferentes';
                 } elseif (!$personal->setClave($_POST['nueva'])) {
@@ -140,7 +143,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = $personal->getPasswordError();
                 } elseif(!$responseData->success) {
                     $result['exception'] = 'Usted no es humano';
-                } elseif ($personal->createRow()) {
+                }elseif ($personal->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Usuario creado correctamente';
                 } else {
@@ -270,6 +273,8 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'register':
+                if (!$personal->readAll()) {
+                $origin = array($_POST['nombre'], $_POST['usuario'], $_POST['correo']);
                 $_POST = $personal->validateForm($_POST);
                 $data = array(
                     'secret' => "0xA9B2cff5d4CA715FF4Bf9A1945b927695198fabB",
@@ -297,12 +302,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = $personal->getPasswordError();
                 }elseif(!$responseData->success) {
                     $result['exception'] = 'Eres un robot';
+                }//llamando a la funcion en validator para asegurarnos que los datos de los campos no coincidan con la clave
+                elseif (!$vali->multihaystacks_stripos($_POST['clave'],$origin)) {
+                    $result['exception'] = 'La clave tiene que ser diferente al resto de informacion';
                 }elseif ($personal->registro()) {
                     $result['status'] = 1;
                     $result['message'] = 'Usuario registrado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
+            }else{
+                $result['exception'] = 'No puede registrarse dos veces';
+            }
                 break;
             case 'logIn':
                 $_POST = $personal->validateForm($_POST);

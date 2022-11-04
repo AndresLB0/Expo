@@ -26,10 +26,10 @@ try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp-fatyssa.alwaysdata.net';                     //Set the SMTP server to send through
+    $mail->Host       = 'smtp.office365.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'fatyssa@alwaysdata.net';                     //SMTP username
-    $mail->Password   = 'España7';                               //SMTP password
+    $mail->Username   = 'andres.lborja@hotmail.com';                     //SMTP username
+    $mail->Password   = 'gosdytl8';                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
     $mail->Port       = 587;            
                          //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
@@ -44,7 +44,7 @@ try {
                     
                           //Ejemplo de uso
     $emailTo=$personal->getEmail($correo);
-    $mail->setFrom('fatyssa@alwaysdata.net', 'S.G.V.M');
+    $mail->setFrom('andres.lborja@hotmail.com', 'S.G.V.M');
     $mail->addAddress($emailTo);     //Add a recipient
     $_SESSION['codigo']=generarCodigo(5);
     $mail->isHTML(true);                                  //Set email format to HTML
